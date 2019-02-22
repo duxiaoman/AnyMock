@@ -20,7 +20,7 @@
 
     <modules>
         <module>biz</module>
-        <module>web</module>
+        <module>service</module>
         <module>runner</module>
     </modules>
 </project>

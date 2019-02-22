@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <properties resource="config.properties" />
+    <classPathEntry location="mysql-connector-java-5.1.26.jar" />
+
+    <context id="DB" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        <jdbcConnection driverClass="${jdbc.driver}"
+            connectionURL="${jdbc.url}" userId="${jdbc.user}" password="${jdbc.password}">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="${target.model.package}"
+          targetProject="../app/common/dal/src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="${target.model.package}"
+          targetProject="../app/common/dal/src/main/resources/META-INF/mappers/auto">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" 
+          targetPackage="${target.client.package}" 
+          targetProject="../app/common/dal/src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!-- add your table below -->
+        <table tableName="am_space" domainObjectName="SpacePO" />
+        <table tableName="am_sub_space" domainObjectName="SubSpacePO" />
+        <table tableName="am_http_interface" domainObjectName="HttpInterfacePO" />
+        <table tableName="am_http_interface_branch_script" domainObjectName="HttpInterfaceBranchScriptPO" />
+        <table tableName="am_http_interface_callback_request_header" domainObjectName="HttpInterfaceCallbackRequestHeaderPO" />
+        <table tableName="am_http_interface_response_header" domainObjectName="HttpInterfaceResponseHeaderPO" />
+        <table tableName="am_http_interface_snapshot" domainObjectName="HttpInterfaceSnapshotPO" />
+    </context>
+</generatorConfiguration>

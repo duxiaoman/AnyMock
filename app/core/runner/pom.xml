@@ -19,6 +19,9 @@
     <name>anymock-core-runner</name>
 
     <dependencies>
-
+        <dependency>
+            <groupId>com.dxm.anymock</groupId>
+            <artifactId>anymock-core-service</artifactId>
+        </dependency>
     </dependencies>
 </project>

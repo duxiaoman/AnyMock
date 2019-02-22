@@ -19,6 +19,9 @@
     <name>anymock-core-biz</name>
 
     <dependencies>
-
+        <dependency>
+            <groupId>com.dxm.anymock</groupId>
+            <artifactId>anymock-common-dal</artifactId>
+        </dependency>
     </dependencies>
 </project>

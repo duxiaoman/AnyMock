@@ -1,0 +1,16 @@
+spring:
+  jackson:
+    default-property-inclusion: non_null
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+
+datasource:
+  jdbc-url: jdbc:mysql://cp01-ocean-2480.epc.baidu.com:8306/anymock_opensource?serverTimezone=UTC
+  username: root
+  password: root
+
+redis:
+  hostName: yq01-lizhenxi-dxm.epc.baidu.com
+  port: 8331
