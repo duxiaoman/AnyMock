@@ -1,13 +1,17 @@
 package com.dxm.anymock.web.service.controller;
 
 import com.dxm.anymock.common.base.GlobalConstant;
+import com.dxm.anymock.common.base.check.HttpInterfaceIdCheck;
 import com.dxm.anymock.common.base.check.PrimaryKeyCheck;
 import com.dxm.anymock.common.base.check.SubSpaceIdCheck;
 import com.dxm.anymock.common.base.check.ValueCheck;
 import com.dxm.anymock.common.base.entity.HttpInterface;
+import com.dxm.anymock.common.base.entity.HttpInterfaceSnapshot;
 import com.dxm.anymock.common.base.entity.RequestType;
 import com.dxm.anymock.common.base.utils.ConvertUtils;
 import com.dxm.anymock.common.dal.dao.HttpInterfaceDao;
+import com.dxm.anymock.common.dal.dao.HttpInterfaceSnapshotDao;
+import com.dxm.anymock.common.dal.dto.HttpInterfaceSnapshotDTO;
 import com.dxm.anymock.web.biz.HttpInterfaceService;
 import com.dxm.anymock.web.service.api.BaseResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +21,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.LinkedList;
+import java.util.List;
 
 @Controller
 @RequestMapping(GlobalConstant.URL_PREFIX_API_V2)
@@ -95,6 +102,29 @@ public class HttpInterfaceController {
             @Validated(value = PrimaryKeyCheck.class) @RequestBody HttpInterface httpInterface
     ) {
         return new BaseResponse(httpInterfaceService.selectByRequestType(new RequestType(httpInterface)));
+    }
+
+    @Autowired
+    private HttpInterfaceSnapshotDao   httpInterfaceSnapshotDao;
+
+    @PostMapping("/interface/http/snapshot/selectByHttpInterfaceId")
+    @ResponseBody
+    public BaseResponse selectSnapshotByHttpInterfaceId(
+            @Validated(value = HttpInterfaceIdCheck.class) @RequestBody HttpInterfaceSnapshot httpInterfaceSnapshot
+    ) {
+        List<HttpInterfaceSnapshotDTO> snapshotDTOList = new LinkedList<>();
+        httpInterfaceSnapshotDao.selectSnapshotByHttpInterfaceId(httpInterfaceSnapshot.getHttpInterfaceId())
+                .forEach(snapshot -> snapshotDTOList.add(new HttpInterfaceSnapshotDTO(snapshot)));
+        return new BaseResponse(snapshotDTOList);
+    }
+
+    @PostMapping("/interface/http/snapshot/selectById")
+    @ResponseBody
+    public BaseResponse selectSnapshotById(
+            @Validated(value = PrimaryKeyCheck.class) @RequestBody HttpInterfaceSnapshot httpInterfaceSnapshot
+    ) {
+        HttpInterfaceSnapshot snapshot = httpInterfaceSnapshotDao.selectSnapshotById(httpInterfaceSnapshot.getId());
+        return new BaseResponse(new HttpInterfaceSnapshotDTO(snapshot));
     }
 
     private void clearLastUpdateInfo(HttpInterface httpInterface) {

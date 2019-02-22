@@ -11,7 +11,7 @@ public interface HttpInterfaceSnapshotPOMapper {
 
     int deleteByExample(HttpInterfaceSnapshotPOExample example);
 
-    int deleteByPrimaryKey(Long snapshotId);
+    int deleteByPrimaryKey(Long id);
 
     int insert(HttpInterfaceSnapshotPOWithBLOBs record);
 
@@ -21,7 +21,7 @@ public interface HttpInterfaceSnapshotPOMapper {
 
     List<HttpInterfaceSnapshotPO> selectByExample(HttpInterfaceSnapshotPOExample example);
 
-    HttpInterfaceSnapshotPOWithBLOBs selectByPrimaryKey(Long snapshotId);
+    HttpInterfaceSnapshotPOWithBLOBs selectByPrimaryKey(Long id);
 
     int updateByExampleSelective(@Param("record") HttpInterfaceSnapshotPOWithBLOBs record, @Param("example") HttpInterfaceSnapshotPOExample example);
 

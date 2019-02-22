@@ -3,49 +3,41 @@ package com.dxm.anymock.common.dal.entity;
 import java.util.Date;
 
 public class HttpInterfaceSnapshotPO {
-    private Long snapshotId;
-
     private Long id;
 
-    private String requestUri;
+    private Long httpInterfaceId;
 
-    private String requestMethod;
+    private String httpInterfaceRequestUri;
 
-    private String description;
+    private String httpInterfaceRequestMethod;
 
-    private Boolean needAsyncCallback;
+    private String httpInterfaceDescription;
 
-    private Integer configMode;
+    private Boolean httpInterfaceNeedAsyncCallback;
 
-    private String callbackRequestUrl;
+    private Integer httpInterfaceConfigMode;
 
-    private String callbackRequestMethod;
+    private String httpInterfaceCallbackRequestUrl;
 
-    private Integer syncDelay;
+    private String httpInterfaceCallbackRequestMethod;
 
-    private Integer asyncDelay;
+    private Integer httpInterfaceSyncDelay;
 
-    private Boolean start;
+    private Integer httpInterfaceAsyncDelay;
 
-    private Long subSpaceId;
+    private Boolean httpInterfaceStart;
+
+    private Long httpInterfaceSubSpaceId;
+
+    private String httpInterfaceLastUpdateUser;
+
+    private Date httpInterfaceLastUpdateTime;
 
     private Integer opType;
 
-    private Date snapshotTime;
-
-    private String lastUpdateUser;
-
-    private Date lastUpdateTime;
-
     private String opUser;
 
-    public Long getSnapshotId() {
-        return snapshotId;
-    }
-
-    public void setSnapshotId(Long snapshotId) {
-        this.snapshotId = snapshotId;
-    }
+    private Date snapshotTime;
 
     public Long getId() {
         return id;
@@ -55,92 +47,116 @@ public class HttpInterfaceSnapshotPO {
         this.id = id;
     }
 
-    public String getRequestUri() {
-        return requestUri;
+    public Long getHttpInterfaceId() {
+        return httpInterfaceId;
     }
 
-    public void setRequestUri(String requestUri) {
-        this.requestUri = requestUri == null ? null : requestUri.trim();
+    public void setHttpInterfaceId(Long httpInterfaceId) {
+        this.httpInterfaceId = httpInterfaceId;
     }
 
-    public String getRequestMethod() {
-        return requestMethod;
+    public String getHttpInterfaceRequestUri() {
+        return httpInterfaceRequestUri;
     }
 
-    public void setRequestMethod(String requestMethod) {
-        this.requestMethod = requestMethod == null ? null : requestMethod.trim();
+    public void setHttpInterfaceRequestUri(String httpInterfaceRequestUri) {
+        this.httpInterfaceRequestUri = httpInterfaceRequestUri == null ? null : httpInterfaceRequestUri.trim();
     }
 
-    public String getDescription() {
-        return description;
+    public String getHttpInterfaceRequestMethod() {
+        return httpInterfaceRequestMethod;
     }
 
-    public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
+    public void setHttpInterfaceRequestMethod(String httpInterfaceRequestMethod) {
+        this.httpInterfaceRequestMethod = httpInterfaceRequestMethod == null ? null : httpInterfaceRequestMethod.trim();
     }
 
-    public Boolean getNeedAsyncCallback() {
-        return needAsyncCallback;
+    public String getHttpInterfaceDescription() {
+        return httpInterfaceDescription;
     }
 
-    public void setNeedAsyncCallback(Boolean needAsyncCallback) {
-        this.needAsyncCallback = needAsyncCallback;
+    public void setHttpInterfaceDescription(String httpInterfaceDescription) {
+        this.httpInterfaceDescription = httpInterfaceDescription == null ? null : httpInterfaceDescription.trim();
     }
 
-    public Integer getConfigMode() {
-        return configMode;
+    public Boolean getHttpInterfaceNeedAsyncCallback() {
+        return httpInterfaceNeedAsyncCallback;
     }
 
-    public void setConfigMode(Integer configMode) {
-        this.configMode = configMode;
+    public void setHttpInterfaceNeedAsyncCallback(Boolean httpInterfaceNeedAsyncCallback) {
+        this.httpInterfaceNeedAsyncCallback = httpInterfaceNeedAsyncCallback;
     }
 
-    public String getCallbackRequestUrl() {
-        return callbackRequestUrl;
+    public Integer getHttpInterfaceConfigMode() {
+        return httpInterfaceConfigMode;
     }
 
-    public void setCallbackRequestUrl(String callbackRequestUrl) {
-        this.callbackRequestUrl = callbackRequestUrl == null ? null : callbackRequestUrl.trim();
+    public void setHttpInterfaceConfigMode(Integer httpInterfaceConfigMode) {
+        this.httpInterfaceConfigMode = httpInterfaceConfigMode;
     }
 
-    public String getCallbackRequestMethod() {
-        return callbackRequestMethod;
+    public String getHttpInterfaceCallbackRequestUrl() {
+        return httpInterfaceCallbackRequestUrl;
     }
 
-    public void setCallbackRequestMethod(String callbackRequestMethod) {
-        this.callbackRequestMethod = callbackRequestMethod == null ? null : callbackRequestMethod.trim();
+    public void setHttpInterfaceCallbackRequestUrl(String httpInterfaceCallbackRequestUrl) {
+        this.httpInterfaceCallbackRequestUrl = httpInterfaceCallbackRequestUrl == null ? null : httpInterfaceCallbackRequestUrl.trim();
     }
 
-    public Integer getSyncDelay() {
-        return syncDelay;
+    public String getHttpInterfaceCallbackRequestMethod() {
+        return httpInterfaceCallbackRequestMethod;
     }
 
-    public void setSyncDelay(Integer syncDelay) {
-        this.syncDelay = syncDelay;
+    public void setHttpInterfaceCallbackRequestMethod(String httpInterfaceCallbackRequestMethod) {
+        this.httpInterfaceCallbackRequestMethod = httpInterfaceCallbackRequestMethod == null ? null : httpInterfaceCallbackRequestMethod.trim();
     }
 
-    public Integer getAsyncDelay() {
-        return asyncDelay;
+    public Integer getHttpInterfaceSyncDelay() {
+        return httpInterfaceSyncDelay;
     }
 
-    public void setAsyncDelay(Integer asyncDelay) {
-        this.asyncDelay = asyncDelay;
+    public void setHttpInterfaceSyncDelay(Integer httpInterfaceSyncDelay) {
+        this.httpInterfaceSyncDelay = httpInterfaceSyncDelay;
     }
 
-    public Boolean getStart() {
-        return start;
+    public Integer getHttpInterfaceAsyncDelay() {
+        return httpInterfaceAsyncDelay;
     }
 
-    public void setStart(Boolean start) {
-        this.start = start;
+    public void setHttpInterfaceAsyncDelay(Integer httpInterfaceAsyncDelay) {
+        this.httpInterfaceAsyncDelay = httpInterfaceAsyncDelay;
     }
 
-    public Long getSubSpaceId() {
-        return subSpaceId;
+    public Boolean getHttpInterfaceStart() {
+        return httpInterfaceStart;
     }
 
-    public void setSubSpaceId(Long subSpaceId) {
-        this.subSpaceId = subSpaceId;
+    public void setHttpInterfaceStart(Boolean httpInterfaceStart) {
+        this.httpInterfaceStart = httpInterfaceStart;
+    }
+
+    public Long getHttpInterfaceSubSpaceId() {
+        return httpInterfaceSubSpaceId;
+    }
+
+    public void setHttpInterfaceSubSpaceId(Long httpInterfaceSubSpaceId) {
+        this.httpInterfaceSubSpaceId = httpInterfaceSubSpaceId;
+    }
+
+    public String getHttpInterfaceLastUpdateUser() {
+        return httpInterfaceLastUpdateUser;
+    }
+
+    public void setHttpInterfaceLastUpdateUser(String httpInterfaceLastUpdateUser) {
+        this.httpInterfaceLastUpdateUser = httpInterfaceLastUpdateUser == null ? null : httpInterfaceLastUpdateUser.trim();
+    }
+
+    public Date getHttpInterfaceLastUpdateTime() {
+        return httpInterfaceLastUpdateTime;
+    }
+
+    public void setHttpInterfaceLastUpdateTime(Date httpInterfaceLastUpdateTime) {
+        this.httpInterfaceLastUpdateTime = httpInterfaceLastUpdateTime;
     }
 
     public Integer getOpType() {
@@ -151,35 +167,19 @@ public class HttpInterfaceSnapshotPO {
         this.opType = opType;
     }
 
-    public Date getSnapshotTime() {
-        return snapshotTime;
-    }
-
-    public void setSnapshotTime(Date snapshotTime) {
-        this.snapshotTime = snapshotTime;
-    }
-
-    public String getLastUpdateUser() {
-        return lastUpdateUser;
-    }
-
-    public void setLastUpdateUser(String lastUpdateUser) {
-        this.lastUpdateUser = lastUpdateUser == null ? null : lastUpdateUser.trim();
-    }
-
-    public Date getLastUpdateTime() {
-        return lastUpdateTime;
-    }
-
-    public void setLastUpdateTime(Date lastUpdateTime) {
-        this.lastUpdateTime = lastUpdateTime;
-    }
-
     public String getOpUser() {
         return opUser;
     }
 
     public void setOpUser(String opUser) {
         this.opUser = opUser == null ? null : opUser.trim();
+    }
+
+    public Date getSnapshotTime() {
+        return snapshotTime;
+    }
+
+    public void setSnapshotTime(Date snapshotTime) {
+        this.snapshotTime = snapshotTime;
     }
 }

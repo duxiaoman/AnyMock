@@ -1,5 +1,7 @@
 package com.dxm.anymock.common.base.entity;
 
+import com.alibaba.fastjson.JSONObject;
+
 public class RequestType {
     private String method;
     private String uri;
@@ -23,5 +25,10 @@ public class RequestType {
 
     public void setUri(String uri) {
         this.uri = uri;
+    }
+
+    @Override
+    public String toString() {
+        return JSONObject.toJSONString(this);
     }
 }

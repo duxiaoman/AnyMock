@@ -105,66 +105,6 @@ public class HttpInterfaceSnapshotPOExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andSnapshotIdIsNull() {
-            addCriterion("snapshot_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapshotIdIsNotNull() {
-            addCriterion("snapshot_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapshotIdEqualTo(Long value) {
-            addCriterion("snapshot_id =", value, "snapshotId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapshotIdNotEqualTo(Long value) {
-            addCriterion("snapshot_id <>", value, "snapshotId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapshotIdGreaterThan(Long value) {
-            addCriterion("snapshot_id >", value, "snapshotId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapshotIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("snapshot_id >=", value, "snapshotId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapshotIdLessThan(Long value) {
-            addCriterion("snapshot_id <", value, "snapshotId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapshotIdLessThanOrEqualTo(Long value) {
-            addCriterion("snapshot_id <=", value, "snapshotId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapshotIdIn(List<Long> values) {
-            addCriterion("snapshot_id in", values, "snapshotId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapshotIdNotIn(List<Long> values) {
-            addCriterion("snapshot_id not in", values, "snapshotId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapshotIdBetween(Long value1, Long value2) {
-            addCriterion("snapshot_id between", value1, value2, "snapshotId");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapshotIdNotBetween(Long value1, Long value2) {
-            addCriterion("snapshot_id not between", value1, value2, "snapshotId");
-            return (Criteria) this;
-        }
-
         public Criteria andIdIsNull() {
             addCriterion("id is null");
             return (Criteria) this;
@@ -225,713 +165,903 @@ public class HttpInterfaceSnapshotPOExample {
             return (Criteria) this;
         }
 
-        public Criteria andRequestUriIsNull() {
-            addCriterion("request_uri is null");
+        public Criteria andHttpInterfaceIdIsNull() {
+            addCriterion("http_interface_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andRequestUriIsNotNull() {
-            addCriterion("request_uri is not null");
+        public Criteria andHttpInterfaceIdIsNotNull() {
+            addCriterion("http_interface_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRequestUriEqualTo(String value) {
-            addCriterion("request_uri =", value, "requestUri");
+        public Criteria andHttpInterfaceIdEqualTo(Long value) {
+            addCriterion("http_interface_id =", value, "httpInterfaceId");
             return (Criteria) this;
         }
 
-        public Criteria andRequestUriNotEqualTo(String value) {
-            addCriterion("request_uri <>", value, "requestUri");
+        public Criteria andHttpInterfaceIdNotEqualTo(Long value) {
+            addCriterion("http_interface_id <>", value, "httpInterfaceId");
             return (Criteria) this;
         }
 
-        public Criteria andRequestUriGreaterThan(String value) {
-            addCriterion("request_uri >", value, "requestUri");
+        public Criteria andHttpInterfaceIdGreaterThan(Long value) {
+            addCriterion("http_interface_id >", value, "httpInterfaceId");
             return (Criteria) this;
         }
 
-        public Criteria andRequestUriGreaterThanOrEqualTo(String value) {
-            addCriterion("request_uri >=", value, "requestUri");
+        public Criteria andHttpInterfaceIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("http_interface_id >=", value, "httpInterfaceId");
             return (Criteria) this;
         }
 
-        public Criteria andRequestUriLessThan(String value) {
-            addCriterion("request_uri <", value, "requestUri");
+        public Criteria andHttpInterfaceIdLessThan(Long value) {
+            addCriterion("http_interface_id <", value, "httpInterfaceId");
             return (Criteria) this;
         }
 
-        public Criteria andRequestUriLessThanOrEqualTo(String value) {
-            addCriterion("request_uri <=", value, "requestUri");
+        public Criteria andHttpInterfaceIdLessThanOrEqualTo(Long value) {
+            addCriterion("http_interface_id <=", value, "httpInterfaceId");
             return (Criteria) this;
         }
 
-        public Criteria andRequestUriLike(String value) {
-            addCriterion("request_uri like", value, "requestUri");
+        public Criteria andHttpInterfaceIdIn(List<Long> values) {
+            addCriterion("http_interface_id in", values, "httpInterfaceId");
             return (Criteria) this;
         }
 
-        public Criteria andRequestUriNotLike(String value) {
-            addCriterion("request_uri not like", value, "requestUri");
+        public Criteria andHttpInterfaceIdNotIn(List<Long> values) {
+            addCriterion("http_interface_id not in", values, "httpInterfaceId");
             return (Criteria) this;
         }
 
-        public Criteria andRequestUriIn(List<String> values) {
-            addCriterion("request_uri in", values, "requestUri");
+        public Criteria andHttpInterfaceIdBetween(Long value1, Long value2) {
+            addCriterion("http_interface_id between", value1, value2, "httpInterfaceId");
             return (Criteria) this;
         }
 
-        public Criteria andRequestUriNotIn(List<String> values) {
-            addCriterion("request_uri not in", values, "requestUri");
+        public Criteria andHttpInterfaceIdNotBetween(Long value1, Long value2) {
+            addCriterion("http_interface_id not between", value1, value2, "httpInterfaceId");
             return (Criteria) this;
         }
 
-        public Criteria andRequestUriBetween(String value1, String value2) {
-            addCriterion("request_uri between", value1, value2, "requestUri");
+        public Criteria andHttpInterfaceRequestUriIsNull() {
+            addCriterion("http_interface_request_uri is null");
             return (Criteria) this;
         }
 
-        public Criteria andRequestUriNotBetween(String value1, String value2) {
-            addCriterion("request_uri not between", value1, value2, "requestUri");
+        public Criteria andHttpInterfaceRequestUriIsNotNull() {
+            addCriterion("http_interface_request_uri is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRequestMethodIsNull() {
-            addCriterion("request_method is null");
+        public Criteria andHttpInterfaceRequestUriEqualTo(String value) {
+            addCriterion("http_interface_request_uri =", value, "httpInterfaceRequestUri");
             return (Criteria) this;
         }
 
-        public Criteria andRequestMethodIsNotNull() {
-            addCriterion("request_method is not null");
+        public Criteria andHttpInterfaceRequestUriNotEqualTo(String value) {
+            addCriterion("http_interface_request_uri <>", value, "httpInterfaceRequestUri");
             return (Criteria) this;
         }
 
-        public Criteria andRequestMethodEqualTo(String value) {
-            addCriterion("request_method =", value, "requestMethod");
+        public Criteria andHttpInterfaceRequestUriGreaterThan(String value) {
+            addCriterion("http_interface_request_uri >", value, "httpInterfaceRequestUri");
             return (Criteria) this;
         }
 
-        public Criteria andRequestMethodNotEqualTo(String value) {
-            addCriterion("request_method <>", value, "requestMethod");
+        public Criteria andHttpInterfaceRequestUriGreaterThanOrEqualTo(String value) {
+            addCriterion("http_interface_request_uri >=", value, "httpInterfaceRequestUri");
             return (Criteria) this;
         }
 
-        public Criteria andRequestMethodGreaterThan(String value) {
-            addCriterion("request_method >", value, "requestMethod");
+        public Criteria andHttpInterfaceRequestUriLessThan(String value) {
+            addCriterion("http_interface_request_uri <", value, "httpInterfaceRequestUri");
             return (Criteria) this;
         }
 
-        public Criteria andRequestMethodGreaterThanOrEqualTo(String value) {
-            addCriterion("request_method >=", value, "requestMethod");
+        public Criteria andHttpInterfaceRequestUriLessThanOrEqualTo(String value) {
+            addCriterion("http_interface_request_uri <=", value, "httpInterfaceRequestUri");
             return (Criteria) this;
         }
 
-        public Criteria andRequestMethodLessThan(String value) {
-            addCriterion("request_method <", value, "requestMethod");
+        public Criteria andHttpInterfaceRequestUriLike(String value) {
+            addCriterion("http_interface_request_uri like", value, "httpInterfaceRequestUri");
             return (Criteria) this;
         }
 
-        public Criteria andRequestMethodLessThanOrEqualTo(String value) {
-            addCriterion("request_method <=", value, "requestMethod");
+        public Criteria andHttpInterfaceRequestUriNotLike(String value) {
+            addCriterion("http_interface_request_uri not like", value, "httpInterfaceRequestUri");
             return (Criteria) this;
         }
 
-        public Criteria andRequestMethodLike(String value) {
-            addCriterion("request_method like", value, "requestMethod");
+        public Criteria andHttpInterfaceRequestUriIn(List<String> values) {
+            addCriterion("http_interface_request_uri in", values, "httpInterfaceRequestUri");
             return (Criteria) this;
         }
 
-        public Criteria andRequestMethodNotLike(String value) {
-            addCriterion("request_method not like", value, "requestMethod");
+        public Criteria andHttpInterfaceRequestUriNotIn(List<String> values) {
+            addCriterion("http_interface_request_uri not in", values, "httpInterfaceRequestUri");
             return (Criteria) this;
         }
 
-        public Criteria andRequestMethodIn(List<String> values) {
-            addCriterion("request_method in", values, "requestMethod");
+        public Criteria andHttpInterfaceRequestUriBetween(String value1, String value2) {
+            addCriterion("http_interface_request_uri between", value1, value2, "httpInterfaceRequestUri");
             return (Criteria) this;
         }
 
-        public Criteria andRequestMethodNotIn(List<String> values) {
-            addCriterion("request_method not in", values, "requestMethod");
+        public Criteria andHttpInterfaceRequestUriNotBetween(String value1, String value2) {
+            addCriterion("http_interface_request_uri not between", value1, value2, "httpInterfaceRequestUri");
             return (Criteria) this;
         }
 
-        public Criteria andRequestMethodBetween(String value1, String value2) {
-            addCriterion("request_method between", value1, value2, "requestMethod");
+        public Criteria andHttpInterfaceRequestMethodIsNull() {
+            addCriterion("http_interface_request_method is null");
             return (Criteria) this;
         }
 
-        public Criteria andRequestMethodNotBetween(String value1, String value2) {
-            addCriterion("request_method not between", value1, value2, "requestMethod");
+        public Criteria andHttpInterfaceRequestMethodIsNotNull() {
+            addCriterion("http_interface_request_method is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionIsNull() {
-            addCriterion("description is null");
+        public Criteria andHttpInterfaceRequestMethodEqualTo(String value) {
+            addCriterion("http_interface_request_method =", value, "httpInterfaceRequestMethod");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionIsNotNull() {
-            addCriterion("description is not null");
+        public Criteria andHttpInterfaceRequestMethodNotEqualTo(String value) {
+            addCriterion("http_interface_request_method <>", value, "httpInterfaceRequestMethod");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionEqualTo(String value) {
-            addCriterion("description =", value, "description");
+        public Criteria andHttpInterfaceRequestMethodGreaterThan(String value) {
+            addCriterion("http_interface_request_method >", value, "httpInterfaceRequestMethod");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionNotEqualTo(String value) {
-            addCriterion("description <>", value, "description");
+        public Criteria andHttpInterfaceRequestMethodGreaterThanOrEqualTo(String value) {
+            addCriterion("http_interface_request_method >=", value, "httpInterfaceRequestMethod");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionGreaterThan(String value) {
-            addCriterion("description >", value, "description");
+        public Criteria andHttpInterfaceRequestMethodLessThan(String value) {
+            addCriterion("http_interface_request_method <", value, "httpInterfaceRequestMethod");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionGreaterThanOrEqualTo(String value) {
-            addCriterion("description >=", value, "description");
+        public Criteria andHttpInterfaceRequestMethodLessThanOrEqualTo(String value) {
+            addCriterion("http_interface_request_method <=", value, "httpInterfaceRequestMethod");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionLessThan(String value) {
-            addCriterion("description <", value, "description");
+        public Criteria andHttpInterfaceRequestMethodLike(String value) {
+            addCriterion("http_interface_request_method like", value, "httpInterfaceRequestMethod");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionLessThanOrEqualTo(String value) {
-            addCriterion("description <=", value, "description");
+        public Criteria andHttpInterfaceRequestMethodNotLike(String value) {
+            addCriterion("http_interface_request_method not like", value, "httpInterfaceRequestMethod");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionLike(String value) {
-            addCriterion("description like", value, "description");
+        public Criteria andHttpInterfaceRequestMethodIn(List<String> values) {
+            addCriterion("http_interface_request_method in", values, "httpInterfaceRequestMethod");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionNotLike(String value) {
-            addCriterion("description not like", value, "description");
+        public Criteria andHttpInterfaceRequestMethodNotIn(List<String> values) {
+            addCriterion("http_interface_request_method not in", values, "httpInterfaceRequestMethod");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionIn(List<String> values) {
-            addCriterion("description in", values, "description");
+        public Criteria andHttpInterfaceRequestMethodBetween(String value1, String value2) {
+            addCriterion("http_interface_request_method between", value1, value2, "httpInterfaceRequestMethod");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionNotIn(List<String> values) {
-            addCriterion("description not in", values, "description");
+        public Criteria andHttpInterfaceRequestMethodNotBetween(String value1, String value2) {
+            addCriterion("http_interface_request_method not between", value1, value2, "httpInterfaceRequestMethod");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionBetween(String value1, String value2) {
-            addCriterion("description between", value1, value2, "description");
+        public Criteria andHttpInterfaceDescriptionIsNull() {
+            addCriterion("http_interface_description is null");
             return (Criteria) this;
         }
 
-        public Criteria andDescriptionNotBetween(String value1, String value2) {
-            addCriterion("description not between", value1, value2, "description");
+        public Criteria andHttpInterfaceDescriptionIsNotNull() {
+            addCriterion("http_interface_description is not null");
             return (Criteria) this;
         }
 
-        public Criteria andNeedAsyncCallbackIsNull() {
-            addCriterion("need_async_callback is null");
+        public Criteria andHttpInterfaceDescriptionEqualTo(String value) {
+            addCriterion("http_interface_description =", value, "httpInterfaceDescription");
             return (Criteria) this;
         }
 
-        public Criteria andNeedAsyncCallbackIsNotNull() {
-            addCriterion("need_async_callback is not null");
+        public Criteria andHttpInterfaceDescriptionNotEqualTo(String value) {
+            addCriterion("http_interface_description <>", value, "httpInterfaceDescription");
             return (Criteria) this;
         }
 
-        public Criteria andNeedAsyncCallbackEqualTo(Boolean value) {
-            addCriterion("need_async_callback =", value, "needAsyncCallback");
+        public Criteria andHttpInterfaceDescriptionGreaterThan(String value) {
+            addCriterion("http_interface_description >", value, "httpInterfaceDescription");
             return (Criteria) this;
         }
 
-        public Criteria andNeedAsyncCallbackNotEqualTo(Boolean value) {
-            addCriterion("need_async_callback <>", value, "needAsyncCallback");
+        public Criteria andHttpInterfaceDescriptionGreaterThanOrEqualTo(String value) {
+            addCriterion("http_interface_description >=", value, "httpInterfaceDescription");
             return (Criteria) this;
         }
 
-        public Criteria andNeedAsyncCallbackGreaterThan(Boolean value) {
-            addCriterion("need_async_callback >", value, "needAsyncCallback");
+        public Criteria andHttpInterfaceDescriptionLessThan(String value) {
+            addCriterion("http_interface_description <", value, "httpInterfaceDescription");
             return (Criteria) this;
         }
 
-        public Criteria andNeedAsyncCallbackGreaterThanOrEqualTo(Boolean value) {
-            addCriterion("need_async_callback >=", value, "needAsyncCallback");
+        public Criteria andHttpInterfaceDescriptionLessThanOrEqualTo(String value) {
+            addCriterion("http_interface_description <=", value, "httpInterfaceDescription");
             return (Criteria) this;
         }
 
-        public Criteria andNeedAsyncCallbackLessThan(Boolean value) {
-            addCriterion("need_async_callback <", value, "needAsyncCallback");
+        public Criteria andHttpInterfaceDescriptionLike(String value) {
+            addCriterion("http_interface_description like", value, "httpInterfaceDescription");
             return (Criteria) this;
         }
 
-        public Criteria andNeedAsyncCallbackLessThanOrEqualTo(Boolean value) {
-            addCriterion("need_async_callback <=", value, "needAsyncCallback");
+        public Criteria andHttpInterfaceDescriptionNotLike(String value) {
+            addCriterion("http_interface_description not like", value, "httpInterfaceDescription");
             return (Criteria) this;
         }
 
-        public Criteria andNeedAsyncCallbackIn(List<Boolean> values) {
-            addCriterion("need_async_callback in", values, "needAsyncCallback");
+        public Criteria andHttpInterfaceDescriptionIn(List<String> values) {
+            addCriterion("http_interface_description in", values, "httpInterfaceDescription");
             return (Criteria) this;
         }
 
-        public Criteria andNeedAsyncCallbackNotIn(List<Boolean> values) {
-            addCriterion("need_async_callback not in", values, "needAsyncCallback");
+        public Criteria andHttpInterfaceDescriptionNotIn(List<String> values) {
+            addCriterion("http_interface_description not in", values, "httpInterfaceDescription");
             return (Criteria) this;
         }
 
-        public Criteria andNeedAsyncCallbackBetween(Boolean value1, Boolean value2) {
-            addCriterion("need_async_callback between", value1, value2, "needAsyncCallback");
+        public Criteria andHttpInterfaceDescriptionBetween(String value1, String value2) {
+            addCriterion("http_interface_description between", value1, value2, "httpInterfaceDescription");
             return (Criteria) this;
         }
 
-        public Criteria andNeedAsyncCallbackNotBetween(Boolean value1, Boolean value2) {
-            addCriterion("need_async_callback not between", value1, value2, "needAsyncCallback");
+        public Criteria andHttpInterfaceDescriptionNotBetween(String value1, String value2) {
+            addCriterion("http_interface_description not between", value1, value2, "httpInterfaceDescription");
             return (Criteria) this;
         }
 
-        public Criteria andConfigModeIsNull() {
-            addCriterion("config_mode is null");
+        public Criteria andHttpInterfaceNeedAsyncCallbackIsNull() {
+            addCriterion("http_interface_need_async_callback is null");
             return (Criteria) this;
         }
 
-        public Criteria andConfigModeIsNotNull() {
-            addCriterion("config_mode is not null");
+        public Criteria andHttpInterfaceNeedAsyncCallbackIsNotNull() {
+            addCriterion("http_interface_need_async_callback is not null");
             return (Criteria) this;
         }
 
-        public Criteria andConfigModeEqualTo(Integer value) {
-            addCriterion("config_mode =", value, "configMode");
+        public Criteria andHttpInterfaceNeedAsyncCallbackEqualTo(Boolean value) {
+            addCriterion("http_interface_need_async_callback =", value, "httpInterfaceNeedAsyncCallback");
             return (Criteria) this;
         }
 
-        public Criteria andConfigModeNotEqualTo(Integer value) {
-            addCriterion("config_mode <>", value, "configMode");
+        public Criteria andHttpInterfaceNeedAsyncCallbackNotEqualTo(Boolean value) {
+            addCriterion("http_interface_need_async_callback <>", value, "httpInterfaceNeedAsyncCallback");
             return (Criteria) this;
         }
 
-        public Criteria andConfigModeGreaterThan(Integer value) {
-            addCriterion("config_mode >", value, "configMode");
+        public Criteria andHttpInterfaceNeedAsyncCallbackGreaterThan(Boolean value) {
+            addCriterion("http_interface_need_async_callback >", value, "httpInterfaceNeedAsyncCallback");
             return (Criteria) this;
         }
 
-        public Criteria andConfigModeGreaterThanOrEqualTo(Integer value) {
-            addCriterion("config_mode >=", value, "configMode");
+        public Criteria andHttpInterfaceNeedAsyncCallbackGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("http_interface_need_async_callback >=", value, "httpInterfaceNeedAsyncCallback");
             return (Criteria) this;
         }
 
-        public Criteria andConfigModeLessThan(Integer value) {
-            addCriterion("config_mode <", value, "configMode");
+        public Criteria andHttpInterfaceNeedAsyncCallbackLessThan(Boolean value) {
+            addCriterion("http_interface_need_async_callback <", value, "httpInterfaceNeedAsyncCallback");
             return (Criteria) this;
         }
 
-        public Criteria andConfigModeLessThanOrEqualTo(Integer value) {
-            addCriterion("config_mode <=", value, "configMode");
+        public Criteria andHttpInterfaceNeedAsyncCallbackLessThanOrEqualTo(Boolean value) {
+            addCriterion("http_interface_need_async_callback <=", value, "httpInterfaceNeedAsyncCallback");
             return (Criteria) this;
         }
 
-        public Criteria andConfigModeIn(List<Integer> values) {
-            addCriterion("config_mode in", values, "configMode");
+        public Criteria andHttpInterfaceNeedAsyncCallbackIn(List<Boolean> values) {
+            addCriterion("http_interface_need_async_callback in", values, "httpInterfaceNeedAsyncCallback");
             return (Criteria) this;
         }
 
-        public Criteria andConfigModeNotIn(List<Integer> values) {
-            addCriterion("config_mode not in", values, "configMode");
+        public Criteria andHttpInterfaceNeedAsyncCallbackNotIn(List<Boolean> values) {
+            addCriterion("http_interface_need_async_callback not in", values, "httpInterfaceNeedAsyncCallback");
             return (Criteria) this;
         }
 
-        public Criteria andConfigModeBetween(Integer value1, Integer value2) {
-            addCriterion("config_mode between", value1, value2, "configMode");
+        public Criteria andHttpInterfaceNeedAsyncCallbackBetween(Boolean value1, Boolean value2) {
+            addCriterion("http_interface_need_async_callback between", value1, value2, "httpInterfaceNeedAsyncCallback");
             return (Criteria) this;
         }
 
-        public Criteria andConfigModeNotBetween(Integer value1, Integer value2) {
-            addCriterion("config_mode not between", value1, value2, "configMode");
+        public Criteria andHttpInterfaceNeedAsyncCallbackNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("http_interface_need_async_callback not between", value1, value2, "httpInterfaceNeedAsyncCallback");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackRequestUrlIsNull() {
-            addCriterion("callback_request_url is null");
+        public Criteria andHttpInterfaceConfigModeIsNull() {
+            addCriterion("http_interface_config_mode is null");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackRequestUrlIsNotNull() {
-            addCriterion("callback_request_url is not null");
+        public Criteria andHttpInterfaceConfigModeIsNotNull() {
+            addCriterion("http_interface_config_mode is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackRequestUrlEqualTo(String value) {
-            addCriterion("callback_request_url =", value, "callbackRequestUrl");
+        public Criteria andHttpInterfaceConfigModeEqualTo(Integer value) {
+            addCriterion("http_interface_config_mode =", value, "httpInterfaceConfigMode");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackRequestUrlNotEqualTo(String value) {
-            addCriterion("callback_request_url <>", value, "callbackRequestUrl");
+        public Criteria andHttpInterfaceConfigModeNotEqualTo(Integer value) {
+            addCriterion("http_interface_config_mode <>", value, "httpInterfaceConfigMode");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackRequestUrlGreaterThan(String value) {
-            addCriterion("callback_request_url >", value, "callbackRequestUrl");
+        public Criteria andHttpInterfaceConfigModeGreaterThan(Integer value) {
+            addCriterion("http_interface_config_mode >", value, "httpInterfaceConfigMode");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackRequestUrlGreaterThanOrEqualTo(String value) {
-            addCriterion("callback_request_url >=", value, "callbackRequestUrl");
+        public Criteria andHttpInterfaceConfigModeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("http_interface_config_mode >=", value, "httpInterfaceConfigMode");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackRequestUrlLessThan(String value) {
-            addCriterion("callback_request_url <", value, "callbackRequestUrl");
+        public Criteria andHttpInterfaceConfigModeLessThan(Integer value) {
+            addCriterion("http_interface_config_mode <", value, "httpInterfaceConfigMode");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackRequestUrlLessThanOrEqualTo(String value) {
-            addCriterion("callback_request_url <=", value, "callbackRequestUrl");
+        public Criteria andHttpInterfaceConfigModeLessThanOrEqualTo(Integer value) {
+            addCriterion("http_interface_config_mode <=", value, "httpInterfaceConfigMode");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackRequestUrlLike(String value) {
-            addCriterion("callback_request_url like", value, "callbackRequestUrl");
+        public Criteria andHttpInterfaceConfigModeIn(List<Integer> values) {
+            addCriterion("http_interface_config_mode in", values, "httpInterfaceConfigMode");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackRequestUrlNotLike(String value) {
-            addCriterion("callback_request_url not like", value, "callbackRequestUrl");
+        public Criteria andHttpInterfaceConfigModeNotIn(List<Integer> values) {
+            addCriterion("http_interface_config_mode not in", values, "httpInterfaceConfigMode");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackRequestUrlIn(List<String> values) {
-            addCriterion("callback_request_url in", values, "callbackRequestUrl");
+        public Criteria andHttpInterfaceConfigModeBetween(Integer value1, Integer value2) {
+            addCriterion("http_interface_config_mode between", value1, value2, "httpInterfaceConfigMode");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackRequestUrlNotIn(List<String> values) {
-            addCriterion("callback_request_url not in", values, "callbackRequestUrl");
+        public Criteria andHttpInterfaceConfigModeNotBetween(Integer value1, Integer value2) {
+            addCriterion("http_interface_config_mode not between", value1, value2, "httpInterfaceConfigMode");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackRequestUrlBetween(String value1, String value2) {
-            addCriterion("callback_request_url between", value1, value2, "callbackRequestUrl");
+        public Criteria andHttpInterfaceCallbackRequestUrlIsNull() {
+            addCriterion("http_interface_callback_request_url is null");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackRequestUrlNotBetween(String value1, String value2) {
-            addCriterion("callback_request_url not between", value1, value2, "callbackRequestUrl");
+        public Criteria andHttpInterfaceCallbackRequestUrlIsNotNull() {
+            addCriterion("http_interface_callback_request_url is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackRequestMethodIsNull() {
-            addCriterion("callback_request_method is null");
+        public Criteria andHttpInterfaceCallbackRequestUrlEqualTo(String value) {
+            addCriterion("http_interface_callback_request_url =", value, "httpInterfaceCallbackRequestUrl");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackRequestMethodIsNotNull() {
-            addCriterion("callback_request_method is not null");
+        public Criteria andHttpInterfaceCallbackRequestUrlNotEqualTo(String value) {
+            addCriterion("http_interface_callback_request_url <>", value, "httpInterfaceCallbackRequestUrl");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackRequestMethodEqualTo(String value) {
-            addCriterion("callback_request_method =", value, "callbackRequestMethod");
+        public Criteria andHttpInterfaceCallbackRequestUrlGreaterThan(String value) {
+            addCriterion("http_interface_callback_request_url >", value, "httpInterfaceCallbackRequestUrl");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackRequestMethodNotEqualTo(String value) {
-            addCriterion("callback_request_method <>", value, "callbackRequestMethod");
+        public Criteria andHttpInterfaceCallbackRequestUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("http_interface_callback_request_url >=", value, "httpInterfaceCallbackRequestUrl");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackRequestMethodGreaterThan(String value) {
-            addCriterion("callback_request_method >", value, "callbackRequestMethod");
+        public Criteria andHttpInterfaceCallbackRequestUrlLessThan(String value) {
+            addCriterion("http_interface_callback_request_url <", value, "httpInterfaceCallbackRequestUrl");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackRequestMethodGreaterThanOrEqualTo(String value) {
-            addCriterion("callback_request_method >=", value, "callbackRequestMethod");
+        public Criteria andHttpInterfaceCallbackRequestUrlLessThanOrEqualTo(String value) {
+            addCriterion("http_interface_callback_request_url <=", value, "httpInterfaceCallbackRequestUrl");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackRequestMethodLessThan(String value) {
-            addCriterion("callback_request_method <", value, "callbackRequestMethod");
+        public Criteria andHttpInterfaceCallbackRequestUrlLike(String value) {
+            addCriterion("http_interface_callback_request_url like", value, "httpInterfaceCallbackRequestUrl");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackRequestMethodLessThanOrEqualTo(String value) {
-            addCriterion("callback_request_method <=", value, "callbackRequestMethod");
+        public Criteria andHttpInterfaceCallbackRequestUrlNotLike(String value) {
+            addCriterion("http_interface_callback_request_url not like", value, "httpInterfaceCallbackRequestUrl");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackRequestMethodLike(String value) {
-            addCriterion("callback_request_method like", value, "callbackRequestMethod");
+        public Criteria andHttpInterfaceCallbackRequestUrlIn(List<String> values) {
+            addCriterion("http_interface_callback_request_url in", values, "httpInterfaceCallbackRequestUrl");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackRequestMethodNotLike(String value) {
-            addCriterion("callback_request_method not like", value, "callbackRequestMethod");
+        public Criteria andHttpInterfaceCallbackRequestUrlNotIn(List<String> values) {
+            addCriterion("http_interface_callback_request_url not in", values, "httpInterfaceCallbackRequestUrl");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackRequestMethodIn(List<String> values) {
-            addCriterion("callback_request_method in", values, "callbackRequestMethod");
+        public Criteria andHttpInterfaceCallbackRequestUrlBetween(String value1, String value2) {
+            addCriterion("http_interface_callback_request_url between", value1, value2, "httpInterfaceCallbackRequestUrl");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackRequestMethodNotIn(List<String> values) {
-            addCriterion("callback_request_method not in", values, "callbackRequestMethod");
+        public Criteria andHttpInterfaceCallbackRequestUrlNotBetween(String value1, String value2) {
+            addCriterion("http_interface_callback_request_url not between", value1, value2, "httpInterfaceCallbackRequestUrl");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackRequestMethodBetween(String value1, String value2) {
-            addCriterion("callback_request_method between", value1, value2, "callbackRequestMethod");
+        public Criteria andHttpInterfaceCallbackRequestMethodIsNull() {
+            addCriterion("http_interface_callback_request_method is null");
             return (Criteria) this;
         }
 
-        public Criteria andCallbackRequestMethodNotBetween(String value1, String value2) {
-            addCriterion("callback_request_method not between", value1, value2, "callbackRequestMethod");
+        public Criteria andHttpInterfaceCallbackRequestMethodIsNotNull() {
+            addCriterion("http_interface_callback_request_method is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSyncDelayIsNull() {
-            addCriterion("sync_delay is null");
+        public Criteria andHttpInterfaceCallbackRequestMethodEqualTo(String value) {
+            addCriterion("http_interface_callback_request_method =", value, "httpInterfaceCallbackRequestMethod");
             return (Criteria) this;
         }
 
-        public Criteria andSyncDelayIsNotNull() {
-            addCriterion("sync_delay is not null");
+        public Criteria andHttpInterfaceCallbackRequestMethodNotEqualTo(String value) {
+            addCriterion("http_interface_callback_request_method <>", value, "httpInterfaceCallbackRequestMethod");
             return (Criteria) this;
         }
 
-        public Criteria andSyncDelayEqualTo(Integer value) {
-            addCriterion("sync_delay =", value, "syncDelay");
+        public Criteria andHttpInterfaceCallbackRequestMethodGreaterThan(String value) {
+            addCriterion("http_interface_callback_request_method >", value, "httpInterfaceCallbackRequestMethod");
             return (Criteria) this;
         }
 
-        public Criteria andSyncDelayNotEqualTo(Integer value) {
-            addCriterion("sync_delay <>", value, "syncDelay");
+        public Criteria andHttpInterfaceCallbackRequestMethodGreaterThanOrEqualTo(String value) {
+            addCriterion("http_interface_callback_request_method >=", value, "httpInterfaceCallbackRequestMethod");
             return (Criteria) this;
         }
 
-        public Criteria andSyncDelayGreaterThan(Integer value) {
-            addCriterion("sync_delay >", value, "syncDelay");
+        public Criteria andHttpInterfaceCallbackRequestMethodLessThan(String value) {
+            addCriterion("http_interface_callback_request_method <", value, "httpInterfaceCallbackRequestMethod");
             return (Criteria) this;
         }
 
-        public Criteria andSyncDelayGreaterThanOrEqualTo(Integer value) {
-            addCriterion("sync_delay >=", value, "syncDelay");
+        public Criteria andHttpInterfaceCallbackRequestMethodLessThanOrEqualTo(String value) {
+            addCriterion("http_interface_callback_request_method <=", value, "httpInterfaceCallbackRequestMethod");
             return (Criteria) this;
         }
 
-        public Criteria andSyncDelayLessThan(Integer value) {
-            addCriterion("sync_delay <", value, "syncDelay");
+        public Criteria andHttpInterfaceCallbackRequestMethodLike(String value) {
+            addCriterion("http_interface_callback_request_method like", value, "httpInterfaceCallbackRequestMethod");
             return (Criteria) this;
         }
 
-        public Criteria andSyncDelayLessThanOrEqualTo(Integer value) {
-            addCriterion("sync_delay <=", value, "syncDelay");
+        public Criteria andHttpInterfaceCallbackRequestMethodNotLike(String value) {
+            addCriterion("http_interface_callback_request_method not like", value, "httpInterfaceCallbackRequestMethod");
             return (Criteria) this;
         }
 
-        public Criteria andSyncDelayIn(List<Integer> values) {
-            addCriterion("sync_delay in", values, "syncDelay");
+        public Criteria andHttpInterfaceCallbackRequestMethodIn(List<String> values) {
+            addCriterion("http_interface_callback_request_method in", values, "httpInterfaceCallbackRequestMethod");
             return (Criteria) this;
         }
 
-        public Criteria andSyncDelayNotIn(List<Integer> values) {
-            addCriterion("sync_delay not in", values, "syncDelay");
+        public Criteria andHttpInterfaceCallbackRequestMethodNotIn(List<String> values) {
+            addCriterion("http_interface_callback_request_method not in", values, "httpInterfaceCallbackRequestMethod");
             return (Criteria) this;
         }
 
-        public Criteria andSyncDelayBetween(Integer value1, Integer value2) {
-            addCriterion("sync_delay between", value1, value2, "syncDelay");
+        public Criteria andHttpInterfaceCallbackRequestMethodBetween(String value1, String value2) {
+            addCriterion("http_interface_callback_request_method between", value1, value2, "httpInterfaceCallbackRequestMethod");
             return (Criteria) this;
         }
 
-        public Criteria andSyncDelayNotBetween(Integer value1, Integer value2) {
-            addCriterion("sync_delay not between", value1, value2, "syncDelay");
+        public Criteria andHttpInterfaceCallbackRequestMethodNotBetween(String value1, String value2) {
+            addCriterion("http_interface_callback_request_method not between", value1, value2, "httpInterfaceCallbackRequestMethod");
             return (Criteria) this;
         }
 
-        public Criteria andAsyncDelayIsNull() {
-            addCriterion("async_delay is null");
+        public Criteria andHttpInterfaceSyncDelayIsNull() {
+            addCriterion("http_interface_sync_delay is null");
             return (Criteria) this;
         }
 
-        public Criteria andAsyncDelayIsNotNull() {
-            addCriterion("async_delay is not null");
+        public Criteria andHttpInterfaceSyncDelayIsNotNull() {
+            addCriterion("http_interface_sync_delay is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAsyncDelayEqualTo(Integer value) {
-            addCriterion("async_delay =", value, "asyncDelay");
+        public Criteria andHttpInterfaceSyncDelayEqualTo(Integer value) {
+            addCriterion("http_interface_sync_delay =", value, "httpInterfaceSyncDelay");
             return (Criteria) this;
         }
 
-        public Criteria andAsyncDelayNotEqualTo(Integer value) {
-            addCriterion("async_delay <>", value, "asyncDelay");
+        public Criteria andHttpInterfaceSyncDelayNotEqualTo(Integer value) {
+            addCriterion("http_interface_sync_delay <>", value, "httpInterfaceSyncDelay");
             return (Criteria) this;
         }
 
-        public Criteria andAsyncDelayGreaterThan(Integer value) {
-            addCriterion("async_delay >", value, "asyncDelay");
+        public Criteria andHttpInterfaceSyncDelayGreaterThan(Integer value) {
+            addCriterion("http_interface_sync_delay >", value, "httpInterfaceSyncDelay");
             return (Criteria) this;
         }
 
-        public Criteria andAsyncDelayGreaterThanOrEqualTo(Integer value) {
-            addCriterion("async_delay >=", value, "asyncDelay");
+        public Criteria andHttpInterfaceSyncDelayGreaterThanOrEqualTo(Integer value) {
+            addCriterion("http_interface_sync_delay >=", value, "httpInterfaceSyncDelay");
             return (Criteria) this;
         }
 
-        public Criteria andAsyncDelayLessThan(Integer value) {
-            addCriterion("async_delay <", value, "asyncDelay");
+        public Criteria andHttpInterfaceSyncDelayLessThan(Integer value) {
+            addCriterion("http_interface_sync_delay <", value, "httpInterfaceSyncDelay");
             return (Criteria) this;
         }
 
-        public Criteria andAsyncDelayLessThanOrEqualTo(Integer value) {
-            addCriterion("async_delay <=", value, "asyncDelay");
+        public Criteria andHttpInterfaceSyncDelayLessThanOrEqualTo(Integer value) {
+            addCriterion("http_interface_sync_delay <=", value, "httpInterfaceSyncDelay");
             return (Criteria) this;
         }
 
-        public Criteria andAsyncDelayIn(List<Integer> values) {
-            addCriterion("async_delay in", values, "asyncDelay");
+        public Criteria andHttpInterfaceSyncDelayIn(List<Integer> values) {
+            addCriterion("http_interface_sync_delay in", values, "httpInterfaceSyncDelay");
             return (Criteria) this;
         }
 
-        public Criteria andAsyncDelayNotIn(List<Integer> values) {
-            addCriterion("async_delay not in", values, "asyncDelay");
+        public Criteria andHttpInterfaceSyncDelayNotIn(List<Integer> values) {
+            addCriterion("http_interface_sync_delay not in", values, "httpInterfaceSyncDelay");
             return (Criteria) this;
         }
 
-        public Criteria andAsyncDelayBetween(Integer value1, Integer value2) {
-            addCriterion("async_delay between", value1, value2, "asyncDelay");
+        public Criteria andHttpInterfaceSyncDelayBetween(Integer value1, Integer value2) {
+            addCriterion("http_interface_sync_delay between", value1, value2, "httpInterfaceSyncDelay");
             return (Criteria) this;
         }
 
-        public Criteria andAsyncDelayNotBetween(Integer value1, Integer value2) {
-            addCriterion("async_delay not between", value1, value2, "asyncDelay");
+        public Criteria andHttpInterfaceSyncDelayNotBetween(Integer value1, Integer value2) {
+            addCriterion("http_interface_sync_delay not between", value1, value2, "httpInterfaceSyncDelay");
             return (Criteria) this;
         }
 
-        public Criteria andStartIsNull() {
-            addCriterion("start is null");
+        public Criteria andHttpInterfaceAsyncDelayIsNull() {
+            addCriterion("http_interface_async_delay is null");
             return (Criteria) this;
         }
 
-        public Criteria andStartIsNotNull() {
-            addCriterion("start is not null");
+        public Criteria andHttpInterfaceAsyncDelayIsNotNull() {
+            addCriterion("http_interface_async_delay is not null");
             return (Criteria) this;
         }
 
-        public Criteria andStartEqualTo(Boolean value) {
-            addCriterion("start =", value, "start");
+        public Criteria andHttpInterfaceAsyncDelayEqualTo(Integer value) {
+            addCriterion("http_interface_async_delay =", value, "httpInterfaceAsyncDelay");
             return (Criteria) this;
         }
 
-        public Criteria andStartNotEqualTo(Boolean value) {
-            addCriterion("start <>", value, "start");
+        public Criteria andHttpInterfaceAsyncDelayNotEqualTo(Integer value) {
+            addCriterion("http_interface_async_delay <>", value, "httpInterfaceAsyncDelay");
             return (Criteria) this;
         }
 
-        public Criteria andStartGreaterThan(Boolean value) {
-            addCriterion("start >", value, "start");
+        public Criteria andHttpInterfaceAsyncDelayGreaterThan(Integer value) {
+            addCriterion("http_interface_async_delay >", value, "httpInterfaceAsyncDelay");
             return (Criteria) this;
         }
 
-        public Criteria andStartGreaterThanOrEqualTo(Boolean value) {
-            addCriterion("start >=", value, "start");
+        public Criteria andHttpInterfaceAsyncDelayGreaterThanOrEqualTo(Integer value) {
+            addCriterion("http_interface_async_delay >=", value, "httpInterfaceAsyncDelay");
             return (Criteria) this;
         }
 
-        public Criteria andStartLessThan(Boolean value) {
-            addCriterion("start <", value, "start");
+        public Criteria andHttpInterfaceAsyncDelayLessThan(Integer value) {
+            addCriterion("http_interface_async_delay <", value, "httpInterfaceAsyncDelay");
             return (Criteria) this;
         }
 
-        public Criteria andStartLessThanOrEqualTo(Boolean value) {
-            addCriterion("start <=", value, "start");
+        public Criteria andHttpInterfaceAsyncDelayLessThanOrEqualTo(Integer value) {
+            addCriterion("http_interface_async_delay <=", value, "httpInterfaceAsyncDelay");
             return (Criteria) this;
         }
 
-        public Criteria andStartIn(List<Boolean> values) {
-            addCriterion("start in", values, "start");
+        public Criteria andHttpInterfaceAsyncDelayIn(List<Integer> values) {
+            addCriterion("http_interface_async_delay in", values, "httpInterfaceAsyncDelay");
             return (Criteria) this;
         }
 
-        public Criteria andStartNotIn(List<Boolean> values) {
-            addCriterion("start not in", values, "start");
+        public Criteria andHttpInterfaceAsyncDelayNotIn(List<Integer> values) {
+            addCriterion("http_interface_async_delay not in", values, "httpInterfaceAsyncDelay");
             return (Criteria) this;
         }
 
-        public Criteria andStartBetween(Boolean value1, Boolean value2) {
-            addCriterion("start between", value1, value2, "start");
+        public Criteria andHttpInterfaceAsyncDelayBetween(Integer value1, Integer value2) {
+            addCriterion("http_interface_async_delay between", value1, value2, "httpInterfaceAsyncDelay");
             return (Criteria) this;
         }
 
-        public Criteria andStartNotBetween(Boolean value1, Boolean value2) {
-            addCriterion("start not between", value1, value2, "start");
+        public Criteria andHttpInterfaceAsyncDelayNotBetween(Integer value1, Integer value2) {
+            addCriterion("http_interface_async_delay not between", value1, value2, "httpInterfaceAsyncDelay");
             return (Criteria) this;
         }
 
-        public Criteria andSubSpaceIdIsNull() {
-            addCriterion("sub_space_id is null");
+        public Criteria andHttpInterfaceStartIsNull() {
+            addCriterion("http_interface_start is null");
             return (Criteria) this;
         }
 
-        public Criteria andSubSpaceIdIsNotNull() {
-            addCriterion("sub_space_id is not null");
+        public Criteria andHttpInterfaceStartIsNotNull() {
+            addCriterion("http_interface_start is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSubSpaceIdEqualTo(Long value) {
-            addCriterion("sub_space_id =", value, "subSpaceId");
+        public Criteria andHttpInterfaceStartEqualTo(Boolean value) {
+            addCriterion("http_interface_start =", value, "httpInterfaceStart");
             return (Criteria) this;
         }
 
-        public Criteria andSubSpaceIdNotEqualTo(Long value) {
-            addCriterion("sub_space_id <>", value, "subSpaceId");
+        public Criteria andHttpInterfaceStartNotEqualTo(Boolean value) {
+            addCriterion("http_interface_start <>", value, "httpInterfaceStart");
             return (Criteria) this;
         }
 
-        public Criteria andSubSpaceIdGreaterThan(Long value) {
-            addCriterion("sub_space_id >", value, "subSpaceId");
+        public Criteria andHttpInterfaceStartGreaterThan(Boolean value) {
+            addCriterion("http_interface_start >", value, "httpInterfaceStart");
             return (Criteria) this;
         }
 
-        public Criteria andSubSpaceIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("sub_space_id >=", value, "subSpaceId");
+        public Criteria andHttpInterfaceStartGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("http_interface_start >=", value, "httpInterfaceStart");
             return (Criteria) this;
         }
 
-        public Criteria andSubSpaceIdLessThan(Long value) {
-            addCriterion("sub_space_id <", value, "subSpaceId");
+        public Criteria andHttpInterfaceStartLessThan(Boolean value) {
+            addCriterion("http_interface_start <", value, "httpInterfaceStart");
             return (Criteria) this;
         }
 
-        public Criteria andSubSpaceIdLessThanOrEqualTo(Long value) {
-            addCriterion("sub_space_id <=", value, "subSpaceId");
+        public Criteria andHttpInterfaceStartLessThanOrEqualTo(Boolean value) {
+            addCriterion("http_interface_start <=", value, "httpInterfaceStart");
             return (Criteria) this;
         }
 
-        public Criteria andSubSpaceIdIn(List<Long> values) {
-            addCriterion("sub_space_id in", values, "subSpaceId");
+        public Criteria andHttpInterfaceStartIn(List<Boolean> values) {
+            addCriterion("http_interface_start in", values, "httpInterfaceStart");
             return (Criteria) this;
         }
 
-        public Criteria andSubSpaceIdNotIn(List<Long> values) {
-            addCriterion("sub_space_id not in", values, "subSpaceId");
+        public Criteria andHttpInterfaceStartNotIn(List<Boolean> values) {
+            addCriterion("http_interface_start not in", values, "httpInterfaceStart");
             return (Criteria) this;
         }
 
-        public Criteria andSubSpaceIdBetween(Long value1, Long value2) {
-            addCriterion("sub_space_id between", value1, value2, "subSpaceId");
+        public Criteria andHttpInterfaceStartBetween(Boolean value1, Boolean value2) {
+            addCriterion("http_interface_start between", value1, value2, "httpInterfaceStart");
             return (Criteria) this;
         }
 
-        public Criteria andSubSpaceIdNotBetween(Long value1, Long value2) {
-            addCriterion("sub_space_id not between", value1, value2, "subSpaceId");
+        public Criteria andHttpInterfaceStartNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("http_interface_start not between", value1, value2, "httpInterfaceStart");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceSubSpaceIdIsNull() {
+            addCriterion("http_interface_sub_space_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceSubSpaceIdIsNotNull() {
+            addCriterion("http_interface_sub_space_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceSubSpaceIdEqualTo(Long value) {
+            addCriterion("http_interface_sub_space_id =", value, "httpInterfaceSubSpaceId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceSubSpaceIdNotEqualTo(Long value) {
+            addCriterion("http_interface_sub_space_id <>", value, "httpInterfaceSubSpaceId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceSubSpaceIdGreaterThan(Long value) {
+            addCriterion("http_interface_sub_space_id >", value, "httpInterfaceSubSpaceId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceSubSpaceIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("http_interface_sub_space_id >=", value, "httpInterfaceSubSpaceId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceSubSpaceIdLessThan(Long value) {
+            addCriterion("http_interface_sub_space_id <", value, "httpInterfaceSubSpaceId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceSubSpaceIdLessThanOrEqualTo(Long value) {
+            addCriterion("http_interface_sub_space_id <=", value, "httpInterfaceSubSpaceId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceSubSpaceIdIn(List<Long> values) {
+            addCriterion("http_interface_sub_space_id in", values, "httpInterfaceSubSpaceId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceSubSpaceIdNotIn(List<Long> values) {
+            addCriterion("http_interface_sub_space_id not in", values, "httpInterfaceSubSpaceId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceSubSpaceIdBetween(Long value1, Long value2) {
+            addCriterion("http_interface_sub_space_id between", value1, value2, "httpInterfaceSubSpaceId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceSubSpaceIdNotBetween(Long value1, Long value2) {
+            addCriterion("http_interface_sub_space_id not between", value1, value2, "httpInterfaceSubSpaceId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceLastUpdateUserIsNull() {
+            addCriterion("http_interface_last_update_user is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceLastUpdateUserIsNotNull() {
+            addCriterion("http_interface_last_update_user is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceLastUpdateUserEqualTo(String value) {
+            addCriterion("http_interface_last_update_user =", value, "httpInterfaceLastUpdateUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceLastUpdateUserNotEqualTo(String value) {
+            addCriterion("http_interface_last_update_user <>", value, "httpInterfaceLastUpdateUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceLastUpdateUserGreaterThan(String value) {
+            addCriterion("http_interface_last_update_user >", value, "httpInterfaceLastUpdateUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceLastUpdateUserGreaterThanOrEqualTo(String value) {
+            addCriterion("http_interface_last_update_user >=", value, "httpInterfaceLastUpdateUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceLastUpdateUserLessThan(String value) {
+            addCriterion("http_interface_last_update_user <", value, "httpInterfaceLastUpdateUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceLastUpdateUserLessThanOrEqualTo(String value) {
+            addCriterion("http_interface_last_update_user <=", value, "httpInterfaceLastUpdateUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceLastUpdateUserLike(String value) {
+            addCriterion("http_interface_last_update_user like", value, "httpInterfaceLastUpdateUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceLastUpdateUserNotLike(String value) {
+            addCriterion("http_interface_last_update_user not like", value, "httpInterfaceLastUpdateUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceLastUpdateUserIn(List<String> values) {
+            addCriterion("http_interface_last_update_user in", values, "httpInterfaceLastUpdateUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceLastUpdateUserNotIn(List<String> values) {
+            addCriterion("http_interface_last_update_user not in", values, "httpInterfaceLastUpdateUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceLastUpdateUserBetween(String value1, String value2) {
+            addCriterion("http_interface_last_update_user between", value1, value2, "httpInterfaceLastUpdateUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceLastUpdateUserNotBetween(String value1, String value2) {
+            addCriterion("http_interface_last_update_user not between", value1, value2, "httpInterfaceLastUpdateUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceLastUpdateTimeIsNull() {
+            addCriterion("http_interface_last_update_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceLastUpdateTimeIsNotNull() {
+            addCriterion("http_interface_last_update_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceLastUpdateTimeEqualTo(Date value) {
+            addCriterion("http_interface_last_update_time =", value, "httpInterfaceLastUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceLastUpdateTimeNotEqualTo(Date value) {
+            addCriterion("http_interface_last_update_time <>", value, "httpInterfaceLastUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceLastUpdateTimeGreaterThan(Date value) {
+            addCriterion("http_interface_last_update_time >", value, "httpInterfaceLastUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceLastUpdateTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("http_interface_last_update_time >=", value, "httpInterfaceLastUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceLastUpdateTimeLessThan(Date value) {
+            addCriterion("http_interface_last_update_time <", value, "httpInterfaceLastUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceLastUpdateTimeLessThanOrEqualTo(Date value) {
+            addCriterion("http_interface_last_update_time <=", value, "httpInterfaceLastUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceLastUpdateTimeIn(List<Date> values) {
+            addCriterion("http_interface_last_update_time in", values, "httpInterfaceLastUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceLastUpdateTimeNotIn(List<Date> values) {
+            addCriterion("http_interface_last_update_time not in", values, "httpInterfaceLastUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceLastUpdateTimeBetween(Date value1, Date value2) {
+            addCriterion("http_interface_last_update_time between", value1, value2, "httpInterfaceLastUpdateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceLastUpdateTimeNotBetween(Date value1, Date value2) {
+            addCriterion("http_interface_last_update_time not between", value1, value2, "httpInterfaceLastUpdateTime");
             return (Criteria) this;
         }
 
@@ -992,196 +1122,6 @@ public class HttpInterfaceSnapshotPOExample {
 
         public Criteria andOpTypeNotBetween(Integer value1, Integer value2) {
             addCriterion("op_type not between", value1, value2, "opType");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapshotTimeIsNull() {
-            addCriterion("snapshot_time is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapshotTimeIsNotNull() {
-            addCriterion("snapshot_time is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapshotTimeEqualTo(Date value) {
-            addCriterion("snapshot_time =", value, "snapshotTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapshotTimeNotEqualTo(Date value) {
-            addCriterion("snapshot_time <>", value, "snapshotTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapshotTimeGreaterThan(Date value) {
-            addCriterion("snapshot_time >", value, "snapshotTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapshotTimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("snapshot_time >=", value, "snapshotTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapshotTimeLessThan(Date value) {
-            addCriterion("snapshot_time <", value, "snapshotTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapshotTimeLessThanOrEqualTo(Date value) {
-            addCriterion("snapshot_time <=", value, "snapshotTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapshotTimeIn(List<Date> values) {
-            addCriterion("snapshot_time in", values, "snapshotTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapshotTimeNotIn(List<Date> values) {
-            addCriterion("snapshot_time not in", values, "snapshotTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapshotTimeBetween(Date value1, Date value2) {
-            addCriterion("snapshot_time between", value1, value2, "snapshotTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andSnapshotTimeNotBetween(Date value1, Date value2) {
-            addCriterion("snapshot_time not between", value1, value2, "snapshotTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastUpdateUserIsNull() {
-            addCriterion("last_update_user is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastUpdateUserIsNotNull() {
-            addCriterion("last_update_user is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastUpdateUserEqualTo(String value) {
-            addCriterion("last_update_user =", value, "lastUpdateUser");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastUpdateUserNotEqualTo(String value) {
-            addCriterion("last_update_user <>", value, "lastUpdateUser");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastUpdateUserGreaterThan(String value) {
-            addCriterion("last_update_user >", value, "lastUpdateUser");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastUpdateUserGreaterThanOrEqualTo(String value) {
-            addCriterion("last_update_user >=", value, "lastUpdateUser");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastUpdateUserLessThan(String value) {
-            addCriterion("last_update_user <", value, "lastUpdateUser");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastUpdateUserLessThanOrEqualTo(String value) {
-            addCriterion("last_update_user <=", value, "lastUpdateUser");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastUpdateUserLike(String value) {
-            addCriterion("last_update_user like", value, "lastUpdateUser");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastUpdateUserNotLike(String value) {
-            addCriterion("last_update_user not like", value, "lastUpdateUser");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastUpdateUserIn(List<String> values) {
-            addCriterion("last_update_user in", values, "lastUpdateUser");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastUpdateUserNotIn(List<String> values) {
-            addCriterion("last_update_user not in", values, "lastUpdateUser");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastUpdateUserBetween(String value1, String value2) {
-            addCriterion("last_update_user between", value1, value2, "lastUpdateUser");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastUpdateUserNotBetween(String value1, String value2) {
-            addCriterion("last_update_user not between", value1, value2, "lastUpdateUser");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastUpdateTimeIsNull() {
-            addCriterion("last_update_time is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastUpdateTimeIsNotNull() {
-            addCriterion("last_update_time is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastUpdateTimeEqualTo(Date value) {
-            addCriterion("last_update_time =", value, "lastUpdateTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastUpdateTimeNotEqualTo(Date value) {
-            addCriterion("last_update_time <>", value, "lastUpdateTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastUpdateTimeGreaterThan(Date value) {
-            addCriterion("last_update_time >", value, "lastUpdateTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastUpdateTimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("last_update_time >=", value, "lastUpdateTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastUpdateTimeLessThan(Date value) {
-            addCriterion("last_update_time <", value, "lastUpdateTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastUpdateTimeLessThanOrEqualTo(Date value) {
-            addCriterion("last_update_time <=", value, "lastUpdateTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastUpdateTimeIn(List<Date> values) {
-            addCriterion("last_update_time in", values, "lastUpdateTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastUpdateTimeNotIn(List<Date> values) {
-            addCriterion("last_update_time not in", values, "lastUpdateTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastUpdateTimeBetween(Date value1, Date value2) {
-            addCriterion("last_update_time between", value1, value2, "lastUpdateTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andLastUpdateTimeNotBetween(Date value1, Date value2) {
-            addCriterion("last_update_time not between", value1, value2, "lastUpdateTime");
             return (Criteria) this;
         }
 
@@ -1252,6 +1192,66 @@ public class HttpInterfaceSnapshotPOExample {
 
         public Criteria andOpUserNotBetween(String value1, String value2) {
             addCriterion("op_user not between", value1, value2, "opUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andSnapshotTimeIsNull() {
+            addCriterion("snapshot_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSnapshotTimeIsNotNull() {
+            addCriterion("snapshot_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSnapshotTimeEqualTo(Date value) {
+            addCriterion("snapshot_time =", value, "snapshotTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSnapshotTimeNotEqualTo(Date value) {
+            addCriterion("snapshot_time <>", value, "snapshotTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSnapshotTimeGreaterThan(Date value) {
+            addCriterion("snapshot_time >", value, "snapshotTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSnapshotTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("snapshot_time >=", value, "snapshotTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSnapshotTimeLessThan(Date value) {
+            addCriterion("snapshot_time <", value, "snapshotTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSnapshotTimeLessThanOrEqualTo(Date value) {
+            addCriterion("snapshot_time <=", value, "snapshotTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSnapshotTimeIn(List<Date> values) {
+            addCriterion("snapshot_time in", values, "snapshotTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSnapshotTimeNotIn(List<Date> values) {
+            addCriterion("snapshot_time not in", values, "snapshotTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSnapshotTimeBetween(Date value1, Date value2) {
+            addCriterion("snapshot_time between", value1, value2, "snapshotTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSnapshotTimeNotBetween(Date value1, Date value2) {
+            addCriterion("snapshot_time not between", value1, value2, "snapshotTime");
             return (Criteria) this;
         }
     }

@@ -1,83 +1,83 @@
 package com.dxm.anymock.common.dal.entity;
 
 public class HttpInterfaceSnapshotPOWithBLOBs extends HttpInterfaceSnapshotPO {
-    private String responseBody;
+    private String httpInterfaceResponseBody;
 
-    private String callbackRequestBody;
+    private String httpInterfaceCallbackRequestBody;
 
-    private String branchJumpScript;
+    private String httpInterfaceBranchJumpScript;
 
-    private String syncScript;
+    private String httpInterfaceSyncScript;
 
-    private String asyncScript;
+    private String httpInterfaceAsyncScript;
 
-    private String responseHeaderList;
+    private String httpInterfaceResponseHeaderList;
 
-    private String callbackRequestHeaderList;
+    private String httpInterfaceCallbackRequestHeaderList;
 
-    private String branchScriptList;
+    private String httpInterfaceBranchScriptList;
 
-    public String getResponseBody() {
-        return responseBody;
+    public String getHttpInterfaceResponseBody() {
+        return httpInterfaceResponseBody;
     }
 
-    public void setResponseBody(String responseBody) {
-        this.responseBody = responseBody == null ? null : responseBody.trim();
+    public void setHttpInterfaceResponseBody(String httpInterfaceResponseBody) {
+        this.httpInterfaceResponseBody = httpInterfaceResponseBody == null ? null : httpInterfaceResponseBody.trim();
     }
 
-    public String getCallbackRequestBody() {
-        return callbackRequestBody;
+    public String getHttpInterfaceCallbackRequestBody() {
+        return httpInterfaceCallbackRequestBody;
     }
 
-    public void setCallbackRequestBody(String callbackRequestBody) {
-        this.callbackRequestBody = callbackRequestBody == null ? null : callbackRequestBody.trim();
+    public void setHttpInterfaceCallbackRequestBody(String httpInterfaceCallbackRequestBody) {
+        this.httpInterfaceCallbackRequestBody = httpInterfaceCallbackRequestBody == null ? null : httpInterfaceCallbackRequestBody.trim();
     }
 
-    public String getBranchJumpScript() {
-        return branchJumpScript;
+    public String getHttpInterfaceBranchJumpScript() {
+        return httpInterfaceBranchJumpScript;
     }
 
-    public void setBranchJumpScript(String branchJumpScript) {
-        this.branchJumpScript = branchJumpScript == null ? null : branchJumpScript.trim();
+    public void setHttpInterfaceBranchJumpScript(String httpInterfaceBranchJumpScript) {
+        this.httpInterfaceBranchJumpScript = httpInterfaceBranchJumpScript == null ? null : httpInterfaceBranchJumpScript.trim();
     }
 
-    public String getSyncScript() {
-        return syncScript;
+    public String getHttpInterfaceSyncScript() {
+        return httpInterfaceSyncScript;
     }
 
-    public void setSyncScript(String syncScript) {
-        this.syncScript = syncScript == null ? null : syncScript.trim();
+    public void setHttpInterfaceSyncScript(String httpInterfaceSyncScript) {
+        this.httpInterfaceSyncScript = httpInterfaceSyncScript == null ? null : httpInterfaceSyncScript.trim();
     }
 
-    public String getAsyncScript() {
-        return asyncScript;
+    public String getHttpInterfaceAsyncScript() {
+        return httpInterfaceAsyncScript;
     }
 
-    public void setAsyncScript(String asyncScript) {
-        this.asyncScript = asyncScript == null ? null : asyncScript.trim();
+    public void setHttpInterfaceAsyncScript(String httpInterfaceAsyncScript) {
+        this.httpInterfaceAsyncScript = httpInterfaceAsyncScript == null ? null : httpInterfaceAsyncScript.trim();
     }
 
-    public String getResponseHeaderList() {
-        return responseHeaderList;
+    public String getHttpInterfaceResponseHeaderList() {
+        return httpInterfaceResponseHeaderList;
     }
 
-    public void setResponseHeaderList(String responseHeaderList) {
-        this.responseHeaderList = responseHeaderList == null ? null : responseHeaderList.trim();
+    public void setHttpInterfaceResponseHeaderList(String httpInterfaceResponseHeaderList) {
+        this.httpInterfaceResponseHeaderList = httpInterfaceResponseHeaderList == null ? null : httpInterfaceResponseHeaderList.trim();
     }
 
-    public String getCallbackRequestHeaderList() {
-        return callbackRequestHeaderList;
+    public String getHttpInterfaceCallbackRequestHeaderList() {
+        return httpInterfaceCallbackRequestHeaderList;
     }
 
-    public void setCallbackRequestHeaderList(String callbackRequestHeaderList) {
-        this.callbackRequestHeaderList = callbackRequestHeaderList == null ? null : callbackRequestHeaderList.trim();
+    public void setHttpInterfaceCallbackRequestHeaderList(String httpInterfaceCallbackRequestHeaderList) {
+        this.httpInterfaceCallbackRequestHeaderList = httpInterfaceCallbackRequestHeaderList == null ? null : httpInterfaceCallbackRequestHeaderList.trim();
     }
 
-    public String getBranchScriptList() {
-        return branchScriptList;
+    public String getHttpInterfaceBranchScriptList() {
+        return httpInterfaceBranchScriptList;
     }
 
-    public void setBranchScriptList(String branchScriptList) {
-        this.branchScriptList = branchScriptList == null ? null : branchScriptList.trim();
+    public void setHttpInterfaceBranchScriptList(String httpInterfaceBranchScriptList) {
+        this.httpInterfaceBranchScriptList = httpInterfaceBranchScriptList == null ? null : httpInterfaceBranchScriptList.trim();
     }
 }

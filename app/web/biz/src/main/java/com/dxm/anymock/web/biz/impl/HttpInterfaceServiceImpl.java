@@ -1,6 +1,7 @@
 package com.dxm.anymock.web.biz.impl;
 
 import com.dxm.anymock.common.base.entity.HttpInterface;
+import com.dxm.anymock.common.base.entity.HttpInterfaceSnapshot;
 import com.dxm.anymock.common.base.entity.RequestType;
 import com.dxm.anymock.common.base.enums.HttpInterfaceOpType;
 import com.dxm.anymock.common.dal.dao.HttpInterfaceDao;
@@ -74,6 +75,12 @@ public class HttpInterfaceServiceImpl implements HttpInterfaceService {
             redisDao.setHttpInterface(requestType, httpInterface);
         }
         return httpInterface;
+    }
+
+    @Override
+    public List<HttpInterfaceSnapshot> selectSnapshotById(Long id) {
+        // httpInterfaceSnapshotDao.
+        return null;
     }
 
     private void beforeRecordChange(Long id, HttpInterfaceOpType httpInterfaceOpType) {
