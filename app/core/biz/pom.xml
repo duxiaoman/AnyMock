@@ -30,6 +30,7 @@
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
+            <type>pom</type>
         </dependency>
         <dependency>
             <groupId>io.github.http-builder-ng</groupId>
