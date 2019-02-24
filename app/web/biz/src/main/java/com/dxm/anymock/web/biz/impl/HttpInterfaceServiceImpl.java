@@ -1,12 +1,16 @@
 package com.dxm.anymock.web.biz.impl;
 
+import com.dxm.anymock.common.base.GlobalConstant;
 import com.dxm.anymock.common.base.entity.HttpInterface;
 import com.dxm.anymock.common.base.entity.HttpInterfaceSnapshot;
 import com.dxm.anymock.common.base.entity.RequestType;
+import com.dxm.anymock.common.base.enums.ErrorCode;
 import com.dxm.anymock.common.base.enums.HttpInterfaceOpType;
+import com.dxm.anymock.common.base.exception.BaseException;
 import com.dxm.anymock.common.dal.dao.HttpInterfaceDao;
 import com.dxm.anymock.common.dal.dao.HttpInterfaceSnapshotDao;
 import com.dxm.anymock.common.dal.dao.RedisDao;
+import com.dxm.anymock.common.dal.dao.SpaceDao;
 import com.dxm.anymock.web.biz.HttpInterfaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,13 +28,15 @@ public class HttpInterfaceServiceImpl implements HttpInterfaceService {
     @Autowired
     private HttpInterfaceSnapshotDao httpInterfaceSnapshotDao;
 
+    @Autowired
+    private SpaceDao spaceDao;
 
     @Autowired
     private RedisDao redisDao;
 
     @Override
-    public List<HttpInterface> selectBySubSpaceId(Long spaceId) {
-        return httpInterfaceDao.selectBySubSpaceId(spaceId);
+    public List<HttpInterface> selectBySpaceId(Long spaceId) {
+        return httpInterfaceDao.selectBySpaceId(spaceId);
     }
 
     @Override
@@ -40,6 +46,9 @@ public class HttpInterfaceServiceImpl implements HttpInterfaceService {
 
     @Override
     public void insert(HttpInterface httpInterface) {
+        if (!spaceDao.level(httpInterface.getSpaceId()).equals(GlobalConstant.MAX_SPACE_LEVEL)) {
+            throw new BaseException(ErrorCode.CANT_INSERT_INTERFACE_UNDER_THIS_SPACE_LEVEL);
+        }
         httpInterfaceDao.insert(httpInterface);
     }
 
@@ -78,9 +87,13 @@ public class HttpInterfaceServiceImpl implements HttpInterfaceService {
     }
 
     @Override
-    public List<HttpInterfaceSnapshot> selectSnapshotById(Long id) {
-        // httpInterfaceSnapshotDao.
-        return null;
+    public List<HttpInterfaceSnapshot> selectSnapshotByHttpInterfaceId(Long httpInterfaceId) {
+        return httpInterfaceSnapshotDao.selectSnapshotByHttpInterfaceId(httpInterfaceId);
+    }
+
+    @Override
+    public HttpInterfaceSnapshot selectSnapshotById(Long id) {
+        return httpInterfaceSnapshotDao.selectSnapshotById(id);
     }
 
     private void beforeRecordChange(Long id, HttpInterfaceOpType httpInterfaceOpType) {

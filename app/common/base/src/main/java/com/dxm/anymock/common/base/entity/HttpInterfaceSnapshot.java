@@ -2,7 +2,7 @@ package com.dxm.anymock.common.base.entity;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dxm.anymock.common.base.check.HttpInterfaceIdCheck;
-import com.dxm.anymock.common.base.check.PrimaryKeyCheck;
+import com.dxm.anymock.common.base.check.CommonIdCheck;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -10,7 +10,7 @@ import java.util.List;
 
 public class HttpInterfaceSnapshot {
 
-    @NotNull(groups = PrimaryKeyCheck.class)
+    @NotNull(groups = CommonIdCheck.class)
     private Long id;
 
     @NotNull(groups = HttpInterfaceIdCheck.class)
@@ -36,7 +36,7 @@ public class HttpInterfaceSnapshot {
 
     private Boolean httpInterfaceStart;
 
-    private Long httpInterfaceSubSpaceId;
+    private Long httpInterfaceSpaceId;
 
     private String httpInterfaceLastUpdateUser;
 
@@ -160,12 +160,12 @@ public class HttpInterfaceSnapshot {
         this.httpInterfaceStart = httpInterfaceStart;
     }
 
-    public Long getHttpInterfaceSubSpaceId() {
-        return httpInterfaceSubSpaceId;
+    public Long getHttpInterfaceSpaceId() {
+        return httpInterfaceSpaceId;
     }
 
-    public void setHttpInterfaceSubSpaceId(Long httpInterfaceSubSpaceId) {
-        this.httpInterfaceSubSpaceId = httpInterfaceSubSpaceId;
+    public void setHttpInterfaceSpaceId(Long httpInterfaceSpaceId) {
+        this.httpInterfaceSpaceId = httpInterfaceSpaceId;
     }
 
     public String getHttpInterfaceLastUpdateUser() {

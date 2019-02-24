@@ -1,7 +1,8 @@
 package com.dxm.anymock.common.base.entity;
 
 import com.alibaba.fastjson.JSONObject;
-import com.dxm.anymock.common.base.check.ValueCheck;
+import com.dxm.anymock.common.base.check.CommonInsertCheck;
+import com.dxm.anymock.common.base.check.CommonUpdateCheck;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -9,10 +10,10 @@ import java.io.Serializable;
 
 public class HttpHeader implements Serializable {
 
-    @NotBlank(groups = {ValueCheck.class})
+    @NotBlank(groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
     private String name;
 
-    @NotNull(groups = {ValueCheck.class})
+    @NotNull(groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
     private String value;
 
     public String getName() {

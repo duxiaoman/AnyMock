@@ -875,63 +875,63 @@ public class HttpInterfaceSnapshotPOExample {
             return (Criteria) this;
         }
 
-        public Criteria andHttpInterfaceSubSpaceIdIsNull() {
-            addCriterion("http_interface_sub_space_id is null");
+        public Criteria andHttpInterfaceSpaceIdIsNull() {
+            addCriterion("http_interface_space_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andHttpInterfaceSubSpaceIdIsNotNull() {
-            addCriterion("http_interface_sub_space_id is not null");
+        public Criteria andHttpInterfaceSpaceIdIsNotNull() {
+            addCriterion("http_interface_space_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andHttpInterfaceSubSpaceIdEqualTo(Long value) {
-            addCriterion("http_interface_sub_space_id =", value, "httpInterfaceSubSpaceId");
+        public Criteria andHttpInterfaceSpaceIdEqualTo(Long value) {
+            addCriterion("http_interface_space_id =", value, "httpInterfaceSpaceId");
             return (Criteria) this;
         }
 
-        public Criteria andHttpInterfaceSubSpaceIdNotEqualTo(Long value) {
-            addCriterion("http_interface_sub_space_id <>", value, "httpInterfaceSubSpaceId");
+        public Criteria andHttpInterfaceSpaceIdNotEqualTo(Long value) {
+            addCriterion("http_interface_space_id <>", value, "httpInterfaceSpaceId");
             return (Criteria) this;
         }
 
-        public Criteria andHttpInterfaceSubSpaceIdGreaterThan(Long value) {
-            addCriterion("http_interface_sub_space_id >", value, "httpInterfaceSubSpaceId");
+        public Criteria andHttpInterfaceSpaceIdGreaterThan(Long value) {
+            addCriterion("http_interface_space_id >", value, "httpInterfaceSpaceId");
             return (Criteria) this;
         }
 
-        public Criteria andHttpInterfaceSubSpaceIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("http_interface_sub_space_id >=", value, "httpInterfaceSubSpaceId");
+        public Criteria andHttpInterfaceSpaceIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("http_interface_space_id >=", value, "httpInterfaceSpaceId");
             return (Criteria) this;
         }
 
-        public Criteria andHttpInterfaceSubSpaceIdLessThan(Long value) {
-            addCriterion("http_interface_sub_space_id <", value, "httpInterfaceSubSpaceId");
+        public Criteria andHttpInterfaceSpaceIdLessThan(Long value) {
+            addCriterion("http_interface_space_id <", value, "httpInterfaceSpaceId");
             return (Criteria) this;
         }
 
-        public Criteria andHttpInterfaceSubSpaceIdLessThanOrEqualTo(Long value) {
-            addCriterion("http_interface_sub_space_id <=", value, "httpInterfaceSubSpaceId");
+        public Criteria andHttpInterfaceSpaceIdLessThanOrEqualTo(Long value) {
+            addCriterion("http_interface_space_id <=", value, "httpInterfaceSpaceId");
             return (Criteria) this;
         }
 
-        public Criteria andHttpInterfaceSubSpaceIdIn(List<Long> values) {
-            addCriterion("http_interface_sub_space_id in", values, "httpInterfaceSubSpaceId");
+        public Criteria andHttpInterfaceSpaceIdIn(List<Long> values) {
+            addCriterion("http_interface_space_id in", values, "httpInterfaceSpaceId");
             return (Criteria) this;
         }
 
-        public Criteria andHttpInterfaceSubSpaceIdNotIn(List<Long> values) {
-            addCriterion("http_interface_sub_space_id not in", values, "httpInterfaceSubSpaceId");
+        public Criteria andHttpInterfaceSpaceIdNotIn(List<Long> values) {
+            addCriterion("http_interface_space_id not in", values, "httpInterfaceSpaceId");
             return (Criteria) this;
         }
 
-        public Criteria andHttpInterfaceSubSpaceIdBetween(Long value1, Long value2) {
-            addCriterion("http_interface_sub_space_id between", value1, value2, "httpInterfaceSubSpaceId");
+        public Criteria andHttpInterfaceSpaceIdBetween(Long value1, Long value2) {
+            addCriterion("http_interface_space_id between", value1, value2, "httpInterfaceSpaceId");
             return (Criteria) this;
         }
 
-        public Criteria andHttpInterfaceSubSpaceIdNotBetween(Long value1, Long value2) {
-            addCriterion("http_interface_sub_space_id not between", value1, value2, "httpInterfaceSubSpaceId");
+        public Criteria andHttpInterfaceSpaceIdNotBetween(Long value1, Long value2) {
+            addCriterion("http_interface_space_id not between", value1, value2, "httpInterfaceSpaceId");
             return (Criteria) this;
         }
 

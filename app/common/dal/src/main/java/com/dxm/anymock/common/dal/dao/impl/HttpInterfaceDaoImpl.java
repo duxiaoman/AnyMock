@@ -42,9 +42,9 @@ public class HttpInterfaceDaoImpl implements HttpInterfaceDao {
     private BranchScriptDao branchScriptDao;
 
     @Override
-    public List<HttpInterface> selectBySubSpaceId(Long subSpaceId) {
+    public List<HttpInterface> selectBySpaceId(Long subSpaceId) {
         HttpInterfacePOExample httpInterfacePOExample = new HttpInterfacePOExample();
-        httpInterfacePOExample.createCriteria().andSubSpaceIdEqualTo(subSpaceId);
+        httpInterfacePOExample.createCriteria().andSpaceIdEqualTo(subSpaceId);
         return ConvertUtils.convert(httpInterfacePOMapper.selectByExample(httpInterfacePOExample), HttpInterface.class);
     }
 

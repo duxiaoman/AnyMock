@@ -27,7 +27,7 @@ public class HttpInterfaceSnapshotPO {
 
     private Boolean httpInterfaceStart;
 
-    private Long httpInterfaceSubSpaceId;
+    private Long httpInterfaceSpaceId;
 
     private String httpInterfaceLastUpdateUser;
 
@@ -135,12 +135,12 @@ public class HttpInterfaceSnapshotPO {
         this.httpInterfaceStart = httpInterfaceStart;
     }
 
-    public Long getHttpInterfaceSubSpaceId() {
-        return httpInterfaceSubSpaceId;
+    public Long getHttpInterfaceSpaceId() {
+        return httpInterfaceSpaceId;
     }
 
-    public void setHttpInterfaceSubSpaceId(Long httpInterfaceSubSpaceId) {
-        this.httpInterfaceSubSpaceId = httpInterfaceSubSpaceId;
+    public void setHttpInterfaceSpaceId(Long httpInterfaceSpaceId) {
+        this.httpInterfaceSpaceId = httpInterfaceSpaceId;
     }
 
     public String getHttpInterfaceLastUpdateUser() {

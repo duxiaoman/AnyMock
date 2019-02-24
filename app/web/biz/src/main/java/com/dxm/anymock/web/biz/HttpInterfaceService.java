@@ -7,10 +7,12 @@ import com.dxm.anymock.common.base.entity.RequestType;
 import java.util.List;
 
 public interface HttpInterfaceService {
-    List<HttpInterface> selectBySubSpaceId(Long spaceId);
+    List<HttpInterface> selectBySpaceId(Long spaceId);
     HttpInterface selectById(Long id);
     HttpInterface selectByRequestType(RequestType requestType);
-    List<HttpInterfaceSnapshot> selectSnapshotById(Long id);
+
+    List<HttpInterfaceSnapshot> selectSnapshotByHttpInterfaceId(Long httpInterfaceId);
+    HttpInterfaceSnapshot selectSnapshotById(Long id);
 
     void insert(HttpInterface httpInterface);
     void update(HttpInterface httpInterface);

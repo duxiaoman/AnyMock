@@ -6,6 +6,8 @@ public class RequestType {
     private String method;
     private String uri;
 
+    public RequestType() {}
+
     public RequestType(HttpInterface httpInterface) {
         this.method = httpInterface.getRequestMethod();
         this.uri = httpInterface.getRequestUri();

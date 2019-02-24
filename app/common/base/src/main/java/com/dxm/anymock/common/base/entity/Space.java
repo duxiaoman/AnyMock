@@ -1,21 +1,22 @@
 package com.dxm.anymock.common.base.entity;
 
 import com.alibaba.fastjson.JSONObject;
-import com.dxm.anymock.common.base.check.PrimaryKeyCheck;
-import com.dxm.anymock.common.base.check.ValueCheck;
+import com.dxm.anymock.common.base.check.CommonDeleteCheck;
+import com.dxm.anymock.common.base.check.CommonInsertCheck;
+import com.dxm.anymock.common.base.check.CommonUpdateCheck;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 public class Space {
-    @NotNull(groups = {PrimaryKeyCheck.class})
+    @NotNull(groups = {CommonUpdateCheck.class, CommonDeleteCheck.class})
     private Long id;
 
-    @NotBlank(groups = {ValueCheck.class})
-    private String name;
+    @NotBlank(groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
+    private String label;
 
-    private List<SubSpace> subSpaceList;
+    @NotNull(groups = {CommonInsertCheck.class})
+    private Long parentId;
 
     public Long getId() {
         return id;
@@ -25,20 +26,20 @@ public class Space {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getLabel() {
+        return label;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
-    public List<SubSpace> getSubSpaceList() {
-        return subSpaceList;
+    public Long getParentId() {
+        return parentId;
     }
 
-    public void setSubSpaceList(List<SubSpace> subSpaceList) {
-        this.subSpaceList = subSpaceList;
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 
     @Override

@@ -54,4 +54,20 @@ public class RedisDaoImpl implements RedisDao {
         String httpInterfaceKey = buildHttpInterfaceKey(requestType);
         httpInterfaceRedisTemplate.opsForValue().set(httpInterfaceKey, httpInterface);
     }
+
+    @Override
+    public BranchScript getBranchScript(RequestType requestType, String branchName) {
+        String branchScriptKey = buildBranchScriptKey(requestType);
+        if (BooleanUtils.isTrue(branchScriptRedisTemplate.hasKey(branchScriptKey))) {
+            return (BranchScript)branchScriptRedisTemplate.opsForHash().get(branchScriptKey, branchName);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public void setBranchScript(RequestType requestType, String branchName, BranchScript branchScript) {
+        String branchScriptKey = buildBranchScriptKey(requestType);
+        branchScriptRedisTemplate.opsForHash().put(branchScriptKey, branchName, branchScript);
+    }
 }

@@ -1,5 +1,6 @@
 package com.dxm.anymock.common.dal.dto;
 
+import com.alibaba.fastjson.JSONObject;
 import com.dxm.anymock.common.base.entity.HttpInterface;
 import com.dxm.anymock.common.base.entity.HttpInterfaceSnapshot;
 
@@ -30,7 +31,7 @@ public class HttpInterfaceSnapshotDTO {
         this.httpInterface.setSyncDelay(httpInterfaceSnapshot.getHttpInterfaceSyncDelay());
         this.httpInterface.setAsyncDelay(httpInterfaceSnapshot.getHttpInterfaceAsyncDelay());
         this.httpInterface.setStart(httpInterfaceSnapshot.getHttpInterfaceStart());
-        this.httpInterface.setSubSpaceId(httpInterfaceSnapshot.getHttpInterfaceSubSpaceId());
+        this.httpInterface.setSpaceId(httpInterfaceSnapshot.getHttpInterfaceSpaceId());
         this.httpInterface.setLastUpdateUser(httpInterfaceSnapshot.getHttpInterfaceLastUpdateUser());
         this.httpInterface.setLastUpdateTime(httpInterfaceSnapshot.getHttpInterfaceLastUpdateTime());
         this.httpInterface.setResponseBody(httpInterfaceSnapshot.getHttpInterfaceResponseBody());
@@ -81,5 +82,10 @@ public class HttpInterfaceSnapshotDTO {
 
     public void setHttpInterface(HttpInterface httpInterface) {
         this.httpInterface = httpInterface;
+    }
+
+    @Override
+    public String toString() {
+        return JSONObject.toJSONString(this);
     }
 }

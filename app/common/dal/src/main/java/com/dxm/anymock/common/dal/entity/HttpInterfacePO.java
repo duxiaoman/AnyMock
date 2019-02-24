@@ -25,7 +25,7 @@ public class HttpInterfacePO {
 
     private Boolean start;
 
-    private Long subSpaceId;
+    private Long spaceId;
 
     private String lastUpdateUser;
 
@@ -119,12 +119,12 @@ public class HttpInterfacePO {
         this.start = start;
     }
 
-    public Long getSubSpaceId() {
-        return subSpaceId;
+    public Long getSpaceId() {
+        return spaceId;
     }
 
-    public void setSubSpaceId(Long subSpaceId) {
-        this.subSpaceId = subSpaceId;
+    public void setSpaceId(Long spaceId) {
+        this.spaceId = spaceId;
     }
 
     public String getLastUpdateUser() {

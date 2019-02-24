@@ -815,63 +815,63 @@ public class HttpInterfacePOExample {
             return (Criteria) this;
         }
 
-        public Criteria andSubSpaceIdIsNull() {
-            addCriterion("sub_space_id is null");
+        public Criteria andSpaceIdIsNull() {
+            addCriterion("space_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andSubSpaceIdIsNotNull() {
-            addCriterion("sub_space_id is not null");
+        public Criteria andSpaceIdIsNotNull() {
+            addCriterion("space_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSubSpaceIdEqualTo(Long value) {
-            addCriterion("sub_space_id =", value, "subSpaceId");
+        public Criteria andSpaceIdEqualTo(Long value) {
+            addCriterion("space_id =", value, "spaceId");
             return (Criteria) this;
         }
 
-        public Criteria andSubSpaceIdNotEqualTo(Long value) {
-            addCriterion("sub_space_id <>", value, "subSpaceId");
+        public Criteria andSpaceIdNotEqualTo(Long value) {
+            addCriterion("space_id <>", value, "spaceId");
             return (Criteria) this;
         }
 
-        public Criteria andSubSpaceIdGreaterThan(Long value) {
-            addCriterion("sub_space_id >", value, "subSpaceId");
+        public Criteria andSpaceIdGreaterThan(Long value) {
+            addCriterion("space_id >", value, "spaceId");
             return (Criteria) this;
         }
 
-        public Criteria andSubSpaceIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("sub_space_id >=", value, "subSpaceId");
+        public Criteria andSpaceIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("space_id >=", value, "spaceId");
             return (Criteria) this;
         }
 
-        public Criteria andSubSpaceIdLessThan(Long value) {
-            addCriterion("sub_space_id <", value, "subSpaceId");
+        public Criteria andSpaceIdLessThan(Long value) {
+            addCriterion("space_id <", value, "spaceId");
             return (Criteria) this;
         }
 
-        public Criteria andSubSpaceIdLessThanOrEqualTo(Long value) {
-            addCriterion("sub_space_id <=", value, "subSpaceId");
+        public Criteria andSpaceIdLessThanOrEqualTo(Long value) {
+            addCriterion("space_id <=", value, "spaceId");
             return (Criteria) this;
         }
 
-        public Criteria andSubSpaceIdIn(List<Long> values) {
-            addCriterion("sub_space_id in", values, "subSpaceId");
+        public Criteria andSpaceIdIn(List<Long> values) {
+            addCriterion("space_id in", values, "spaceId");
             return (Criteria) this;
         }
 
-        public Criteria andSubSpaceIdNotIn(List<Long> values) {
-            addCriterion("sub_space_id not in", values, "subSpaceId");
+        public Criteria andSpaceIdNotIn(List<Long> values) {
+            addCriterion("space_id not in", values, "spaceId");
             return (Criteria) this;
         }
 
-        public Criteria andSubSpaceIdBetween(Long value1, Long value2) {
-            addCriterion("sub_space_id between", value1, value2, "subSpaceId");
+        public Criteria andSpaceIdBetween(Long value1, Long value2) {
+            addCriterion("space_id between", value1, value2, "spaceId");
             return (Criteria) this;
         }
 
-        public Criteria andSubSpaceIdNotBetween(Long value1, Long value2) {
-            addCriterion("sub_space_id not between", value1, value2, "subSpaceId");
+        public Criteria andSpaceIdNotBetween(Long value1, Long value2) {
+            addCriterion("space_id not between", value1, value2, "spaceId");
             return (Criteria) this;
         }
 

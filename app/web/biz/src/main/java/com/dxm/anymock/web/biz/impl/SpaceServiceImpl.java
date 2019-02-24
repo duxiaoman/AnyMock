@@ -1,9 +1,13 @@
 package com.dxm.anymock.web.biz.impl;
 
+import com.dxm.anymock.common.base.GlobalConstant;
 import com.dxm.anymock.common.base.entity.Space;
+import com.dxm.anymock.common.base.enums.ErrorCode;
+import com.dxm.anymock.common.base.exception.BaseException;
 import com.dxm.anymock.common.dal.dao.HttpInterfaceDao;
 import com.dxm.anymock.common.dal.dao.SpaceDao;
-import com.dxm.anymock.common.dal.dao.SubSpaceDao;
+import com.dxm.anymock.common.dal.dto.SpaceDTO;
+import com.dxm.anymock.web.biz.HttpInterfaceService;
 import com.dxm.anymock.web.biz.SpaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,22 +23,18 @@ public class SpaceServiceImpl implements SpaceService {
     private SpaceDao spaceDao;
 
     @Autowired
-    private SubSpaceDao subSpaceDao;
-
-    @Autowired
-    private HttpInterfaceDao httpInterfaceDao;
+    private HttpInterfaceService httpInterfaceService;
 
     @Override
-    public List<Space> list() {
-        List<Space> spaceList = spaceDao.list();
-        spaceList.forEach(spaceDTO ->
-            spaceDTO.setSubSpaceList(subSpaceDao.selectBySpaceId(spaceDTO.getId()))
-        );
-        return spaceList;
+    public List<SpaceDTO> tree() {
+        return spaceDao.tree();
     }
 
     @Override
     public void insert(Space space) {
+        if (spaceDao.level(space.getParentId()) > (GlobalConstant.MAX_SPACE_LEVEL - 1)) {
+            throw new BaseException(ErrorCode.SPACE_LEVEL_TOO_DEEP);
+        }
         spaceDao.insert(space);
     }
 
@@ -45,12 +45,12 @@ public class SpaceServiceImpl implements SpaceService {
 
     @Override
     public void delete(Long id) {
-        subSpaceDao.selectBySpaceId(id).forEach(subSpaceDTO -> {
-            Long subSpaceId = subSpaceDTO.getId();
-            httpInterfaceDao.selectBySubSpaceId(subSpaceId).forEach(httpInterfaceDTO -> {
-                httpInterfaceDao.delete(httpInterfaceDTO.getId());
+        spaceDao.selectByParentId(id).forEach(space -> {
+            Long spaceId = space.getId();
+            httpInterfaceService.selectBySpaceId(spaceId).forEach(httpInterfaceDTO -> {
+                httpInterfaceService.delete(httpInterfaceDTO.getId());
             });
-            subSpaceDao.delete(subSpaceId);
+            delete(spaceId);
         });
         spaceDao.delete(id);
     }

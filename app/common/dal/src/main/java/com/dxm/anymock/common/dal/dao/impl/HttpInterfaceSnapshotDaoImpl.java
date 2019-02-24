@@ -8,7 +8,6 @@ import com.dxm.anymock.common.base.entity.HttpHeader;
 import com.dxm.anymock.common.base.entity.HttpInterface;
 import com.dxm.anymock.common.base.entity.HttpInterfaceSnapshot;
 import com.dxm.anymock.common.base.enums.HttpInterfaceOpType;
-import com.dxm.anymock.common.base.utils.ConvertUtils;
 import com.dxm.anymock.common.dal.dao.HttpInterfaceSnapshotDao;
 import com.dxm.anymock.common.dal.entity.HttpInterfaceSnapshotPO;
 import com.dxm.anymock.common.dal.entity.HttpInterfaceSnapshotPOExample;
@@ -50,7 +49,7 @@ public class HttpInterfaceSnapshotDaoImpl implements HttpInterfaceSnapshotDao {
         snapshot.setHttpInterfaceSyncDelay(httpInterface.getSyncDelay());
         snapshot.setHttpInterfaceAsyncDelay(httpInterface.getAsyncDelay());
         snapshot.setHttpInterfaceStart(httpInterface.getStart());
-        snapshot.setHttpInterfaceSubSpaceId(httpInterface.getSubSpaceId());
+        snapshot.setHttpInterfaceSpaceId(httpInterface.getSpaceId());
         snapshot.setHttpInterfaceResponseHeaderList(JSONObject.toJSONString(httpInterface.getResponseHeaderList()));
         snapshot.setHttpInterfaceCallbackRequestHeaderList(JSONObject.toJSONString(httpInterface.getCallbackRequestHeaderList()));
         snapshot.setHttpInterfaceBranchScriptList(JSONObject.toJSONString(httpInterface.getBranchScriptList()));

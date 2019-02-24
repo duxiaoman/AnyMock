@@ -1,85 +1,84 @@
 package com.dxm.anymock.common.base.entity;
 
 import com.alibaba.fastjson.JSONObject;
-import com.dxm.anymock.common.base.check.PrimaryKeyCheck;
-import com.dxm.anymock.common.base.check.SubSpaceIdCheck;
-import com.dxm.anymock.common.base.check.ValueCheck;
+import com.dxm.anymock.common.base.GlobalConstant;
+import com.dxm.anymock.common.base.check.CommonDeleteCheck;
+import com.dxm.anymock.common.base.check.CommonInsertCheck;
+import com.dxm.anymock.common.base.check.CommonUpdateCheck;
+import com.dxm.anymock.common.base.check.SpaceIdCheck;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 public class HttpInterface implements Serializable {
 
-    @NotNull(groups = {PrimaryKeyCheck.class})
+    @NotNull(groups = {CommonUpdateCheck.class, CommonDeleteCheck.class})
     private Long id;
 
-    @NotBlank(groups = {ValueCheck.class})
+    @NotBlank(groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
     private String requestUri;
 
-    @NotBlank(groups = {ValueCheck.class})
+    @NotBlank(groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
     private String requestMethod;
 
-    @NotNull(groups = {ValueCheck.class})
+    @NotNull(groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
     private String description;
 
-    @NotNull(groups = {ValueCheck.class})
+    @NotNull(groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
     private Boolean needAsyncCallback;
 
-    @NotNull(groups = {ValueCheck.class})
+    @NotNull(groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
     private Integer configMode;
 
-    @NotNull(groups = {ValueCheck.class})
+    @NotNull(groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
     private String responseBody;
 
-    @NotNull(groups = {ValueCheck.class})
+    @NotNull(groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
     private String callbackRequestUrl;
 
-    @NotNull(groups = {ValueCheck.class})
+    @NotNull(groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
     private String callbackRequestMethod;
 
-    @NotNull(groups = {ValueCheck.class})
+    @NotNull(groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
     private String callbackRequestBody;
 
-    @NotNull(groups = {ValueCheck.class})
+    @NotNull(groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
     private String branchJumpScript;
 
-    @NotNull(groups = {ValueCheck.class})
+    @NotNull(groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
     private String syncScript;
 
-    @NotNull(groups = {ValueCheck.class})
+    @NotNull(groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
     private String asyncScript;
 
-    @NotNull(groups = {ValueCheck.class})
-    @Min(value = 0, groups = {ValueCheck.class})
-    @Max(value = 20000, groups = {ValueCheck.class})
+    @NotNull(groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
+    @Min(value = 0, groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
+    @Max(value = GlobalConstant.MAX_SYNC_DELAY, groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
     private Integer syncDelay;
 
-    @NotNull(groups = {ValueCheck.class})
-    @Min(value = 0, groups = {ValueCheck.class})
-    @Max(value = 20000, groups = {ValueCheck.class})
+    @NotNull(groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
+    @Min(value = 0, groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
+    @Max(value = GlobalConstant.MAX_ASYNC_DELAY, groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
     private Integer asyncDelay;
 
-    @NotNull(groups = {ValueCheck.class})
+    @NotNull(groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
     private Boolean start;
 
-    @NotNull(groups = {ValueCheck.class, SubSpaceIdCheck.class})
-    private Long subSpaceId;
+    @NotNull(groups = {CommonInsertCheck.class, CommonUpdateCheck.class, SpaceIdCheck.class})
+    private Long spaceId;
 
-    @NotNull(groups = {ValueCheck.class})
+    @NotNull(groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
     @Valid
     private List<HttpHeader> responseHeaderList;
 
-    @NotNull(groups = {ValueCheck.class})
+    @NotNull(groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
     @Valid
     private List<HttpHeader> callbackRequestHeaderList;
 
-    @NotNull(groups = {ValueCheck.class})
+    @NotNull(groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
     @Valid
     private List<BranchScript> branchScriptList;
 
@@ -215,12 +214,12 @@ public class HttpInterface implements Serializable {
         this.start = start;
     }
 
-    public Long getSubSpaceId() {
-        return subSpaceId;
+    public Long getSpaceId() {
+        return spaceId;
     }
 
-    public void setSubSpaceId(Long subSpaceId) {
-        this.subSpaceId = subSpaceId;
+    public void setSpaceId(Long spaceId) {
+        this.spaceId = spaceId;
     }
 
     public List<HttpHeader> getResponseHeaderList() {

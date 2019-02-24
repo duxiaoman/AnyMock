@@ -39,7 +39,7 @@
 
         <!-- add your table below -->
         <table tableName="am_space" domainObjectName="SpacePO" />
-        <table tableName="am_sub_space" domainObjectName="SubSpacePO" />
+        <!--<table tableName="am_sub_space" domainObjectName="SubSpacePO" />-->
         <table tableName="am_http_interface" domainObjectName="HttpInterfacePO" />
         <table tableName="am_http_interface_branch_script" domainObjectName="HttpInterfaceBranchScriptPO" />
         <table tableName="am_http_interface_callback_request_header" domainObjectName="HttpInterfaceCallbackRequestHeaderPO" />

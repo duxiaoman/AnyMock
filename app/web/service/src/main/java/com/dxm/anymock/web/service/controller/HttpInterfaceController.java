@@ -1,19 +1,13 @@
 package com.dxm.anymock.web.service.controller;
 
 import com.dxm.anymock.common.base.GlobalConstant;
-import com.dxm.anymock.common.base.check.HttpInterfaceIdCheck;
-import com.dxm.anymock.common.base.check.PrimaryKeyCheck;
-import com.dxm.anymock.common.base.check.SubSpaceIdCheck;
-import com.dxm.anymock.common.base.check.ValueCheck;
+import com.dxm.anymock.common.base.check.*;
 import com.dxm.anymock.common.base.entity.HttpInterface;
 import com.dxm.anymock.common.base.entity.HttpInterfaceSnapshot;
 import com.dxm.anymock.common.base.entity.RequestType;
-import com.dxm.anymock.common.base.utils.ConvertUtils;
-import com.dxm.anymock.common.dal.dao.HttpInterfaceDao;
-import com.dxm.anymock.common.dal.dao.HttpInterfaceSnapshotDao;
 import com.dxm.anymock.common.dal.dto.HttpInterfaceSnapshotDTO;
 import com.dxm.anymock.web.biz.HttpInterfaceService;
-import com.dxm.anymock.web.service.api.BaseResponse;
+import com.dxm.anymock.common.base.BaseResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -32,26 +26,26 @@ public class HttpInterfaceController {
     @Autowired
     private HttpInterfaceService httpInterfaceService;
 
-    @PostMapping("/interface/http/selectById")
+    @PostMapping("/interface_http/selectById")
     @ResponseBody
     public BaseResponse selectHttpInterfaceById(
-            @Validated(value = PrimaryKeyCheck.class) @RequestBody HttpInterface httpInterface
+            @Validated(value = CommonIdCheck.class) @RequestBody HttpInterface httpInterface
     ) {
         return new BaseResponse(httpInterfaceService.selectById(httpInterface.getId()));
     }
 
-    @PostMapping("/interface/http/selectBySubSpaceId")
+    @PostMapping("/interface_http/selectBySpaceId")
     @ResponseBody
     public BaseResponse selectHttpInterfaceBySubSpaceId(
-            @Validated(value = SubSpaceIdCheck.class) @RequestBody HttpInterface httpInterface
+            @Validated(value = SpaceIdCheck.class) @RequestBody HttpInterface httpInterface
     ) {
-        return new BaseResponse(httpInterfaceService.selectBySubSpaceId(httpInterface.getSubSpaceId()));
+        return new BaseResponse(httpInterfaceService.selectBySpaceId(httpInterface.getSpaceId()));
     }
 
-    @PostMapping("/interface/http/insert")
+    @PostMapping("/interface_http/insert")
     @ResponseBody
     public BaseResponse insertHttpInterface(
-            @Validated(value = {ValueCheck.class}) @RequestBody HttpInterface httpInterface
+            @Validated(value = {CommonInsertCheck.class}) @RequestBody HttpInterface httpInterface
     ) {
         httpInterface.setId(null);
         clearLastUpdateInfo(httpInterface);
@@ -59,71 +53,69 @@ public class HttpInterfaceController {
         return new BaseResponse();
     }
 
-    @PostMapping("/interface/http/update")
+    @PostMapping("/interface_http/update")
     @ResponseBody
     public BaseResponse updateHttpInterface(
-            @Validated(value = {PrimaryKeyCheck.class, ValueCheck.class}) @RequestBody HttpInterface httpInterface
+            @Validated(value = {CommonUpdateCheck.class}) @RequestBody HttpInterface httpInterface
     ) {
         clearLastUpdateInfo(httpInterface);
         httpInterfaceService.update(httpInterface);
         return new BaseResponse();
     }
 
-    @PostMapping("/interface/http/delete")
+    @PostMapping("/interface_http/delete")
     @ResponseBody
     public BaseResponse deleteHttpInterface(
-            @Validated(value = PrimaryKeyCheck.class) @RequestBody HttpInterface httpInterface
+            @Validated(value = CommonDeleteCheck.class) @RequestBody HttpInterface httpInterface
     ) {
         httpInterfaceService.delete(httpInterface.getId());
         return new BaseResponse();
     }
 
-    @PostMapping("/interface/http/start")
+    @PostMapping("/interface_http/start")
     @ResponseBody
     public BaseResponse startHttpInterface(
-            @Validated(value = PrimaryKeyCheck.class) @RequestBody HttpInterface httpInterface
+            @Validated(value = CommonIdCheck.class) @RequestBody HttpInterface httpInterface
     ) {
         httpInterfaceService.start(httpInterface.getId());
         return new BaseResponse();
     }
 
-    @PostMapping("/interface/http/shutdown")
+    @PostMapping("/interface_http/shutdown")
     @ResponseBody
     public BaseResponse shutdownHttpInterface(
-            @Validated(value = PrimaryKeyCheck.class) @RequestBody HttpInterface httpInterface
+            @Validated(value = CommonIdCheck.class) @RequestBody HttpInterface httpInterface
     ) {
         httpInterfaceService.shutdown(httpInterface.getId());
         return new BaseResponse();
     }
 
-    @PostMapping("/interface/http/selectByRequestType")
+    // 仅作调试用，不对外发布
+    @PostMapping("/interface_http/selectByRequestType")
     @ResponseBody
     public BaseResponse selectHttpInterfaceByRequestType(
-            @Validated(value = PrimaryKeyCheck.class) @RequestBody HttpInterface httpInterface
+            @Validated @RequestBody HttpInterface httpInterface
     ) {
         return new BaseResponse(httpInterfaceService.selectByRequestType(new RequestType(httpInterface)));
     }
 
-    @Autowired
-    private HttpInterfaceSnapshotDao   httpInterfaceSnapshotDao;
-
-    @PostMapping("/interface/http/snapshot/selectByHttpInterfaceId")
+    @PostMapping("/interface_http_snapshot/selectByHttpInterfaceId")
     @ResponseBody
     public BaseResponse selectSnapshotByHttpInterfaceId(
             @Validated(value = HttpInterfaceIdCheck.class) @RequestBody HttpInterfaceSnapshot httpInterfaceSnapshot
     ) {
         List<HttpInterfaceSnapshotDTO> snapshotDTOList = new LinkedList<>();
-        httpInterfaceSnapshotDao.selectSnapshotByHttpInterfaceId(httpInterfaceSnapshot.getHttpInterfaceId())
+        httpInterfaceService.selectSnapshotByHttpInterfaceId(httpInterfaceSnapshot.getHttpInterfaceId())
                 .forEach(snapshot -> snapshotDTOList.add(new HttpInterfaceSnapshotDTO(snapshot)));
         return new BaseResponse(snapshotDTOList);
     }
 
-    @PostMapping("/interface/http/snapshot/selectById")
+    @PostMapping("/interface_http_snapshot/selectById")
     @ResponseBody
     public BaseResponse selectSnapshotById(
-            @Validated(value = PrimaryKeyCheck.class) @RequestBody HttpInterfaceSnapshot httpInterfaceSnapshot
+            @Validated(value = CommonIdCheck.class) @RequestBody HttpInterfaceSnapshot httpInterfaceSnapshot
     ) {
-        HttpInterfaceSnapshot snapshot = httpInterfaceSnapshotDao.selectSnapshotById(httpInterfaceSnapshot.getId());
+        HttpInterfaceSnapshot snapshot = httpInterfaceService.selectSnapshotById(httpInterfaceSnapshot.getId());
         return new BaseResponse(new HttpInterfaceSnapshotDTO(snapshot));
     }
 

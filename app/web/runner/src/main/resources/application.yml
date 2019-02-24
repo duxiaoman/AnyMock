@@ -5,12 +5,17 @@ spring:
     encoding:
       charset: UTF-8
       force: true
+  datasource:
+    url: jdbc:mysql://cp01-ocean-2480.epc.baidu.com:8306/anymock_opensource?serverTimezone=UTC
+    username: root
+    password: root
+    type: com.zaxxer.hikari.HikariDataSource
+  redis:
+    host: yq01-lizhenxi-dxm.epc.baidu.com
+    port: 8331
 
-datasource:
-  jdbc-url: jdbc:mysql://cp01-ocean-2480.epc.baidu.com:8306/anymock_opensource?serverTimezone=UTC
-  username: root
-  password: root
+server:
+  port: 8329
 
-redis:
-  hostName: yq01-lizhenxi-dxm.epc.baidu.com
-  port: 8331
+logging:
+  file: anymock-web.log
