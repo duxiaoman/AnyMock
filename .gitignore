@@ -16,3 +16,5 @@ output/
 deploy/version.txt
 webroot/
 sql/
+anymock-web.log
+anymock-core.log
