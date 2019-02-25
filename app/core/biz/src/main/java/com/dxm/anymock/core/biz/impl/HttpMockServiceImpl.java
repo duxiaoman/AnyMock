@@ -19,6 +19,8 @@ import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.profiler.Profiler;
+import org.slf4j.profiler.ProfilerRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
@@ -62,7 +64,6 @@ public class HttpMockServiceImpl implements HttpMockService {
         }
 
         MockContext mockContext = new MockContext();
-        mockContext.getProfiler().start("MockContext");
         mockContext.setRequestType(requestType);
         mockContext.setHttpInterface(httpInterface);
         mockContext.setHttpInterface(httpInterface);
@@ -122,12 +123,25 @@ public class HttpMockServiceImpl implements HttpMockService {
 
     @Override
     public void mock(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Profiler profiler = new Profiler("THREAD-PROFILER");
+        profiler.setLogger(logger);
+        ProfilerRegistry profilerRegistry = ProfilerRegistry.getThreadContextInstance();
+        profiler.registerWith(profilerRegistry);
+
+        profiler.start("store http body");
         request.setAttribute("body", IOUtils.toString(request.getInputStream(), request.getCharacterEncoding()));
+
+        profiler.start("log request msg");
         logRequestMsg(request);
 
+        profiler.start("init MockContext");
         MockContext mockContext = initMockContext(request, response);
-        mockContext.getProfiler().start("httpSyncMockService.mock");
+
+        profiler.start("sync mock");
+        profiler.startNested(HttpSyncMockService.class.getSimpleName());
         httpSyncMockService.mock(mockContext);
+
+        profiler.start("async mock");
         if (BooleanUtils.isTrue(mockContext.getHttpInterface().getNeedAsyncCallback())) {
             threadPoolTaskExecutor.execute(() -> {
                 try {
@@ -137,6 +151,9 @@ public class HttpMockServiceImpl implements HttpMockService {
                 }
             });
         }
+        profiler.stop();
+        profiler.log();
+        // logger.debug("\n{}", profiler.toString());
     }
 
     private RequestType buildRequestType(HttpServletRequest request) {

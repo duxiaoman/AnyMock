@@ -19,6 +19,8 @@ server:
 
 logging:
   file: anymock-core.log
+  level:
+    MOCK-SERVICE-LOGGER: DEBUG
 
 thread-pool-task-executor:
   core-pool-size: 24

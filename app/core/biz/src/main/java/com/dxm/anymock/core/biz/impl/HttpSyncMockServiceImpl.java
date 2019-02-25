@@ -16,6 +16,8 @@ import groovy.lang.Binding;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.profiler.Profiler;
+import org.slf4j.profiler.ProfilerRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -78,12 +80,15 @@ public class HttpSyncMockServiceImpl implements HttpSyncMockService {
     @Override
     public void mock(MockContext mockContext) throws IOException {
         logger.info("HttpSyncMockService start");
-        mockContext.getProfiler().start("mockSyncDelay");
+
+        ProfilerRegistry profilerRegistry = ProfilerRegistry.getThreadContextInstance();
+        Profiler profiler = profilerRegistry.get(HttpSyncMockService.class.getSimpleName());
+        profiler.start("mock sync delay");
         mockSyncDelay(mockContext);
-        mockContext.getProfiler().start("setResponseHeader");
+
+        profiler.start("set resp header");
         setResponseHeader(mockContext);
 
-        mockContext.getProfiler().start("mockContext.getHttpInterface");
         HttpInterface httpInterface = mockContext.getHttpInterface();
         String responseBody;
         logger.info("ConfigMode = {}", mockContext.getConfigMode().name());
@@ -95,23 +100,23 @@ public class HttpSyncMockServiceImpl implements HttpSyncMockService {
                 responseBody = groovyService.exec(mockContext, httpInterface.getSyncScript());
                 break;
             case SCRIPT_WITH_BRANCH:
-                mockContext.getProfiler().start("branchName = groovyService.exec");
+                profiler.start("exec branch jump script");
+                profiler.startNested(GroovyService.class.getSimpleName());
                 String branchName = groovyService.exec(mockContext, httpInterface.getBranchJumpScript());
                 logger.info("BranchName = {}", branchName);
-                mockContext.getProfiler().start("loadBranchScript");
+                profiler.start("load branch script");
                 BranchScript branchScript = loadBranchScript(
                         mockContext.getRequestType(), branchName, mockContext.getHttpInterface().getId());
                 mockContext.setBranchScript(branchScript);
-                mockContext.getProfiler().start("groovyService.exec");
+                profiler.start("exce branch script");
+                profiler.startNested(GroovyService.class.getSimpleName());
                 responseBody = groovyService.exec(mockContext, branchScript.getSyncScript());
                 break;
             default:
                 throw new BaseException(ErrorCode.UNKNOWN_CONFIG_MODE);
         }
         logger.info("ResponseBody = {}", responseBody);
-        mockContext.getProfiler().start("writeResponseBody");
+        profiler.start("write resp body");
         writeResponseBody(mockContext, responseBody);
-        mockContext.getProfiler().stop();
-        logger.warn(mockContext.getProfiler().toString());
     }
 }
