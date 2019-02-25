@@ -49,7 +49,6 @@ public class HttpMockServiceImpl implements HttpMockService {
     @Autowired
     private HttpAsyncMockService httpAsyncMockService;
 
-
     private MockContext initMockContext(HttpServletRequest request, HttpServletResponse response) {
         RequestType requestType = buildRequestType(request);
         HttpInterface httpInterface = loadHttpInterface(requestType);
@@ -63,6 +62,7 @@ public class HttpMockServiceImpl implements HttpMockService {
         }
 
         MockContext mockContext = new MockContext();
+        mockContext.getProfiler().start("MockContext");
         mockContext.setRequestType(requestType);
         mockContext.setHttpInterface(httpInterface);
         mockContext.setHttpInterface(httpInterface);
@@ -126,6 +126,7 @@ public class HttpMockServiceImpl implements HttpMockService {
         logRequestMsg(request);
 
         MockContext mockContext = initMockContext(request, response);
+        mockContext.getProfiler().start("httpSyncMockService.mock");
         httpSyncMockService.mock(mockContext);
         if (BooleanUtils.isTrue(mockContext.getHttpInterface().getNeedAsyncCallback())) {
             threadPoolTaskExecutor.execute(() -> {

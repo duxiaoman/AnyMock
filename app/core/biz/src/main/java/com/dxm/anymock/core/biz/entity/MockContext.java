@@ -5,10 +5,12 @@ import com.dxm.anymock.common.base.entity.HttpInterface;
 import com.dxm.anymock.common.base.entity.RequestType;
 import com.dxm.anymock.common.base.enums.ConfigMode;
 import groovy.lang.Binding;
+import org.slf4j.profiler.Profiler;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.HttpURLConnection;
+import java.util.LinkedList;
 
 public class MockContext {
     private RequestType requestType;
@@ -19,6 +21,20 @@ public class MockContext {
     private HttpURLConnection httpURLConnection;
     private Binding groovyBinding;
     private BranchScript branchScript;
+
+    private Profiler profiler;
+
+    public MockContext() {
+        this.profiler = new Profiler("mock");
+    }
+
+    public Profiler getProfiler() {
+        return profiler;
+    }
+
+    public void setProfiler(Profiler profiler) {
+        this.profiler = profiler;
+    }
 
     public RequestType getRequestType() {
         return requestType;

@@ -127,6 +127,14 @@
                 <artifactId>httpclient</artifactId>
                 <version>4.5.7</version>
             </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-ext -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-ext</artifactId>
+                <version>1.7.25</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
