@@ -8,7 +8,6 @@ import org.springframework.cache.annotation.EnableCaching;
 @SpringBootApplication(scanBasePackages = "com.dxm")
 public class AnyMockCoreRunner {
     public static void main(String[] args) {
-        System.setProperty("server.port", "8332");
         SpringApplication.run(AnyMockCoreRunner.class, args);
     }
 }
