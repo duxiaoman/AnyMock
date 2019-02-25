@@ -1,9 +1,9 @@
 package com.dxm.anymock.common.base.enums;
 
 public enum ConfigMode implements CodeBasedEnum {
-    STATIC(0),
-    SCRIPT(1),
-    SCRIPT_WITH_BRANCH(2);
+    STATIC(1),
+    SCRIPT(2),
+    SCRIPT_WITH_BRANCH(3);
 
     ConfigMode(Integer code) {
         this.code = code;

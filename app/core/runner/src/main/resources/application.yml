@@ -19,3 +19,8 @@ server:
 
 logging:
   file: anymock-core.log
+
+thread-pool-task-executor:
+  core-pool-size: 24
+  max-pool-size: 192
+  queue-capacity: 2048

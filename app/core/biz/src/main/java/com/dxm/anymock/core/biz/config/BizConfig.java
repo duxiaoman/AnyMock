@@ -1,6 +1,7 @@
 package com.dxm.anymock.core.biz.config;
 
 import groovy.lang.GroovyClassLoader;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -11,11 +12,12 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class BizConfig {
 
     @Bean
+    @ConfigurationProperties("thread-pool-task-executor")
     public ThreadPoolTaskExecutor threadPoolTaskExecutor() {
         ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
-        threadPoolTaskExecutor.setCorePoolSize(4);
-        threadPoolTaskExecutor.setMaxPoolSize(64);
-        threadPoolTaskExecutor.setQueueCapacity(2048);
+        // threadPoolTaskExecutor.setCorePoolSize(24);
+        // threadPoolTaskExecutor.setMaxPoolSize(192);
+        // threadPoolTaskExecutor.setQueueCapacity(2048);
         threadPoolTaskExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy());
         return threadPoolTaskExecutor;
     }
