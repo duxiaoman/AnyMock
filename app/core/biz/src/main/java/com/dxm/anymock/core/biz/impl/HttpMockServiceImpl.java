@@ -80,8 +80,10 @@ public class HttpMockServiceImpl implements HttpMockService {
             stringBuilder.append(request.getMethod());
             stringBuilder.append(" ");
             stringBuilder.append(request.getRequestURI());
-            stringBuilder.append("?");
-            stringBuilder.append(request.getQueryString());
+            if (request.getQueryString() != null) {
+                stringBuilder.append("?");
+                stringBuilder.append(request.getQueryString());
+            }
             stringBuilder.append("\n");
 
             Enumeration headerNames = request.getHeaderNames();
