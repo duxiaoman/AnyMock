@@ -15,9 +15,6 @@ public class BizConfig {
     @ConfigurationProperties("thread-pool-task-executor")
     public ThreadPoolTaskExecutor threadPoolTaskExecutor() {
         ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
-        // threadPoolTaskExecutor.setCorePoolSize(24);
-        // threadPoolTaskExecutor.setMaxPoolSize(192);
-        // threadPoolTaskExecutor.setQueueCapacity(2048);
         threadPoolTaskExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy());
         return threadPoolTaskExecutor;
     }

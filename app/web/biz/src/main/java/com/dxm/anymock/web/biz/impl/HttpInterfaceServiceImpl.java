@@ -46,7 +46,7 @@ public class HttpInterfaceServiceImpl implements HttpInterfaceService {
 
     @Override
     public void insert(HttpInterface httpInterface) {
-        if (!spaceDao.level(httpInterface.getSpaceId()).equals(GlobalConstant.MAX_SPACE_LEVEL)) {
+        if (!spaceDao.level(httpInterface.getSpaceId()).equals(GlobalConstant.ALLOW_CREATE_INTERFACE_SPACE_LEVEL)) {
             throw new BaseException(ErrorCode.CANT_INSERT_INTERFACE_UNDER_THIS_SPACE_LEVEL);
         }
         httpInterfaceDao.insert(httpInterface);

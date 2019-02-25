@@ -11,6 +11,7 @@ public class SpaceDTO {
     private Long parentId;
     private List<SpaceDTO> children;
     private List<Long> path;
+    private Boolean allowCreateInterface;
 
     public Long getId() {
         return id;
@@ -50,6 +51,14 @@ public class SpaceDTO {
 
     public void setPath(List<Long> path) {
         this.path = path;
+    }
+
+    public Boolean getAllowCreateInterface() {
+        return allowCreateInterface;
+    }
+
+    public void setAllowCreateInterface(Boolean allowCreateInterface) {
+        this.allowCreateInterface = allowCreateInterface;
     }
 
     @Override

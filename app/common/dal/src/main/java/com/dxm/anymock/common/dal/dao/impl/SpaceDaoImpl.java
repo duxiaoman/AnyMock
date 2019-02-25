@@ -1,5 +1,6 @@
 package com.dxm.anymock.common.dal.dao.impl;
 
+import com.dxm.anymock.common.base.GlobalConstant;
 import com.dxm.anymock.common.base.utils.ConvertUtils;
 import com.dxm.anymock.common.base.entity.Space;
 import com.dxm.anymock.common.base.enums.ErrorCode;
@@ -39,6 +40,11 @@ public class SpaceDaoImpl implements SpaceDao {
         BeanUtils.copyProperties(space, spaceDTO);
         path.add(space.getId());
         spaceDTO.setPath(path);
+        if (path.size() == GlobalConstant.ALLOW_CREATE_INTERFACE_SPACE_LEVEL) {
+            spaceDTO.setAllowCreateInterface(true);
+        } else {
+            spaceDTO.setAllowCreateInterface(false);
+        }
 
         List<SpaceDTO> children = new LinkedList<>();
         List<Space> spaceList = selectByParentId(space.getId());
