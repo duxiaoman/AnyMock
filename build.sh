@@ -10,4 +10,4 @@ cp web/runner/src/main/resources/* output/anymock-web
 
 mkdir -p output/anymock-core
 cp core/runner/target/anymock-core-runner-1.0-SNAPSHOT.jar output/anymock-core
-cp core/runner/src/main/resources/* output/anymock-output
+cp core/runner/src/main/resources/* output/anymock-core
