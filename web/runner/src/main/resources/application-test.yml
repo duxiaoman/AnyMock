@@ -1,2 +1,2 @@
 logging:
-  file: anymock-web.log
+  file: logs/anymock-web.log
