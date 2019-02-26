@@ -1,6 +1,7 @@
 set -e
-mvn clean package
 
+git pull
+mvn clean package
 mkdir -p output
 
 mkdir -p output/anymock-web
