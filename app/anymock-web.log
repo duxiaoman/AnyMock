@@ -1,0 +1,204 @@
+2019-02-26 14:18:58.180  INFO 17492 --- [main] c.d.anymock.web.runner.AnyMockWebRunner  : Starting AnyMockWebRunner on BDSYHF124128DXM with PID 17492 (C:\Users\lizhenxi01\Desktop\dxm\open-source\anymock\app\web\runner\target\classes started by lizhenxi_dxm in C:\Users\lizhenxi01\Desktop\dxm\open-source\anymock\app)
+2019-02-26 14:18:58.186  INFO 17492 --- [main] c.d.anymock.web.runner.AnyMockWebRunner  : No active profile set, falling back to default profiles: default
+2019-02-26 14:18:59.830  INFO 17492 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-02-26 14:18:59.834  INFO 17492 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-02-26 14:18:59.873  INFO 17492 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 20ms. Found 0 repository interfaces.
+2019-02-26 14:19:00.280  INFO 17492 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$7b24655b] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-26 14:19:00.342  INFO 17492 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Hikari' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Hikari] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-26 14:19:00.371  INFO 17492 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'spring.datasource-org.springframework.boot.autoconfigure.jdbc.DataSourceProperties' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-26 14:19:00.410  INFO 17492 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dataSource' of type [com.zaxxer.hikari.HikariDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-26 14:19:00.422  INFO 17492 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.boot.autoconfigure.jdbc.DataSourceInitializerInvoker' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceInitializerInvoker] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-26 14:19:00.429  INFO 17492 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'spring.redis-org.springframework.boot.autoconfigure.data.redis.RedisProperties' of type [org.springframework.boot.autoconfigure.data.redis.RedisProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-26 14:19:00.434  INFO 17492 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.boot.autoconfigure.data.redis.LettuceConnectionConfiguration' of type [org.springframework.boot.autoconfigure.data.redis.LettuceConnectionConfiguration$$EnhancerBySpringCGLIB$$903e23a5] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-26 14:19:00.600  INFO 17492 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'lettuceClientResources' of type [io.lettuce.core.resource.DefaultClientResources] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-26 14:19:00.697  INFO 17492 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'redisConnectionFactory' of type [org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-26 14:19:00.699  INFO 17492 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dalConfig' of type [com.dxm.anymock.common.dal.config.DalConfig$$EnhancerBySpringCGLIB$$564f60ed] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-26 14:19:00.706  INFO 17492 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dalDigestLogger' of type [org.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-26 14:19:00.706  INFO 17492 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'apiDigestLoggerConfig' of type [com.dxm.anymock.web.service.config.ApiDigestLoggerConfig$$EnhancerBySpringCGLIB$$3a33ea51] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-26 14:19:00.788  INFO 17492 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'apiDigestLogger' of type [org.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-26 14:19:01.412  INFO 17492 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8329 (http)
+2019-02-26 14:19:01.442  INFO 17492 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-02-26 14:19:01.442  INFO 17492 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.14]
+2019-02-26 14:19:01.449  INFO 17492 --- [main] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_201\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files\Java\jdk1.8.0_201\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\PuTTY\;C:\Program Files (x86)\Common Files\Thunder Network\KanKan\Codecs;C:\Program Files\Git\cmd;C:\Program Files\apache-maven-3.5.4\bin;C:\Python27;C:\Python27\Scripts;C:\Users\lizhenxi01\AppData\Local\Programs\Python\Python37;C:\Users\lizhenxi01\AppData\Local\Programs\Python\Python37\Scripts;C:\Program Files (x86)\GnuWin32\bin;E:\Software;C:\Program Files (x86)\Graphviz2.38\bin;C:\Program Files\nodejs\;C:\Go\bin;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\WINDOWS\System32\OpenSSH\;C:\PROGRA~2\Groovy\GROOVY~1.16\bin;C:\Users\lizhenxi01\AppData\Local\Microsoft\WindowsApps;;C:\Users\lizhenxi01\AppData\Local\Programs\Fiddler;C:\Users\lizhenxi01\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\lizhenxi01\AppData\Roaming\npm;C:\Users\lizhenxi01\go\bin;C:\Users\lizhenxi01\AppData\Local\Microsoft\WindowsApps;.]
+2019-02-26 14:19:01.573  INFO 17492 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-02-26 14:19:01.574  INFO 17492 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3289 ms
+2019-02-26 14:19:02.596  INFO 17492 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-02-26 14:19:03.089  INFO 17492 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8329 (http) with context path ''
+2019-02-26 14:19:03.093  INFO 17492 --- [main] c.d.anymock.web.runner.AnyMockWebRunner  : Started AnyMockWebRunner in 6.056 seconds (JVM running for 7.811)
+2019-02-26 14:19:29.194  INFO 17492 --- [http-nio-8329-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-02-26 14:19:29.195  INFO 17492 --- [http-nio-8329-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-02-26 14:19:29.216  INFO 17492 --- [http-nio-8329-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 21 ms
+2019-02-26 14:19:29.260  INFO 17492 --- [http-nio-8329-exec-1] HTTP-TRACE-LOGGER                        : POST /anymockweb_api/v2/interface_http/selectBySpaceId
+2019-02-26 14:19:29.561  INFO 17492 --- [http-nio-8329-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-02-26 14:19:30.073  INFO 17492 --- [http-nio-8329-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-02-26 14:19:30.313  INFO 17492 --- [http-nio-8329-exec-1] DAL-DIGEST-LOGGER                        : [(HttpInterfaceDaoImpl.selectAll,N,192ms)()(null)]
+2019-02-26 14:19:30.401  INFO 17492 --- [http-nio-8329-exec-1] API-DIGEST-LOGGER                        : [(HttpInterfaceController.selectHttpInterfaceBySubSpaceId,N,834ms)({})(null)]
+2019-02-26 14:19:30.413 ERROR 17492 --- [http-nio-8329-exec-1] c.d.a.web.service.HttpExceptionHandler   : {"resultCode":"900000","resultMsg":"未知错误"}
+
+org.springframework.jdbc.BadSqlGrammarException: 
+### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Table 'anymock_opensource2.am_http_interface' doesn't exist
+### The error may exist in file [C:\Users\lizhenxi01\Desktop\dxm\open-source\anymock\app\common\dal\target\classes\META-INF\mappers\auto\com\dxm\anymock\common\dal\entity\HttpInterfacePOMapper.xml]
+### The error may involve com.dxm.anymock.common.dal.mapper.auto.HttpInterfacePOMapper.selectByExample-Inline
+### The error occurred while setting parameters
+### SQL: select                 id, request_uri, request_method, description, need_async_callback, config_mode, callback_request_url,      callback_request_method, sync_delay, async_delay, start, space_id, last_update_user,      last_update_time         from am_http_interface
+### Cause: java.sql.SQLSyntaxErrorException: Table 'anymock_opensource2.am_http_interface' doesn't exist
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: Table 'anymock_opensource2.am_http_interface' doesn't exist
+	at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.doTranslate(SQLErrorCodeSQLExceptionTranslator.java:234) ~[spring-jdbc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:72) ~[spring-jdbc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:73) ~[mybatis-spring-2.0.0.jar:2.0.0]
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:446) ~[mybatis-spring-2.0.0.jar:2.0.0]
+	at com.sun.proxy.$Proxy67.selectList(Unknown Source) ~[na:na]
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:230) ~[mybatis-spring-2.0.0.jar:2.0.0]
+	at org.apache.ibatis.binding.MapperMethod.executeForMany(MapperMethod.java:144) ~[mybatis-3.5.0.jar:3.5.0]
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:77) ~[mybatis-3.5.0.jar:3.5.0]
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:58) ~[mybatis-3.5.0.jar:3.5.0]
+	at com.sun.proxy.$Proxy68.selectByExample(Unknown Source) ~[na:na]
+	at com.dxm.anymock.common.dal.dao.impl.HttpInterfaceDaoImpl.selectAll(HttpInterfaceDaoImpl.java:47) ~[classes/:na]
+	at com.dxm.anymock.common.dal.dao.impl.HttpInterfaceDaoImpl$$FastClassBySpringCGLIB$$9a915f2b.invoke(<generated>) ~[classes/:na]
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749) ~[spring-aop-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:139) ~[spring-tx-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:294) ~[spring-tx-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98) ~[spring-tx-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at com.dxm.anymock.common.base.logger.BasicDigestLogger.invoke(BasicDigestLogger.java:31) ~[classes/:na]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:93) ~[spring-aop-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688) ~[spring-aop-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at com.dxm.anymock.common.dal.dao.impl.HttpInterfaceDaoImpl$$EnhancerBySpringCGLIB$$f625866b.selectAll(<generated>) ~[classes/:na]
+	at com.dxm.anymock.web.biz.impl.HttpInterfaceServiceImpl.selectAll(HttpInterfaceServiceImpl.java:39) ~[classes/:na]
+	at com.dxm.anymock.web.biz.impl.HttpInterfaceServiceImpl$$FastClassBySpringCGLIB$$d674c823.invoke(<generated>) ~[classes/:na]
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749) ~[spring-aop-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:294) ~[spring-tx-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:98) ~[spring-tx-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688) ~[spring-aop-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at com.dxm.anymock.web.biz.impl.HttpInterfaceServiceImpl$$EnhancerBySpringCGLIB$$a0965946.selectAll(<generated>) ~[classes/:na]
+	at com.dxm.anymock.web.service.controller.HttpInterfaceController.selectHttpInterfaceBySubSpaceId(HttpInterfaceController.java:43) ~[classes/:na]
+	at com.dxm.anymock.web.service.controller.HttpInterfaceController$$FastClassBySpringCGLIB$$a9254788.invoke(<generated>) ~[classes/:na]
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749) ~[spring-aop-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at com.dxm.anymock.common.base.logger.BasicDigestLogger.invoke(BasicDigestLogger.java:31) ~[classes/:na]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:93) ~[spring-aop-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688) ~[spring-aop-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at com.dxm.anymock.web.service.controller.HttpInterfaceController$$EnhancerBySpringCGLIB$$ed06e4bd.selectHttpInterfaceBySubSpaceId(<generated>) ~[classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_201]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_201]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_201]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_201]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:189) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:102) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005) [spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:908) [spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660) [tomcat-embed-core-9.0.14.jar:9.0.14]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882) [spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) [tomcat-embed-core-9.0.14.jar:9.0.14]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) [tomcat-embed-core-9.0.14.jar:9.0.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.14.jar:9.0.14]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) [tomcat-embed-websocket-9.0.14.jar:9.0.14]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.14.jar:9.0.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.14.jar:9.0.14]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99) [spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.14.jar:9.0.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.14.jar:9.0.14]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:92) [spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.14.jar:9.0.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.14.jar:9.0.14]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93) [spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.14.jar:9.0.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.14.jar:9.0.14]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200) [spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.14.jar:9.0.14]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.14.jar:9.0.14]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199) [tomcat-embed-core-9.0.14.jar:9.0.14]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) [tomcat-embed-core-9.0.14.jar:9.0.14]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:490) [tomcat-embed-core-9.0.14.jar:9.0.14]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) [tomcat-embed-core-9.0.14.jar:9.0.14]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.14.jar:9.0.14]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) [tomcat-embed-core-9.0.14.jar:9.0.14]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.14.jar:9.0.14]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408) [tomcat-embed-core-9.0.14.jar:9.0.14]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-9.0.14.jar:9.0.14]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:834) [tomcat-embed-core-9.0.14.jar:9.0.14]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1417) [tomcat-embed-core-9.0.14.jar:9.0.14]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.14.jar:9.0.14]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_201]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_201]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.14.jar:9.0.14]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_201]
+Caused by: java.sql.SQLSyntaxErrorException: Table 'anymock_opensource2.am_http_interface' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120) ~[mysql-connector-java-8.0.13.jar:8.0.13]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97) ~[mysql-connector-java-8.0.13.jar:8.0.13]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122) ~[mysql-connector-java-8.0.13.jar:8.0.13]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:974) ~[mysql-connector-java-8.0.13.jar:8.0.13]
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:391) ~[mysql-connector-java-8.0.13.jar:8.0.13]
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44) ~[HikariCP-3.2.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java) ~[HikariCP-3.2.0.jar:na]
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.query(PreparedStatementHandler.java:64) ~[mybatis-3.5.0.jar:3.5.0]
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.query(RoutingStatementHandler.java:79) ~[mybatis-3.5.0.jar:3.5.0]
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:63) ~[mybatis-3.5.0.jar:3.5.0]
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:324) ~[mybatis-3.5.0.jar:3.5.0]
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156) ~[mybatis-3.5.0.jar:3.5.0]
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109) ~[mybatis-3.5.0.jar:3.5.0]
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:83) ~[mybatis-3.5.0.jar:3.5.0]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:148) ~[mybatis-3.5.0.jar:3.5.0]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:141) ~[mybatis-3.5.0.jar:3.5.0]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_201]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_201]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_201]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_201]
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:433) ~[mybatis-spring-2.0.0.jar:2.0.0]
+	... 97 common frames omitted
+
+2019-02-26 14:19:50.453  INFO 17720 --- [main] c.d.anymock.web.runner.AnyMockWebRunner  : Starting AnyMockWebRunner on BDSYHF124128DXM with PID 17720 (C:\Users\lizhenxi01\Desktop\dxm\open-source\anymock\app\web\runner\target\classes started by lizhenxi_dxm in C:\Users\lizhenxi01\Desktop\dxm\open-source\anymock\app)
+2019-02-26 14:19:50.459  INFO 17720 --- [main] c.d.anymock.web.runner.AnyMockWebRunner  : No active profile set, falling back to default profiles: default
+2019-02-26 14:19:51.967  INFO 17720 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-02-26 14:19:51.970  INFO 17720 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-02-26 14:19:52.005  INFO 17720 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 18ms. Found 0 repository interfaces.
+2019-02-26 14:19:52.386  INFO 17720 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$b68c5f48] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-26 14:19:52.458  INFO 17720 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Hikari' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Hikari] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-26 14:19:52.485  INFO 17720 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'spring.datasource-org.springframework.boot.autoconfigure.jdbc.DataSourceProperties' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-26 14:19:52.509  INFO 17720 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dataSource' of type [com.zaxxer.hikari.HikariDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-26 14:19:52.524  INFO 17720 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.boot.autoconfigure.jdbc.DataSourceInitializerInvoker' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceInitializerInvoker] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-26 14:19:52.530  INFO 17720 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'spring.redis-org.springframework.boot.autoconfigure.data.redis.RedisProperties' of type [org.springframework.boot.autoconfigure.data.redis.RedisProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-26 14:19:52.533  INFO 17720 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.boot.autoconfigure.data.redis.LettuceConnectionConfiguration' of type [org.springframework.boot.autoconfigure.data.redis.LettuceConnectionConfiguration$$EnhancerBySpringCGLIB$$cba61d92] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-26 14:19:52.633  INFO 17720 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'lettuceClientResources' of type [io.lettuce.core.resource.DefaultClientResources] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-26 14:19:52.721  INFO 17720 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'redisConnectionFactory' of type [org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-26 14:19:52.722  INFO 17720 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dalConfig' of type [com.dxm.anymock.common.dal.config.DalConfig$$EnhancerBySpringCGLIB$$91b75ada] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-26 14:19:52.728  INFO 17720 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'dalDigestLogger' of type [org.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-26 14:19:52.729  INFO 17720 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'apiDigestLoggerConfig' of type [com.dxm.anymock.web.service.config.ApiDigestLoggerConfig$$EnhancerBySpringCGLIB$$759be43e] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-26 14:19:52.784  INFO 17720 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'apiDigestLogger' of type [org.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-26 14:19:53.250  INFO 17720 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8329 (http)
+2019-02-26 14:19:53.276  INFO 17720 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-02-26 14:19:53.277  INFO 17720 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.14]
+2019-02-26 14:19:53.284  INFO 17720 --- [main] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_201\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files\Java\jdk1.8.0_201\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\PuTTY\;C:\Program Files (x86)\Common Files\Thunder Network\KanKan\Codecs;C:\Program Files\Git\cmd;C:\Program Files\apache-maven-3.5.4\bin;C:\Python27;C:\Python27\Scripts;C:\Users\lizhenxi01\AppData\Local\Programs\Python\Python37;C:\Users\lizhenxi01\AppData\Local\Programs\Python\Python37\Scripts;C:\Program Files (x86)\GnuWin32\bin;E:\Software;C:\Program Files (x86)\Graphviz2.38\bin;C:\Program Files\nodejs\;C:\Go\bin;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\WINDOWS\System32\OpenSSH\;C:\PROGRA~2\Groovy\GROOVY~1.16\bin;C:\Users\lizhenxi01\AppData\Local\Microsoft\WindowsApps;;C:\Users\lizhenxi01\AppData\Local\Programs\Fiddler;C:\Users\lizhenxi01\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\lizhenxi01\AppData\Roaming\npm;C:\Users\lizhenxi01\go\bin;C:\Users\lizhenxi01\AppData\Local\Microsoft\WindowsApps;.]
+2019-02-26 14:19:53.390  INFO 17720 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-02-26 14:19:53.390  INFO 17720 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2800 ms
+2019-02-26 14:19:54.233  INFO 17720 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-02-26 14:19:54.675  INFO 17720 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8329 (http) with context path ''
+2019-02-26 14:19:54.678  INFO 17720 --- [main] c.d.anymock.web.runner.AnyMockWebRunner  : Started AnyMockWebRunner in 5.313 seconds (JVM running for 6.804)
+2019-02-26 14:19:58.454  INFO 17720 --- [http-nio-8329-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-02-26 14:19:58.455  INFO 17720 --- [http-nio-8329-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-02-26 14:19:58.468  INFO 17720 --- [http-nio-8329-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 13 ms
+2019-02-26 14:19:58.486  INFO 17720 --- [http-nio-8329-exec-1] HTTP-TRACE-LOGGER                        : POST /anymockweb_api/v2/interface_http/selectBySpaceId
+2019-02-26 14:19:58.770  INFO 17720 --- [http-nio-8329-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-02-26 14:19:59.296  INFO 17720 --- [http-nio-8329-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-02-26 14:19:59.494  INFO 17720 --- [http-nio-8329-exec-1] DAL-DIGEST-LOGGER                        : [(HttpInterfaceDaoImpl.selectAll,Y,121ms)()([{"asyncDelay":1,"callbackRequestMethod":"GET1","callbackRequestUrl":"http://127.0.0.1:8332/test1","configMode":0,"description":"this is an example1","id":25,"lastUpdateTime":1551072892000,"lastUpdateUser":"guest","needAsyncCallback":false,"requestMethod":"GET","requestUri":"/example/static","spaceId":16,"start":true,"syncDelay":1}, {"asyncDelay":1,"callbackRequestMethod":"","callbackRequestUrl":"","configMode":2,"description":"aig 人脸搜索接口","id":26,"lastUpdateTime":1551151315000,"lastUpdateUser":"guest","needAsyncCallback":false,"requestMethod":"POST","requestUri":"/rest/2.0/vis-faceverify/face-api/v3/face/identify","spaceId":16,"start":true,"syncDelay":1}])]

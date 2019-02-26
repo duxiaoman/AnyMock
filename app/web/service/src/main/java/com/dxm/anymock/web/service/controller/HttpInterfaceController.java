@@ -37,9 +37,13 @@ public class HttpInterfaceController {
     @PostMapping("/interface_http/selectBySpaceId")
     @ResponseBody
     public BaseResponse selectHttpInterfaceBySubSpaceId(
-            @Validated(value = SpaceIdCheck.class) @RequestBody HttpInterface httpInterface
+            @Validated @RequestBody HttpInterface httpInterface
     ) {
-        return new BaseResponse(httpInterfaceService.selectBySpaceId(httpInterface.getSpaceId()));
+        if (httpInterface.getSpaceId() == null) {
+            return new BaseResponse(httpInterfaceService.selectAll());
+        } else {
+            return new BaseResponse(httpInterfaceService.selectBySpaceId(httpInterface.getSpaceId()));
+        }
     }
 
     @PostMapping("/interface_http/insert")

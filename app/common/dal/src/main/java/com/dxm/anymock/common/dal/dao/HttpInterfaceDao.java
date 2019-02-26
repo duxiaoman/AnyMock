@@ -7,6 +7,7 @@ import com.dxm.anymock.common.base.entity.RequestType;
 import java.util.List;
 
 public interface HttpInterfaceDao {
+    List<HttpInterface> selectAll();
     List<HttpInterface> selectBySpaceId(Long subSpaceId);
     HttpInterface selectById(Long id);
     HttpInterface selectByRequestType(RequestType requestType);

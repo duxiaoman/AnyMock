@@ -97,6 +97,8 @@ public class HttpSyncMockServiceImpl implements HttpSyncMockService {
                 responseBody = httpInterface.getResponseBody();
                 break;
             case SCRIPT:
+                profiler.start("exec sync script");
+                profiler.startNested(GroovyService.class.getSimpleName());
                 responseBody = groovyService.exec(mockContext, httpInterface.getSyncScript());
                 break;
             case SCRIPT_WITH_BRANCH:

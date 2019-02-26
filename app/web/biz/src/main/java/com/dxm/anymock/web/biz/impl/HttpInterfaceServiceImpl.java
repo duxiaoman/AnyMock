@@ -35,6 +35,11 @@ public class HttpInterfaceServiceImpl implements HttpInterfaceService {
     private RedisDao redisDao;
 
     @Override
+    public List<HttpInterface> selectAll() {
+        return httpInterfaceDao.selectAll();
+    }
+
+    @Override
     public List<HttpInterface> selectBySpaceId(Long spaceId) {
         return httpInterfaceDao.selectBySpaceId(spaceId);
     }
