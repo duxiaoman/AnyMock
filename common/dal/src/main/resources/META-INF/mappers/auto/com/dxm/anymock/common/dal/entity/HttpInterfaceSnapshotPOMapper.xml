@@ -1,0 +1,650 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dxm.anymock.common.dal.mapper.auto.HttpInterfaceSnapshotPOMapper">
+  <resultMap id="BaseResultMap" type="com.dxm.anymock.common.dal.entity.HttpInterfaceSnapshotPO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="http_interface_id" jdbcType="BIGINT" property="httpInterfaceId" />
+    <result column="http_interface_request_uri" jdbcType="VARCHAR" property="httpInterfaceRequestUri" />
+    <result column="http_interface_request_method" jdbcType="VARCHAR" property="httpInterfaceRequestMethod" />
+    <result column="http_interface_description" jdbcType="VARCHAR" property="httpInterfaceDescription" />
+    <result column="http_interface_need_async_callback" jdbcType="BIT" property="httpInterfaceNeedAsyncCallback" />
+    <result column="http_interface_config_mode" jdbcType="INTEGER" property="httpInterfaceConfigMode" />
+    <result column="http_interface_callback_request_url" jdbcType="VARCHAR" property="httpInterfaceCallbackRequestUrl" />
+    <result column="http_interface_callback_request_method" jdbcType="VARCHAR" property="httpInterfaceCallbackRequestMethod" />
+    <result column="http_interface_sync_delay" jdbcType="INTEGER" property="httpInterfaceSyncDelay" />
+    <result column="http_interface_async_delay" jdbcType="INTEGER" property="httpInterfaceAsyncDelay" />
+    <result column="http_interface_start" jdbcType="BIT" property="httpInterfaceStart" />
+    <result column="http_interface_space_id" jdbcType="BIGINT" property="httpInterfaceSpaceId" />
+    <result column="http_interface_last_update_user" jdbcType="VARCHAR" property="httpInterfaceLastUpdateUser" />
+    <result column="http_interface_last_update_time" jdbcType="TIMESTAMP" property="httpInterfaceLastUpdateTime" />
+    <result column="op_type" jdbcType="INTEGER" property="opType" />
+    <result column="op_user" jdbcType="VARCHAR" property="opUser" />
+    <result column="snapshot_time" jdbcType="TIMESTAMP" property="snapshotTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.dxm.anymock.common.dal.entity.HttpInterfaceSnapshotPOWithBLOBs">
+    <result column="http_interface_response_body" jdbcType="LONGVARCHAR" property="httpInterfaceResponseBody" />
+    <result column="http_interface_callback_request_body" jdbcType="LONGVARCHAR" property="httpInterfaceCallbackRequestBody" />
+    <result column="http_interface_branch_jump_script" jdbcType="LONGVARCHAR" property="httpInterfaceBranchJumpScript" />
+    <result column="http_interface_sync_script" jdbcType="LONGVARCHAR" property="httpInterfaceSyncScript" />
+    <result column="http_interface_async_script" jdbcType="LONGVARCHAR" property="httpInterfaceAsyncScript" />
+    <result column="http_interface_response_header_list" jdbcType="LONGVARCHAR" property="httpInterfaceResponseHeaderList" />
+    <result column="http_interface_callback_request_header_list" jdbcType="LONGVARCHAR" property="httpInterfaceCallbackRequestHeaderList" />
+    <result column="http_interface_branch_script_list" jdbcType="LONGVARCHAR" property="httpInterfaceBranchScriptList" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, http_interface_id, http_interface_request_uri, http_interface_request_method, 
+    http_interface_description, http_interface_need_async_callback, http_interface_config_mode, 
+    http_interface_callback_request_url, http_interface_callback_request_method, http_interface_sync_delay, 
+    http_interface_async_delay, http_interface_start, http_interface_space_id, http_interface_last_update_user, 
+    http_interface_last_update_time, op_type, op_user, snapshot_time
+  </sql>
+  <sql id="Blob_Column_List">
+    http_interface_response_body, http_interface_callback_request_body, http_interface_branch_jump_script, 
+    http_interface_sync_script, http_interface_async_script, http_interface_response_header_list, 
+    http_interface_callback_request_header_list, http_interface_branch_script_list
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.dxm.anymock.common.dal.entity.HttpInterfaceSnapshotPOExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from am_http_interface_snapshot
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.dxm.anymock.common.dal.entity.HttpInterfaceSnapshotPOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from am_http_interface_snapshot
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from am_http_interface_snapshot
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from am_http_interface_snapshot
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dxm.anymock.common.dal.entity.HttpInterfaceSnapshotPOExample">
+    delete from am_http_interface_snapshot
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dxm.anymock.common.dal.entity.HttpInterfaceSnapshotPOWithBLOBs">
+    insert into am_http_interface_snapshot (id, http_interface_id, http_interface_request_uri, 
+      http_interface_request_method, http_interface_description, 
+      http_interface_need_async_callback, http_interface_config_mode, 
+      http_interface_callback_request_url, http_interface_callback_request_method, 
+      http_interface_sync_delay, http_interface_async_delay, 
+      http_interface_start, http_interface_space_id, http_interface_last_update_user, 
+      http_interface_last_update_time, op_type, 
+      op_user, snapshot_time, http_interface_response_body, 
+      http_interface_callback_request_body, http_interface_branch_jump_script, 
+      http_interface_sync_script, http_interface_async_script, 
+      http_interface_response_header_list, http_interface_callback_request_header_list, 
+      http_interface_branch_script_list)
+    values (#{id,jdbcType=BIGINT}, #{httpInterfaceId,jdbcType=BIGINT}, #{httpInterfaceRequestUri,jdbcType=VARCHAR}, 
+      #{httpInterfaceRequestMethod,jdbcType=VARCHAR}, #{httpInterfaceDescription,jdbcType=VARCHAR}, 
+      #{httpInterfaceNeedAsyncCallback,jdbcType=BIT}, #{httpInterfaceConfigMode,jdbcType=INTEGER}, 
+      #{httpInterfaceCallbackRequestUrl,jdbcType=VARCHAR}, #{httpInterfaceCallbackRequestMethod,jdbcType=VARCHAR}, 
+      #{httpInterfaceSyncDelay,jdbcType=INTEGER}, #{httpInterfaceAsyncDelay,jdbcType=INTEGER}, 
+      #{httpInterfaceStart,jdbcType=BIT}, #{httpInterfaceSpaceId,jdbcType=BIGINT}, #{httpInterfaceLastUpdateUser,jdbcType=VARCHAR}, 
+      #{httpInterfaceLastUpdateTime,jdbcType=TIMESTAMP}, #{opType,jdbcType=INTEGER}, 
+      #{opUser,jdbcType=VARCHAR}, #{snapshotTime,jdbcType=TIMESTAMP}, #{httpInterfaceResponseBody,jdbcType=LONGVARCHAR}, 
+      #{httpInterfaceCallbackRequestBody,jdbcType=LONGVARCHAR}, #{httpInterfaceBranchJumpScript,jdbcType=LONGVARCHAR}, 
+      #{httpInterfaceSyncScript,jdbcType=LONGVARCHAR}, #{httpInterfaceAsyncScript,jdbcType=LONGVARCHAR}, 
+      #{httpInterfaceResponseHeaderList,jdbcType=LONGVARCHAR}, #{httpInterfaceCallbackRequestHeaderList,jdbcType=LONGVARCHAR}, 
+      #{httpInterfaceBranchScriptList,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dxm.anymock.common.dal.entity.HttpInterfaceSnapshotPOWithBLOBs">
+    insert into am_http_interface_snapshot
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="httpInterfaceId != null">
+        http_interface_id,
+      </if>
+      <if test="httpInterfaceRequestUri != null">
+        http_interface_request_uri,
+      </if>
+      <if test="httpInterfaceRequestMethod != null">
+        http_interface_request_method,
+      </if>
+      <if test="httpInterfaceDescription != null">
+        http_interface_description,
+      </if>
+      <if test="httpInterfaceNeedAsyncCallback != null">
+        http_interface_need_async_callback,
+      </if>
+      <if test="httpInterfaceConfigMode != null">
+        http_interface_config_mode,
+      </if>
+      <if test="httpInterfaceCallbackRequestUrl != null">
+        http_interface_callback_request_url,
+      </if>
+      <if test="httpInterfaceCallbackRequestMethod != null">
+        http_interface_callback_request_method,
+      </if>
+      <if test="httpInterfaceSyncDelay != null">
+        http_interface_sync_delay,
+      </if>
+      <if test="httpInterfaceAsyncDelay != null">
+        http_interface_async_delay,
+      </if>
+      <if test="httpInterfaceStart != null">
+        http_interface_start,
+      </if>
+      <if test="httpInterfaceSpaceId != null">
+        http_interface_space_id,
+      </if>
+      <if test="httpInterfaceLastUpdateUser != null">
+        http_interface_last_update_user,
+      </if>
+      <if test="httpInterfaceLastUpdateTime != null">
+        http_interface_last_update_time,
+      </if>
+      <if test="opType != null">
+        op_type,
+      </if>
+      <if test="opUser != null">
+        op_user,
+      </if>
+      <if test="snapshotTime != null">
+        snapshot_time,
+      </if>
+      <if test="httpInterfaceResponseBody != null">
+        http_interface_response_body,
+      </if>
+      <if test="httpInterfaceCallbackRequestBody != null">
+        http_interface_callback_request_body,
+      </if>
+      <if test="httpInterfaceBranchJumpScript != null">
+        http_interface_branch_jump_script,
+      </if>
+      <if test="httpInterfaceSyncScript != null">
+        http_interface_sync_script,
+      </if>
+      <if test="httpInterfaceAsyncScript != null">
+        http_interface_async_script,
+      </if>
+      <if test="httpInterfaceResponseHeaderList != null">
+        http_interface_response_header_list,
+      </if>
+      <if test="httpInterfaceCallbackRequestHeaderList != null">
+        http_interface_callback_request_header_list,
+      </if>
+      <if test="httpInterfaceBranchScriptList != null">
+        http_interface_branch_script_list,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="httpInterfaceId != null">
+        #{httpInterfaceId,jdbcType=BIGINT},
+      </if>
+      <if test="httpInterfaceRequestUri != null">
+        #{httpInterfaceRequestUri,jdbcType=VARCHAR},
+      </if>
+      <if test="httpInterfaceRequestMethod != null">
+        #{httpInterfaceRequestMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="httpInterfaceDescription != null">
+        #{httpInterfaceDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="httpInterfaceNeedAsyncCallback != null">
+        #{httpInterfaceNeedAsyncCallback,jdbcType=BIT},
+      </if>
+      <if test="httpInterfaceConfigMode != null">
+        #{httpInterfaceConfigMode,jdbcType=INTEGER},
+      </if>
+      <if test="httpInterfaceCallbackRequestUrl != null">
+        #{httpInterfaceCallbackRequestUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="httpInterfaceCallbackRequestMethod != null">
+        #{httpInterfaceCallbackRequestMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="httpInterfaceSyncDelay != null">
+        #{httpInterfaceSyncDelay,jdbcType=INTEGER},
+      </if>
+      <if test="httpInterfaceAsyncDelay != null">
+        #{httpInterfaceAsyncDelay,jdbcType=INTEGER},
+      </if>
+      <if test="httpInterfaceStart != null">
+        #{httpInterfaceStart,jdbcType=BIT},
+      </if>
+      <if test="httpInterfaceSpaceId != null">
+        #{httpInterfaceSpaceId,jdbcType=BIGINT},
+      </if>
+      <if test="httpInterfaceLastUpdateUser != null">
+        #{httpInterfaceLastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="httpInterfaceLastUpdateTime != null">
+        #{httpInterfaceLastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opType != null">
+        #{opType,jdbcType=INTEGER},
+      </if>
+      <if test="opUser != null">
+        #{opUser,jdbcType=VARCHAR},
+      </if>
+      <if test="snapshotTime != null">
+        #{snapshotTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="httpInterfaceResponseBody != null">
+        #{httpInterfaceResponseBody,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="httpInterfaceCallbackRequestBody != null">
+        #{httpInterfaceCallbackRequestBody,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="httpInterfaceBranchJumpScript != null">
+        #{httpInterfaceBranchJumpScript,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="httpInterfaceSyncScript != null">
+        #{httpInterfaceSyncScript,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="httpInterfaceAsyncScript != null">
+        #{httpInterfaceAsyncScript,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="httpInterfaceResponseHeaderList != null">
+        #{httpInterfaceResponseHeaderList,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="httpInterfaceCallbackRequestHeaderList != null">
+        #{httpInterfaceCallbackRequestHeaderList,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="httpInterfaceBranchScriptList != null">
+        #{httpInterfaceBranchScriptList,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dxm.anymock.common.dal.entity.HttpInterfaceSnapshotPOExample" resultType="java.lang.Long">
+    select count(*) from am_http_interface_snapshot
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update am_http_interface_snapshot
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.httpInterfaceId != null">
+        http_interface_id = #{record.httpInterfaceId,jdbcType=BIGINT},
+      </if>
+      <if test="record.httpInterfaceRequestUri != null">
+        http_interface_request_uri = #{record.httpInterfaceRequestUri,jdbcType=VARCHAR},
+      </if>
+      <if test="record.httpInterfaceRequestMethod != null">
+        http_interface_request_method = #{record.httpInterfaceRequestMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.httpInterfaceDescription != null">
+        http_interface_description = #{record.httpInterfaceDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.httpInterfaceNeedAsyncCallback != null">
+        http_interface_need_async_callback = #{record.httpInterfaceNeedAsyncCallback,jdbcType=BIT},
+      </if>
+      <if test="record.httpInterfaceConfigMode != null">
+        http_interface_config_mode = #{record.httpInterfaceConfigMode,jdbcType=INTEGER},
+      </if>
+      <if test="record.httpInterfaceCallbackRequestUrl != null">
+        http_interface_callback_request_url = #{record.httpInterfaceCallbackRequestUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.httpInterfaceCallbackRequestMethod != null">
+        http_interface_callback_request_method = #{record.httpInterfaceCallbackRequestMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.httpInterfaceSyncDelay != null">
+        http_interface_sync_delay = #{record.httpInterfaceSyncDelay,jdbcType=INTEGER},
+      </if>
+      <if test="record.httpInterfaceAsyncDelay != null">
+        http_interface_async_delay = #{record.httpInterfaceAsyncDelay,jdbcType=INTEGER},
+      </if>
+      <if test="record.httpInterfaceStart != null">
+        http_interface_start = #{record.httpInterfaceStart,jdbcType=BIT},
+      </if>
+      <if test="record.httpInterfaceSpaceId != null">
+        http_interface_space_id = #{record.httpInterfaceSpaceId,jdbcType=BIGINT},
+      </if>
+      <if test="record.httpInterfaceLastUpdateUser != null">
+        http_interface_last_update_user = #{record.httpInterfaceLastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.httpInterfaceLastUpdateTime != null">
+        http_interface_last_update_time = #{record.httpInterfaceLastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.opType != null">
+        op_type = #{record.opType,jdbcType=INTEGER},
+      </if>
+      <if test="record.opUser != null">
+        op_user = #{record.opUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.snapshotTime != null">
+        snapshot_time = #{record.snapshotTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.httpInterfaceResponseBody != null">
+        http_interface_response_body = #{record.httpInterfaceResponseBody,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.httpInterfaceCallbackRequestBody != null">
+        http_interface_callback_request_body = #{record.httpInterfaceCallbackRequestBody,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.httpInterfaceBranchJumpScript != null">
+        http_interface_branch_jump_script = #{record.httpInterfaceBranchJumpScript,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.httpInterfaceSyncScript != null">
+        http_interface_sync_script = #{record.httpInterfaceSyncScript,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.httpInterfaceAsyncScript != null">
+        http_interface_async_script = #{record.httpInterfaceAsyncScript,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.httpInterfaceResponseHeaderList != null">
+        http_interface_response_header_list = #{record.httpInterfaceResponseHeaderList,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.httpInterfaceCallbackRequestHeaderList != null">
+        http_interface_callback_request_header_list = #{record.httpInterfaceCallbackRequestHeaderList,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.httpInterfaceBranchScriptList != null">
+        http_interface_branch_script_list = #{record.httpInterfaceBranchScriptList,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update am_http_interface_snapshot
+    set id = #{record.id,jdbcType=BIGINT},
+      http_interface_id = #{record.httpInterfaceId,jdbcType=BIGINT},
+      http_interface_request_uri = #{record.httpInterfaceRequestUri,jdbcType=VARCHAR},
+      http_interface_request_method = #{record.httpInterfaceRequestMethod,jdbcType=VARCHAR},
+      http_interface_description = #{record.httpInterfaceDescription,jdbcType=VARCHAR},
+      http_interface_need_async_callback = #{record.httpInterfaceNeedAsyncCallback,jdbcType=BIT},
+      http_interface_config_mode = #{record.httpInterfaceConfigMode,jdbcType=INTEGER},
+      http_interface_callback_request_url = #{record.httpInterfaceCallbackRequestUrl,jdbcType=VARCHAR},
+      http_interface_callback_request_method = #{record.httpInterfaceCallbackRequestMethod,jdbcType=VARCHAR},
+      http_interface_sync_delay = #{record.httpInterfaceSyncDelay,jdbcType=INTEGER},
+      http_interface_async_delay = #{record.httpInterfaceAsyncDelay,jdbcType=INTEGER},
+      http_interface_start = #{record.httpInterfaceStart,jdbcType=BIT},
+      http_interface_space_id = #{record.httpInterfaceSpaceId,jdbcType=BIGINT},
+      http_interface_last_update_user = #{record.httpInterfaceLastUpdateUser,jdbcType=VARCHAR},
+      http_interface_last_update_time = #{record.httpInterfaceLastUpdateTime,jdbcType=TIMESTAMP},
+      op_type = #{record.opType,jdbcType=INTEGER},
+      op_user = #{record.opUser,jdbcType=VARCHAR},
+      snapshot_time = #{record.snapshotTime,jdbcType=TIMESTAMP},
+      http_interface_response_body = #{record.httpInterfaceResponseBody,jdbcType=LONGVARCHAR},
+      http_interface_callback_request_body = #{record.httpInterfaceCallbackRequestBody,jdbcType=LONGVARCHAR},
+      http_interface_branch_jump_script = #{record.httpInterfaceBranchJumpScript,jdbcType=LONGVARCHAR},
+      http_interface_sync_script = #{record.httpInterfaceSyncScript,jdbcType=LONGVARCHAR},
+      http_interface_async_script = #{record.httpInterfaceAsyncScript,jdbcType=LONGVARCHAR},
+      http_interface_response_header_list = #{record.httpInterfaceResponseHeaderList,jdbcType=LONGVARCHAR},
+      http_interface_callback_request_header_list = #{record.httpInterfaceCallbackRequestHeaderList,jdbcType=LONGVARCHAR},
+      http_interface_branch_script_list = #{record.httpInterfaceBranchScriptList,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update am_http_interface_snapshot
+    set id = #{record.id,jdbcType=BIGINT},
+      http_interface_id = #{record.httpInterfaceId,jdbcType=BIGINT},
+      http_interface_request_uri = #{record.httpInterfaceRequestUri,jdbcType=VARCHAR},
+      http_interface_request_method = #{record.httpInterfaceRequestMethod,jdbcType=VARCHAR},
+      http_interface_description = #{record.httpInterfaceDescription,jdbcType=VARCHAR},
+      http_interface_need_async_callback = #{record.httpInterfaceNeedAsyncCallback,jdbcType=BIT},
+      http_interface_config_mode = #{record.httpInterfaceConfigMode,jdbcType=INTEGER},
+      http_interface_callback_request_url = #{record.httpInterfaceCallbackRequestUrl,jdbcType=VARCHAR},
+      http_interface_callback_request_method = #{record.httpInterfaceCallbackRequestMethod,jdbcType=VARCHAR},
+      http_interface_sync_delay = #{record.httpInterfaceSyncDelay,jdbcType=INTEGER},
+      http_interface_async_delay = #{record.httpInterfaceAsyncDelay,jdbcType=INTEGER},
+      http_interface_start = #{record.httpInterfaceStart,jdbcType=BIT},
+      http_interface_space_id = #{record.httpInterfaceSpaceId,jdbcType=BIGINT},
+      http_interface_last_update_user = #{record.httpInterfaceLastUpdateUser,jdbcType=VARCHAR},
+      http_interface_last_update_time = #{record.httpInterfaceLastUpdateTime,jdbcType=TIMESTAMP},
+      op_type = #{record.opType,jdbcType=INTEGER},
+      op_user = #{record.opUser,jdbcType=VARCHAR},
+      snapshot_time = #{record.snapshotTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dxm.anymock.common.dal.entity.HttpInterfaceSnapshotPOWithBLOBs">
+    update am_http_interface_snapshot
+    <set>
+      <if test="httpInterfaceId != null">
+        http_interface_id = #{httpInterfaceId,jdbcType=BIGINT},
+      </if>
+      <if test="httpInterfaceRequestUri != null">
+        http_interface_request_uri = #{httpInterfaceRequestUri,jdbcType=VARCHAR},
+      </if>
+      <if test="httpInterfaceRequestMethod != null">
+        http_interface_request_method = #{httpInterfaceRequestMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="httpInterfaceDescription != null">
+        http_interface_description = #{httpInterfaceDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="httpInterfaceNeedAsyncCallback != null">
+        http_interface_need_async_callback = #{httpInterfaceNeedAsyncCallback,jdbcType=BIT},
+      </if>
+      <if test="httpInterfaceConfigMode != null">
+        http_interface_config_mode = #{httpInterfaceConfigMode,jdbcType=INTEGER},
+      </if>
+      <if test="httpInterfaceCallbackRequestUrl != null">
+        http_interface_callback_request_url = #{httpInterfaceCallbackRequestUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="httpInterfaceCallbackRequestMethod != null">
+        http_interface_callback_request_method = #{httpInterfaceCallbackRequestMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="httpInterfaceSyncDelay != null">
+        http_interface_sync_delay = #{httpInterfaceSyncDelay,jdbcType=INTEGER},
+      </if>
+      <if test="httpInterfaceAsyncDelay != null">
+        http_interface_async_delay = #{httpInterfaceAsyncDelay,jdbcType=INTEGER},
+      </if>
+      <if test="httpInterfaceStart != null">
+        http_interface_start = #{httpInterfaceStart,jdbcType=BIT},
+      </if>
+      <if test="httpInterfaceSpaceId != null">
+        http_interface_space_id = #{httpInterfaceSpaceId,jdbcType=BIGINT},
+      </if>
+      <if test="httpInterfaceLastUpdateUser != null">
+        http_interface_last_update_user = #{httpInterfaceLastUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="httpInterfaceLastUpdateTime != null">
+        http_interface_last_update_time = #{httpInterfaceLastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="opType != null">
+        op_type = #{opType,jdbcType=INTEGER},
+      </if>
+      <if test="opUser != null">
+        op_user = #{opUser,jdbcType=VARCHAR},
+      </if>
+      <if test="snapshotTime != null">
+        snapshot_time = #{snapshotTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="httpInterfaceResponseBody != null">
+        http_interface_response_body = #{httpInterfaceResponseBody,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="httpInterfaceCallbackRequestBody != null">
+        http_interface_callback_request_body = #{httpInterfaceCallbackRequestBody,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="httpInterfaceBranchJumpScript != null">
+        http_interface_branch_jump_script = #{httpInterfaceBranchJumpScript,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="httpInterfaceSyncScript != null">
+        http_interface_sync_script = #{httpInterfaceSyncScript,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="httpInterfaceAsyncScript != null">
+        http_interface_async_script = #{httpInterfaceAsyncScript,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="httpInterfaceResponseHeaderList != null">
+        http_interface_response_header_list = #{httpInterfaceResponseHeaderList,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="httpInterfaceCallbackRequestHeaderList != null">
+        http_interface_callback_request_header_list = #{httpInterfaceCallbackRequestHeaderList,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="httpInterfaceBranchScriptList != null">
+        http_interface_branch_script_list = #{httpInterfaceBranchScriptList,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.dxm.anymock.common.dal.entity.HttpInterfaceSnapshotPOWithBLOBs">
+    update am_http_interface_snapshot
+    set http_interface_id = #{httpInterfaceId,jdbcType=BIGINT},
+      http_interface_request_uri = #{httpInterfaceRequestUri,jdbcType=VARCHAR},
+      http_interface_request_method = #{httpInterfaceRequestMethod,jdbcType=VARCHAR},
+      http_interface_description = #{httpInterfaceDescription,jdbcType=VARCHAR},
+      http_interface_need_async_callback = #{httpInterfaceNeedAsyncCallback,jdbcType=BIT},
+      http_interface_config_mode = #{httpInterfaceConfigMode,jdbcType=INTEGER},
+      http_interface_callback_request_url = #{httpInterfaceCallbackRequestUrl,jdbcType=VARCHAR},
+      http_interface_callback_request_method = #{httpInterfaceCallbackRequestMethod,jdbcType=VARCHAR},
+      http_interface_sync_delay = #{httpInterfaceSyncDelay,jdbcType=INTEGER},
+      http_interface_async_delay = #{httpInterfaceAsyncDelay,jdbcType=INTEGER},
+      http_interface_start = #{httpInterfaceStart,jdbcType=BIT},
+      http_interface_space_id = #{httpInterfaceSpaceId,jdbcType=BIGINT},
+      http_interface_last_update_user = #{httpInterfaceLastUpdateUser,jdbcType=VARCHAR},
+      http_interface_last_update_time = #{httpInterfaceLastUpdateTime,jdbcType=TIMESTAMP},
+      op_type = #{opType,jdbcType=INTEGER},
+      op_user = #{opUser,jdbcType=VARCHAR},
+      snapshot_time = #{snapshotTime,jdbcType=TIMESTAMP},
+      http_interface_response_body = #{httpInterfaceResponseBody,jdbcType=LONGVARCHAR},
+      http_interface_callback_request_body = #{httpInterfaceCallbackRequestBody,jdbcType=LONGVARCHAR},
+      http_interface_branch_jump_script = #{httpInterfaceBranchJumpScript,jdbcType=LONGVARCHAR},
+      http_interface_sync_script = #{httpInterfaceSyncScript,jdbcType=LONGVARCHAR},
+      http_interface_async_script = #{httpInterfaceAsyncScript,jdbcType=LONGVARCHAR},
+      http_interface_response_header_list = #{httpInterfaceResponseHeaderList,jdbcType=LONGVARCHAR},
+      http_interface_callback_request_header_list = #{httpInterfaceCallbackRequestHeaderList,jdbcType=LONGVARCHAR},
+      http_interface_branch_script_list = #{httpInterfaceBranchScriptList,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dxm.anymock.common.dal.entity.HttpInterfaceSnapshotPO">
+    update am_http_interface_snapshot
+    set http_interface_id = #{httpInterfaceId,jdbcType=BIGINT},
+      http_interface_request_uri = #{httpInterfaceRequestUri,jdbcType=VARCHAR},
+      http_interface_request_method = #{httpInterfaceRequestMethod,jdbcType=VARCHAR},
+      http_interface_description = #{httpInterfaceDescription,jdbcType=VARCHAR},
+      http_interface_need_async_callback = #{httpInterfaceNeedAsyncCallback,jdbcType=BIT},
+      http_interface_config_mode = #{httpInterfaceConfigMode,jdbcType=INTEGER},
+      http_interface_callback_request_url = #{httpInterfaceCallbackRequestUrl,jdbcType=VARCHAR},
+      http_interface_callback_request_method = #{httpInterfaceCallbackRequestMethod,jdbcType=VARCHAR},
+      http_interface_sync_delay = #{httpInterfaceSyncDelay,jdbcType=INTEGER},
+      http_interface_async_delay = #{httpInterfaceAsyncDelay,jdbcType=INTEGER},
+      http_interface_start = #{httpInterfaceStart,jdbcType=BIT},
+      http_interface_space_id = #{httpInterfaceSpaceId,jdbcType=BIGINT},
+      http_interface_last_update_user = #{httpInterfaceLastUpdateUser,jdbcType=VARCHAR},
+      http_interface_last_update_time = #{httpInterfaceLastUpdateTime,jdbcType=TIMESTAMP},
+      op_type = #{opType,jdbcType=INTEGER},
+      op_user = #{opUser,jdbcType=VARCHAR},
+      snapshot_time = #{snapshotTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByExampleWithBLOBsWithRowbounds" parameterType="com.dxm.anymock.common.dal.entity.HttpInterfaceSnapshotPOExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from am_http_interface_snapshot
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExampleWithRowbounds" parameterType="com.dxm.anymock.common.dal.entity.HttpInterfaceSnapshotPOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from am_http_interface_snapshot
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

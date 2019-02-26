@@ -8,6 +8,8 @@
     <classPathEntry location="mysql-connector-java-5.1.26.jar" />
 
     <context id="DB" targetRuntime="MyBatis3">
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin>
+        
         <commentGenerator>
             <property name="suppressAllComments" value="true" />
         </commentGenerator>
