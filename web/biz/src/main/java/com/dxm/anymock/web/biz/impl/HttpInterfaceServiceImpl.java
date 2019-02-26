@@ -12,11 +12,14 @@ import com.dxm.anymock.common.dal.dao.HttpInterfaceSnapshotDao;
 import com.dxm.anymock.common.dal.dao.RedisDao;
 import com.dxm.anymock.common.dal.dao.SpaceDao;
 import com.dxm.anymock.web.biz.HttpInterfaceService;
+import com.dxm.anymock.web.biz.api.response.PagedData;
+import com.dxm.anymock.web.biz.util.RowBoundsUtil;
+import com.dxm.anymock.web.biz.api.request.BasePagedRequest;
+import com.dxm.anymock.web.biz.api.request.HttpInterfacePagedRequest;
+import com.dxm.anymock.web.biz.api.request.HttpInterfaceSnapshotPagedRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Transactional
@@ -35,13 +38,20 @@ public class HttpInterfaceServiceImpl implements HttpInterfaceService {
     private RedisDao redisDao;
 
     @Override
-    public List<HttpInterface> selectAll() {
-        return httpInterfaceDao.selectAll();
+    public PagedData selectAll(BasePagedRequest request) {
+        PagedData pagedData = new PagedData(request);
+        pagedData.setList(httpInterfaceDao.selectAll(RowBoundsUtil.convertFromPagedRequest(request)));
+        pagedData.setTotal(httpInterfaceDao.countAll());
+        return pagedData;
     }
 
     @Override
-    public List<HttpInterface> selectBySpaceId(Long spaceId) {
-        return httpInterfaceDao.selectBySpaceId(spaceId);
+    public PagedData selectBySpaceId(HttpInterfacePagedRequest request) {
+        PagedData pagedData = new PagedData(request);
+        pagedData.setList(httpInterfaceDao.selectBySpaceId(
+                request.getSpaceId(), RowBoundsUtil.convertFromPagedRequest(request)));
+        pagedData.setTotal(httpInterfaceDao.countBySpaceId(request.getSpaceId()));
+        return pagedData;
     }
 
     @Override
@@ -92,8 +102,13 @@ public class HttpInterfaceServiceImpl implements HttpInterfaceService {
     }
 
     @Override
-    public List<HttpInterfaceSnapshot> selectSnapshotByHttpInterfaceId(Long httpInterfaceId) {
-        return httpInterfaceSnapshotDao.selectSnapshotByHttpInterfaceId(httpInterfaceId);
+    public PagedData selectSnapshotByHttpInterfaceId(HttpInterfaceSnapshotPagedRequest request) {
+        Long httpInterfaceId = request.getHttpInterfaceId();
+        PagedData pagedData = new PagedData(request);
+        pagedData.setList(httpInterfaceSnapshotDao.selectSnapshotByHttpInterfaceId(
+                httpInterfaceId, RowBoundsUtil.convertFromPagedRequest(request)));
+        pagedData.setTotal(httpInterfaceSnapshotDao.countSnapshotByHttpInterfaceId(httpInterfaceId));
+        return pagedData;
     }
 
     @Override

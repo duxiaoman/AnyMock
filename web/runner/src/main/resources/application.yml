@@ -16,6 +16,3 @@ spring:
 
 server:
   port: 8329
-
-logging:
-  file: anymock-web.log

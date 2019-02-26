@@ -3,12 +3,16 @@ package com.dxm.anymock.common.dal.dao;
 import com.dxm.anymock.common.base.entity.BranchScript;
 import com.dxm.anymock.common.base.entity.HttpInterface;
 import com.dxm.anymock.common.base.entity.RequestType;
+import org.apache.ibatis.session.RowBounds;
 
 import java.util.List;
 
 public interface HttpInterfaceDao {
-    List<HttpInterface> selectAll();
-    List<HttpInterface> selectBySpaceId(Long subSpaceId);
+    List<HttpInterface> selectAll(RowBounds rowBounds);
+    Long countAll();
+    List<HttpInterface> selectBySpaceId(Long spaceId, RowBounds rowBounds);
+    Long countBySpaceId(Long spaceId);
+    List<HttpInterface> selectBySpaceId(Long spaceId);
     HttpInterface selectById(Long id);
     HttpInterface selectByRequestType(RequestType requestType);
     BranchScript selectBranchScript(Long id, String branchName);

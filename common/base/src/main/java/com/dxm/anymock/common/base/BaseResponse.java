@@ -1,7 +1,6 @@
 package com.dxm.anymock.common.base;
 
 import com.alibaba.fastjson.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class BaseResponse {
     private String resultCode;

@@ -3,11 +3,14 @@ package com.dxm.anymock.web.service.controller;
 import com.dxm.anymock.common.base.GlobalConstant;
 import com.dxm.anymock.common.base.check.*;
 import com.dxm.anymock.common.base.entity.HttpInterface;
-import com.dxm.anymock.common.base.entity.HttpInterfaceSnapshot;
 import com.dxm.anymock.common.base.entity.RequestType;
-import com.dxm.anymock.common.dal.dto.HttpInterfaceSnapshotDTO;
+import com.dxm.anymock.common.base.entity.HttpInterfaceSnapshot;
 import com.dxm.anymock.web.biz.HttpInterfaceService;
 import com.dxm.anymock.common.base.BaseResponse;
+import com.dxm.anymock.web.biz.api.request.HttpInterfacePagedRequest;
+import com.dxm.anymock.web.biz.api.request.HttpInterfaceSnapshotPagedRequest;
+import com.dxm.anymock.web.biz.api.request.BasePagedRequest;
+import com.dxm.anymock.web.biz.api.response.PagedData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -15,9 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.LinkedList;
-import java.util.List;
 
 @Controller
 @RequestMapping(GlobalConstant.URL_PREFIX_API_V2)
@@ -36,14 +36,18 @@ public class HttpInterfaceController {
 
     @PostMapping("/interface_http/selectBySpaceId")
     @ResponseBody
-    public BaseResponse selectHttpInterfaceBySubSpaceId(
-            @Validated @RequestBody HttpInterface httpInterface
+    public BaseResponse selectHttpInterfaceBySpaceId(
+            @Validated @RequestBody HttpInterfacePagedRequest httpInterfacePagedRequest
     ) {
-        if (httpInterface.getSpaceId() == null) {
-            return new BaseResponse(httpInterfaceService.selectAll());
-        } else {
-            return new BaseResponse(httpInterfaceService.selectBySpaceId(httpInterface.getSpaceId()));
-        }
+        return new BaseResponse(httpInterfaceService.selectBySpaceId(httpInterfacePagedRequest));
+    }
+
+    @PostMapping("/interface_http/selectAll")
+    @ResponseBody
+    public BaseResponse selectAllHttpInterface(
+            @Validated @RequestBody BasePagedRequest basePagedRequest
+    ) {
+        return new BaseResponse(httpInterfaceService.selectAll(basePagedRequest));
     }
 
     @PostMapping("/interface_http/insert")
@@ -106,12 +110,9 @@ public class HttpInterfaceController {
     @PostMapping("/interface_http_snapshot/selectByHttpInterfaceId")
     @ResponseBody
     public BaseResponse selectSnapshotByHttpInterfaceId(
-            @Validated(value = HttpInterfaceIdCheck.class) @RequestBody HttpInterfaceSnapshot httpInterfaceSnapshot
+            @Validated @RequestBody HttpInterfaceSnapshotPagedRequest request
     ) {
-        List<HttpInterfaceSnapshotDTO> snapshotDTOList = new LinkedList<>();
-        httpInterfaceService.selectSnapshotByHttpInterfaceId(httpInterfaceSnapshot.getHttpInterfaceId())
-                .forEach(snapshot -> snapshotDTOList.add(new HttpInterfaceSnapshotDTO(snapshot)));
-        return new BaseResponse(snapshotDTOList);
+        return new BaseResponse(httpInterfaceService.selectSnapshotByHttpInterfaceId(request));
     }
 
     @PostMapping("/interface_http_snapshot/selectById")
@@ -119,8 +120,7 @@ public class HttpInterfaceController {
     public BaseResponse selectSnapshotById(
             @Validated(value = CommonIdCheck.class) @RequestBody HttpInterfaceSnapshot httpInterfaceSnapshot
     ) {
-        HttpInterfaceSnapshot snapshot = httpInterfaceService.selectSnapshotById(httpInterfaceSnapshot.getId());
-        return new BaseResponse(new HttpInterfaceSnapshotDTO(snapshot));
+        return new BaseResponse(httpInterfaceService.selectSnapshotById(httpInterfaceSnapshot.getId()));
     }
 
     private void clearLastUpdateInfo(HttpInterface httpInterface) {

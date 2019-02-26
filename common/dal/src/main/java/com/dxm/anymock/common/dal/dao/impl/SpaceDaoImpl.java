@@ -1,24 +1,19 @@
 package com.dxm.anymock.common.dal.dao.impl;
 
-import com.dxm.anymock.common.base.GlobalConstant;
 import com.dxm.anymock.common.base.utils.ConvertUtils;
 import com.dxm.anymock.common.base.entity.Space;
 import com.dxm.anymock.common.base.enums.ErrorCode;
 import com.dxm.anymock.common.base.exception.BaseException;
 import com.dxm.anymock.common.dal.dao.SpaceDao;
-import com.dxm.anymock.common.dal.dto.SpaceDTO;
 import com.dxm.anymock.common.dal.entity.SpacePO;
 import com.dxm.anymock.common.dal.entity.SpacePOExample;
 import com.dxm.anymock.common.dal.mapper.auto.SpacePOMapper;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 @Repository
@@ -33,32 +28,6 @@ public class SpaceDaoImpl implements SpaceDao {
         SpacePOExample example = new SpacePOExample();
         example.createCriteria().andParentIdEqualTo(parentId);
         return ConvertUtils.convert(spacePOMapper.selectByExample(example), Space.class);
-    }
-
-    private SpaceDTO convert(Space space, List<Long> path) {
-        SpaceDTO spaceDTO = new SpaceDTO();
-        BeanUtils.copyProperties(space, spaceDTO);
-        path.add(space.getId());
-        spaceDTO.setPath(path);
-        if (path.size() == GlobalConstant.ALLOW_CREATE_INTERFACE_SPACE_LEVEL) {
-            spaceDTO.setAllowCreateInterface(true);
-        } else {
-            spaceDTO.setAllowCreateInterface(false);
-        }
-
-        List<SpaceDTO> children = new LinkedList<>();
-        List<Space> spaceList = selectByParentId(space.getId());
-        spaceList.forEach(localSpace -> children.add(convert(localSpace, new LinkedList<>(path))));
-        spaceDTO.setChildren(children);
-        return spaceDTO;
-    }
-
-    @Override
-    public List<SpaceDTO> tree() {
-        List<SpaceDTO> spaceDTOList = new LinkedList<>();
-        List<Space> spaceList = selectByParentId(0L);
-        spaceList.forEach(space -> spaceDTOList.add(convert(space, new LinkedList<>())));
-        return spaceDTOList;
     }
 
     @Override

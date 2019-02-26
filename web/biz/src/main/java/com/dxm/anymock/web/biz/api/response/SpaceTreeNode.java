@@ -1,15 +1,15 @@
-package com.dxm.anymock.common.dal.dto;
+package com.dxm.anymock.web.biz.api.response;
 
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.List;
 
-public class SpaceDTO {
+public class SpaceTreeNode {
 
     private Long id;
     private String label;
     private Long parentId;
-    private List<SpaceDTO> children;
+    private List<SpaceTreeNode> children;
     private List<Long> path;
     private Boolean allowCreateInterface;
 
@@ -37,11 +37,11 @@ public class SpaceDTO {
         this.parentId = parentId;
     }
 
-    public List<SpaceDTO> getChildren() {
+    public List<SpaceTreeNode> getChildren() {
         return children;
     }
 
-    public void setChildren(List<SpaceDTO> children) {
+    public void setChildren(List<SpaceTreeNode> children) {
         this.children = children;
     }
 

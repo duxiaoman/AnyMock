@@ -12,6 +12,7 @@ import com.dxm.anymock.common.dal.dao.httpinterface.ResponseHeaderDao;
 import com.dxm.anymock.common.dal.entity.*;
 import com.dxm.anymock.common.dal.mapper.auto.*;
 import org.apache.commons.lang3.BooleanUtils;
+import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,19 +43,38 @@ public class HttpInterfaceDaoImpl implements HttpInterfaceDao {
     private BranchScriptDao branchScriptDao;
 
     @Override
-    public List<HttpInterface> selectAll() {
+    public List<HttpInterface> selectAll(RowBounds rowBounds) {
         HttpInterfacePOExample example = new HttpInterfacePOExample();
-        // example.createCriteria().andRequestUriLike
-
-        // example.createCriteria()
-        return ConvertUtils.convert(httpInterfacePOMapper.selectByExample(example), HttpInterface.class);
+        example.setOrderByClause("last_update_time desc");
+        return ConvertUtils.convert(
+                httpInterfacePOMapper.selectByExampleWithRowbounds(example, rowBounds),
+                HttpInterface.class);
     }
 
     @Override
-    public List<HttpInterface> selectBySpaceId(Long subSpaceId) {
+    public Long countAll() {
+        return httpInterfacePOMapper.countByExample(new HttpInterfacePOExample());
+    }
+
+    @Override
+    public List<HttpInterface> selectBySpaceId(Long spaceId, RowBounds rowBounds) {
         HttpInterfacePOExample example = new HttpInterfacePOExample();
-        example.createCriteria().andSpaceIdEqualTo(subSpaceId);
-        return ConvertUtils.convert(httpInterfacePOMapper.selectByExample(example), HttpInterface.class);
+        example.createCriteria().andSpaceIdEqualTo(spaceId);
+        example.setOrderByClause("last_update_time desc");
+        return ConvertUtils.convert(
+                httpInterfacePOMapper.selectByExampleWithRowbounds(example, rowBounds), HttpInterface.class);
+    }
+
+    @Override
+    public Long countBySpaceId(Long spaceId) {
+        HttpInterfacePOExample example = new HttpInterfacePOExample();
+        example.createCriteria().andSpaceIdEqualTo(spaceId);
+        return httpInterfacePOMapper.countByExample(example);
+    }
+
+    @Override
+    public List<HttpInterface> selectBySpaceId(Long spaceId) {
+        return selectBySpaceId(spaceId, new RowBounds());
     }
 
     @Override

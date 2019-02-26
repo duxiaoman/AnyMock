@@ -18,7 +18,6 @@ server:
   port: 8330
 
 logging:
-  file: anymock-core.log
   level:
     MOCK-SERVICE-LOGGER: DEBUG
 

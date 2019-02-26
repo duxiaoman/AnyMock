@@ -13,6 +13,7 @@ import com.dxm.anymock.common.dal.entity.HttpInterfaceSnapshotPO;
 import com.dxm.anymock.common.dal.entity.HttpInterfaceSnapshotPOExample;
 import com.dxm.anymock.common.dal.entity.HttpInterfaceSnapshotPOWithBLOBs;
 import com.dxm.anymock.common.dal.mapper.auto.HttpInterfaceSnapshotPOMapper;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
@@ -66,40 +67,72 @@ public class HttpInterfaceSnapshotDaoImpl implements HttpInterfaceSnapshotDao {
     }
 
     @Override
-    public List<HttpInterfaceSnapshot> selectSnapshotByHttpInterfaceId(Long httpInterfaceId) {
+    public List<HttpInterfaceSnapshot> selectSnapshotByHttpInterfaceId(Long httpInterfaceId, RowBounds rowBounds) {
         HttpInterfaceSnapshotPOExample example = new HttpInterfaceSnapshotPOExample();
         example.createCriteria().andHttpInterfaceIdEqualTo(httpInterfaceId);
-
+        example.setOrderByClause("snapshot_time desc");
+        httpInterfaceSnapshotPOMapper.selectByExampleWithRowbounds(example, rowBounds);
         List<HttpInterfaceSnapshotPO> snapshotPOList = httpInterfaceSnapshotPOMapper.selectByExample(example);
         List<HttpInterfaceSnapshot> snapshotList = new LinkedList<>();
-        snapshotPOList.forEach(snapshotPO -> {
-            HttpInterfaceSnapshot httpInterfaceSnapshot = new HttpInterfaceSnapshot();
-            BeanUtils.copyProperties(snapshotPO, httpInterfaceSnapshot, "httpInterfaceResponseHeaderList",
-                    "httpInterfaceCallbackRequestHeaderList",
-                    "httpInterfaceBranchScriptList");
-            snapshotList.add(httpInterfaceSnapshot);
-        });
+        snapshotPOList.forEach(snapshotPO -> snapshotList.add(convertPO2BO(snapshotPO)));
         return snapshotList;
     }
 
     @Override
-    public HttpInterfaceSnapshot selectSnapshotById(Long id) {
-        HttpInterfaceSnapshotPOWithBLOBs snapshotPOWithBLOBs = httpInterfaceSnapshotPOMapper.selectByPrimaryKey(id);
-        HttpInterfaceSnapshot httpInterfaceSnapshot = new HttpInterfaceSnapshot();
-        BeanUtils.copyProperties(snapshotPOWithBLOBs, httpInterfaceSnapshot,
-                "httpInterfaceResponseHeaderList",
-                "httpInterfaceCallbackRequestHeaderList",
-                "httpInterfaceBranchScriptList");
+    public Long countSnapshotByHttpInterfaceId(Long httpInterfaceId) {
+        HttpInterfaceSnapshotPOExample example = new HttpInterfaceSnapshotPOExample();
+        example.createCriteria().andHttpInterfaceIdEqualTo(httpInterfaceId);
+        return httpInterfaceSnapshotPOMapper.countByExample(example);
+    }
 
-        httpInterfaceSnapshot.setHttpInterfaceResponseHeaderList(
-                JSON.parseArray(snapshotPOWithBLOBs.getHttpInterfaceResponseHeaderList(), HttpHeader.class)
-        );
-        httpInterfaceSnapshot.setHttpInterfaceCallbackRequestHeaderList(
-                JSON.parseArray(snapshotPOWithBLOBs.getHttpInterfaceCallbackRequestHeaderList(), HttpHeader.class)
-        );
-        httpInterfaceSnapshot.setHttpInterfaceBranchScriptList(
-                JSON.parseArray(snapshotPOWithBLOBs.getHttpInterfaceBranchScriptList(), BranchScript.class)
-        );
-        return httpInterfaceSnapshot;
+    @Override
+    public HttpInterfaceSnapshot selectSnapshotById(Long id) {
+        return convertPO2BOWithBLOBs(httpInterfaceSnapshotPOMapper.selectByPrimaryKey(id));
+    }
+
+    private HttpInterfaceSnapshot convertPO2BO(HttpInterfaceSnapshotPO source) {
+        HttpInterfaceSnapshot target = new HttpInterfaceSnapshot();
+
+        target.setId(source.getId());
+        target.setOpType(source.getOpType());
+        target.setOpUser(source.getOpUser());
+        target.setSnapshotTime(source.getSnapshotTime());
+
+        HttpInterface httpInterface = new HttpInterface();
+        httpInterface.setId(source.getHttpInterfaceId());
+        httpInterface.setRequestUri(source.getHttpInterfaceRequestUri());
+        httpInterface.setRequestMethod(source.getHttpInterfaceRequestMethod());
+        httpInterface.setDescription(source.getHttpInterfaceDescription());
+        httpInterface.setNeedAsyncCallback(source.getHttpInterfaceNeedAsyncCallback());
+        httpInterface.setConfigMode(source.getHttpInterfaceConfigMode());
+        httpInterface.setCallbackRequestUrl(source.getHttpInterfaceCallbackRequestUrl());
+        httpInterface.setCallbackRequestMethod(source.getHttpInterfaceCallbackRequestMethod());
+        httpInterface.setSyncDelay(source.getHttpInterfaceSyncDelay());
+        httpInterface.setAsyncDelay(source.getHttpInterfaceAsyncDelay());
+        httpInterface.setStart(source.getHttpInterfaceStart());
+        httpInterface.setSpaceId(source.getHttpInterfaceSpaceId());
+        httpInterface.setLastUpdateUser(source.getHttpInterfaceLastUpdateUser());
+        httpInterface.setLastUpdateTime(source.getHttpInterfaceLastUpdateTime());
+        target.setHttpInterface(httpInterface);
+        return target;
+    }
+
+    private HttpInterfaceSnapshot convertPO2BOWithBLOBs(HttpInterfaceSnapshotPOWithBLOBs source) {
+        HttpInterfaceSnapshot target = convertPO2BO(source);
+        HttpInterface httpInterface = target.getHttpInterface();
+
+        httpInterface.setResponseBody(source.getHttpInterfaceResponseBody());
+        httpInterface.setCallbackRequestBody(source.getHttpInterfaceCallbackRequestBody());
+        httpInterface.setBranchJumpScript(source.getHttpInterfaceBranchJumpScript());
+        httpInterface.setSyncScript(source.getHttpInterfaceSyncScript());
+        httpInterface.setAsyncScript(source.getHttpInterfaceAsyncScript());
+
+        httpInterface.setResponseHeaderList(
+                JSON.parseArray(source.getHttpInterfaceResponseHeaderList(), HttpHeader.class));
+        httpInterface.setCallbackRequestHeaderList(
+                JSON.parseArray(source.getHttpInterfaceCallbackRequestHeaderList(), HttpHeader.class));
+        httpInterface.setBranchScriptList(
+                JSON.parseArray(source.getHttpInterfaceBranchScriptList(), BranchScript.class));
+        return target;
     }
 }
