@@ -5,8 +5,8 @@ import org.apache.ibatis.session.RowBounds;
 
 public class RowBoundsUtil {
     public static RowBounds convertFromPagedRequest(BasePagedRequest basePagedRequest) {
-        int offset = basePagedRequest.getItemNumPerPage() * basePagedRequest.getPage();
-        int limit = basePagedRequest.getItemNumPerPage();
+        int offset = basePagedRequest.getItemsPerPage() * basePagedRequest.getPage();
+        int limit = basePagedRequest.getItemsPerPage();
         return new RowBounds(offset, limit);
     }
 }

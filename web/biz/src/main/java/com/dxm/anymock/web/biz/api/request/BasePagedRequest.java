@@ -12,7 +12,7 @@ public class BasePagedRequest {
     
     @NotNull
     @Min(0)
-    private Integer itemNumPerPage;
+    private Integer itemsPerPage;
 
     public Integer getPage() {
         return page;
@@ -22,12 +22,12 @@ public class BasePagedRequest {
         this.page = page;
     }
 
-    public Integer getItemNumPerPage() {
-        return itemNumPerPage;
+    public Integer getItemsPerPage() {
+        return itemsPerPage;
     }
 
-    public void setItemNumPerPage(Integer itemNumPerPage) {
-        this.itemNumPerPage = itemNumPerPage;
+    public void setItemsPerPage(Integer itemsPerPage) {
+        this.itemsPerPage = itemsPerPage;
     }
 
     @Override

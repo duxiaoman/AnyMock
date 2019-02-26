@@ -11,7 +11,7 @@ public class PagedData {
 
     public PagedData(BasePagedRequest request) {
         this.page = request.getPage();
-        this.itemsPerPage = request.getItemNumPerPage();
+        this.itemsPerPage = request.getItemsPerPage();
     }
 
     public Integer getPage() {
