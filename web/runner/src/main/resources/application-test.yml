@@ -1,2 +1,6 @@
 logging:
   file: logs/anymock-web.log
+
+anymock-core:
+  host: yq01-lizhenxi-dxm.epc.baidu.com
+  http-interface-port: 8330

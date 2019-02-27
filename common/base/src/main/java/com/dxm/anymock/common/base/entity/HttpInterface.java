@@ -19,6 +19,7 @@ public class HttpInterface implements Serializable {
     private Long id;
 
     @NotBlank(groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
+    @Pattern(regexp = "^/.*", groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
     private String requestUri;
 
     @NotBlank(groups = {CommonInsertCheck.class, CommonUpdateCheck.class})

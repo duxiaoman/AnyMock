@@ -1,4 +1,4 @@
-package com.dxm.anymock.common.base.utils;
+package com.dxm.anymock.common.base.util;
 
 import com.dxm.anymock.common.base.enums.ErrorCode;
 import com.dxm.anymock.common.base.exception.BaseException;
@@ -9,9 +9,9 @@ import org.springframework.beans.BeanUtils;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ConvertUtils {
+public class ConvertUtil {
 
-    private static final Logger logger = LoggerFactory.getLogger(ConvertUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(ConvertUtil.class);
 
     public static<In, Out> Out convert(In from, Class<Out> outClass) {
         if (from == null) {

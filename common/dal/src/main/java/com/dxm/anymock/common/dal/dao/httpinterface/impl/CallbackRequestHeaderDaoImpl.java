@@ -3,7 +3,7 @@ package com.dxm.anymock.common.dal.dao.httpinterface.impl;
 import com.dxm.anymock.common.base.entity.HttpHeader;
 import com.dxm.anymock.common.base.enums.ErrorCode;
 import com.dxm.anymock.common.base.exception.BaseException;
-import com.dxm.anymock.common.base.utils.ConvertUtils;
+import com.dxm.anymock.common.base.util.ConvertUtil;
 import com.dxm.anymock.common.dal.dao.httpinterface.CallbackRequestHeaderDao;
 import com.dxm.anymock.common.dal.entity.HttpInterfaceCallbackRequestHeaderPO;
 import com.dxm.anymock.common.dal.entity.HttpInterfaceCallbackRequestHeaderPOExample;
@@ -25,7 +25,7 @@ public class CallbackRequestHeaderDaoImpl implements CallbackRequestHeaderDao {
     public void insert(Long httpInterfaceId, List<HttpHeader> httpHeaders) {
         httpHeaders.forEach(callbackRequestHeader -> {
             HttpInterfaceCallbackRequestHeaderPO callbackRequestHeaderPO
-                    = ConvertUtils.convert(callbackRequestHeader, HttpInterfaceCallbackRequestHeaderPO.class);
+                    = ConvertUtil.convert(callbackRequestHeader, HttpInterfaceCallbackRequestHeaderPO.class);
             callbackRequestHeaderPO.setHttpInterfaceId(httpInterfaceId);
 
             int localResultSize;
@@ -53,7 +53,7 @@ public class CallbackRequestHeaderDaoImpl implements CallbackRequestHeaderDao {
         HttpInterfaceCallbackRequestHeaderPOExample callbackRequestHeaderExample
                 = new HttpInterfaceCallbackRequestHeaderPOExample();
         callbackRequestHeaderExample.createCriteria().andHttpInterfaceIdEqualTo(httpInterfaceId);
-        return ConvertUtils.convert(httpInterfaceCallbackRequestHeaderPOMapper.selectByExample(
+        return ConvertUtil.convert(httpInterfaceCallbackRequestHeaderPOMapper.selectByExample(
                 callbackRequestHeaderExample),  HttpHeader.class);
     }
 }

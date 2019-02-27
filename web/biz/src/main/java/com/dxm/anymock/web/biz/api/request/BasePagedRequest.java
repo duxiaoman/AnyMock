@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 
 public class BasePagedRequest {
     @NotNull
-    @Min(0)
+    @Min(1)
     private Integer page;
     
     @NotNull

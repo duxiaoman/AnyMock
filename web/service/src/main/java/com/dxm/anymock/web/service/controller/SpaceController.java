@@ -5,6 +5,8 @@ import com.dxm.anymock.common.base.check.CommonDeleteCheck;
 import com.dxm.anymock.common.base.check.CommonInsertCheck;
 import com.dxm.anymock.common.base.check.CommonUpdateCheck;
 import com.dxm.anymock.common.base.entity.Space;
+import com.dxm.anymock.common.base.enums.SuccessMsg;
+import com.dxm.anymock.common.base.util.MessageUtil;
 import com.dxm.anymock.web.biz.SpaceService;
 import com.dxm.anymock.common.base.BaseResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +24,13 @@ public class SpaceController {
     @Autowired
     private SpaceService spaceService;
 
+    @Autowired
+    private MessageUtil messageUtil;
+
     @PostMapping("/space/tree")
     @ResponseBody
     public BaseResponse listSpace() {
-        return new BaseResponse(spaceService.tree());
+        return BaseResponse.success(spaceService.tree());
     }
 
     @PostMapping("/space/insert")
@@ -35,7 +40,7 @@ public class SpaceController {
     ) {
         space.setId(null);
         spaceService.insert(space);
-        return new BaseResponse();
+        return BaseResponse.success(messageUtil.getMsg(SuccessMsg.SPACE_INSERT_SUCCESS));
     }
 
     @PostMapping("/space/update")
@@ -45,13 +50,13 @@ public class SpaceController {
     ) {
         space.setParentId(null);
         spaceService.update(space);
-        return new BaseResponse();
+        return BaseResponse.success(messageUtil.getMsg(SuccessMsg.SPACE_UPDATE_SUCCESS));
     }
 
     @PostMapping("/space/delete")
     @ResponseBody
     public BaseResponse deleteSpace(@Validated(value = CommonDeleteCheck.class) @RequestBody Space space) {
         spaceService.delete(space.getId());
-        return new BaseResponse();
+        return BaseResponse.success(messageUtil.getMsg(SuccessMsg.SPACE_DELETE_SUCCESS));
     }
 }

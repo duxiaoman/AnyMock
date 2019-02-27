@@ -3,7 +3,7 @@ package com.dxm.anymock.core.web;
 import com.dxm.anymock.common.base.BaseResponse;
 import com.dxm.anymock.common.base.enums.ErrorCode;
 import com.dxm.anymock.common.base.exception.BaseException;
-import com.dxm.anymock.common.base.utils.MessageUtils;
+import com.dxm.anymock.common.base.util.MessageUtil;
 import groovy.lang.GroovyRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +20,7 @@ public class HttpExceptionHandler {
     private static final Logger logger = LoggerFactory.getLogger(HttpExceptionHandler.class);
 
     @Autowired
-    private MessageUtils messageUtils;
+    private MessageUtil messageUtil;
 
     private BaseResponse buildBaseResponse(ErrorCode errorCode) {
         return buildBaseResponse(errorCode, null);
@@ -29,7 +29,7 @@ public class HttpExceptionHandler {
     private BaseResponse buildBaseResponse(ErrorCode errorCode, Object data) {
         BaseResponse response = new BaseResponse();
         response.setResultCode(errorCode.getCode());
-        response.setResultMsg(messageUtils.getErrorMsg(errorCode));
+        response.setResultMsg(messageUtil.getMsg(errorCode));
         response.setData(data);
         return response;
     }

@@ -16,3 +16,8 @@ spring:
 
 server:
   port: 8329
+
+anymock:
+  core:
+    host: 127.0.0.1
+    http-interface-port: 8330

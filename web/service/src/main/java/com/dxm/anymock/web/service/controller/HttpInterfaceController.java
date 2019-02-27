@@ -5,6 +5,8 @@ import com.dxm.anymock.common.base.check.*;
 import com.dxm.anymock.common.base.entity.HttpInterface;
 import com.dxm.anymock.common.base.entity.RequestType;
 import com.dxm.anymock.common.base.entity.HttpInterfaceSnapshot;
+import com.dxm.anymock.common.base.enums.SuccessMsg;
+import com.dxm.anymock.common.base.util.MessageUtil;
 import com.dxm.anymock.web.biz.HttpInterfaceService;
 import com.dxm.anymock.common.base.BaseResponse;
 import com.dxm.anymock.web.biz.api.request.HttpInterfacePagedRequest;
@@ -26,12 +28,15 @@ public class HttpInterfaceController {
     @Autowired
     private HttpInterfaceService httpInterfaceService;
 
+    @Autowired
+    private MessageUtil messageUtil;
+
     @PostMapping("/interface_http/selectById")
     @ResponseBody
     public BaseResponse selectHttpInterfaceById(
             @Validated(value = CommonIdCheck.class) @RequestBody HttpInterface httpInterface
     ) {
-        return new BaseResponse(httpInterfaceService.selectById(httpInterface.getId()));
+        return BaseResponse.success(httpInterfaceService.selectById(httpInterface.getId()));
     }
 
     @PostMapping("/interface_http/selectBySpaceId")
@@ -39,7 +44,7 @@ public class HttpInterfaceController {
     public BaseResponse selectHttpInterfaceBySpaceId(
             @Validated @RequestBody HttpInterfacePagedRequest httpInterfacePagedRequest
     ) {
-        return new BaseResponse(httpInterfaceService.selectBySpaceId(httpInterfacePagedRequest));
+        return BaseResponse.success(httpInterfaceService.selectBySpaceId(httpInterfacePagedRequest));
     }
 
     @PostMapping("/interface_http/selectAll")
@@ -47,7 +52,7 @@ public class HttpInterfaceController {
     public BaseResponse selectAllHttpInterface(
             @Validated @RequestBody BasePagedRequest basePagedRequest
     ) {
-        return new BaseResponse(httpInterfaceService.selectAll(basePagedRequest));
+        return BaseResponse.success(httpInterfaceService.selectAll(basePagedRequest));
     }
 
     @PostMapping("/interface_http/insert")
@@ -58,7 +63,7 @@ public class HttpInterfaceController {
         httpInterface.setId(null);
         clearLastUpdateInfo(httpInterface);
         httpInterfaceService.insert(httpInterface);
-        return new BaseResponse();
+        return BaseResponse.success(messageUtil.getMsg(SuccessMsg.HTTP_INTERFACE_INSERT_SUCCESS));
     }
 
     @PostMapping("/interface_http/update")
@@ -68,7 +73,7 @@ public class HttpInterfaceController {
     ) {
         clearLastUpdateInfo(httpInterface);
         httpInterfaceService.update(httpInterface);
-        return new BaseResponse();
+        return BaseResponse.success(messageUtil.getMsg(SuccessMsg.HTTP_INTERFACE_UPDATE_SUCCESS));
     }
 
     @PostMapping("/interface_http/delete")
@@ -77,7 +82,7 @@ public class HttpInterfaceController {
             @Validated(value = CommonDeleteCheck.class) @RequestBody HttpInterface httpInterface
     ) {
         httpInterfaceService.delete(httpInterface.getId());
-        return new BaseResponse();
+        return BaseResponse.success(messageUtil.getMsg(SuccessMsg.HTTP_INTERFACE_DELETE_SUCCESS));
     }
 
     @PostMapping("/interface_http/start")
@@ -86,7 +91,7 @@ public class HttpInterfaceController {
             @Validated(value = CommonIdCheck.class) @RequestBody HttpInterface httpInterface
     ) {
         httpInterfaceService.start(httpInterface.getId());
-        return new BaseResponse();
+        return BaseResponse.success(messageUtil.getMsg(SuccessMsg.HTTP_INTERFACE_START_SUCCESS));
     }
 
     @PostMapping("/interface_http/shutdown")
@@ -95,7 +100,7 @@ public class HttpInterfaceController {
             @Validated(value = CommonIdCheck.class) @RequestBody HttpInterface httpInterface
     ) {
         httpInterfaceService.shutdown(httpInterface.getId());
-        return new BaseResponse();
+        return BaseResponse.success(messageUtil.getMsg(SuccessMsg.HTTP_INTERFACE_SHUTDOWN_SUCCESS));
     }
 
     // 仅作调试用，不对外发布
@@ -104,7 +109,7 @@ public class HttpInterfaceController {
     public BaseResponse selectHttpInterfaceByRequestType(
             @Validated @RequestBody HttpInterface httpInterface
     ) {
-        return new BaseResponse(httpInterfaceService.selectByRequestType(new RequestType(httpInterface)));
+        return BaseResponse.success(httpInterfaceService.selectByRequestType(new RequestType(httpInterface)));
     }
 
     @PostMapping("/interface_http_snapshot/selectByHttpInterfaceId")
@@ -112,7 +117,7 @@ public class HttpInterfaceController {
     public BaseResponse selectSnapshotByHttpInterfaceId(
             @Validated @RequestBody HttpInterfaceSnapshotPagedRequest request
     ) {
-        return new BaseResponse(httpInterfaceService.selectSnapshotByHttpInterfaceId(request));
+        return BaseResponse.success(httpInterfaceService.selectSnapshotByHttpInterfaceId(request));
     }
 
     @PostMapping("/interface_http_snapshot/selectById")
@@ -120,7 +125,7 @@ public class HttpInterfaceController {
     public BaseResponse selectSnapshotById(
             @Validated(value = CommonIdCheck.class) @RequestBody HttpInterfaceSnapshot httpInterfaceSnapshot
     ) {
-        return new BaseResponse(httpInterfaceService.selectSnapshotById(httpInterfaceSnapshot.getId()));
+        return BaseResponse.success(httpInterfaceService.selectSnapshotById(httpInterfaceSnapshot.getId()));
     }
 
     private void clearLastUpdateInfo(HttpInterface httpInterface) {

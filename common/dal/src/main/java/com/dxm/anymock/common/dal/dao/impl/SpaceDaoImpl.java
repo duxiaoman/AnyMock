@@ -1,6 +1,7 @@
 package com.dxm.anymock.common.dal.dao.impl;
 
-import com.dxm.anymock.common.base.utils.ConvertUtils;
+import com.dxm.anymock.common.base.GlobalConstant;
+import com.dxm.anymock.common.base.util.ConvertUtil;
 import com.dxm.anymock.common.base.entity.Space;
 import com.dxm.anymock.common.base.enums.ErrorCode;
 import com.dxm.anymock.common.base.exception.BaseException;
@@ -24,17 +25,22 @@ public class SpaceDaoImpl implements SpaceDao {
     private SpacePOMapper spacePOMapper;
 
     @Override
+    public Space selectById(Long id) {
+        return ConvertUtil.convert(spacePOMapper.selectByPrimaryKey(id), Space.class);
+    }
+
+    @Override
     public List<Space> selectByParentId(Long parentId) {
         SpacePOExample example = new SpacePOExample();
         example.createCriteria().andParentIdEqualTo(parentId);
-        return ConvertUtils.convert(spacePOMapper.selectByExample(example), Space.class);
+        return ConvertUtil.convert(spacePOMapper.selectByExample(example), Space.class);
     }
 
     @Override
     public void insert(Space space) {
         int resultSize;
         try {
-            resultSize = spacePOMapper.insert(ConvertUtils.convert(space, SpacePO.class));
+            resultSize = spacePOMapper.insert(ConvertUtil.convert(space, SpacePO.class));
         } catch (DuplicateKeyException e) {
             throw new BaseException(ErrorCode.SPACE_DUPLICATE_KEY);
         }
@@ -48,7 +54,7 @@ public class SpaceDaoImpl implements SpaceDao {
     public void update(Space space) {
         int resultSize;
         try {
-            resultSize = spacePOMapper.updateByPrimaryKeySelective(ConvertUtils.convert(space, SpacePO.class));
+            resultSize = spacePOMapper.updateByPrimaryKeySelective(ConvertUtil.convert(space, SpacePO.class));
         } catch (DuplicateKeyException e) {
             throw new BaseException(ErrorCode.SPACE_DUPLICATE_KEY);
         }
@@ -74,7 +80,7 @@ public class SpaceDaoImpl implements SpaceDao {
     public Integer level(Long id) {
         Integer level = 0;
         while (true) {
-            if (id.equals(0L)) {
+            if (id.equals(GlobalConstant.FAKE_ROOT_SPACE_ID)) {
                 break;
             }
             SpacePO spacePO = spacePOMapper.selectByPrimaryKey(id);

@@ -7,19 +7,29 @@ import com.dxm.anymock.common.base.entity.RequestType;
 import com.dxm.anymock.common.base.enums.ErrorCode;
 import com.dxm.anymock.common.base.enums.HttpInterfaceOpType;
 import com.dxm.anymock.common.base.exception.BaseException;
+import com.dxm.anymock.common.base.util.ConvertUtil;
 import com.dxm.anymock.common.dal.dao.HttpInterfaceDao;
 import com.dxm.anymock.common.dal.dao.HttpInterfaceSnapshotDao;
 import com.dxm.anymock.common.dal.dao.RedisDao;
 import com.dxm.anymock.common.dal.dao.SpaceDao;
+import com.dxm.anymock.web.biz.HostInfoService;
 import com.dxm.anymock.web.biz.HttpInterfaceService;
+import com.dxm.anymock.web.biz.api.response.HostInfo;
+import com.dxm.anymock.web.biz.api.response.HttpInterfaceDetail;
+import com.dxm.anymock.web.biz.api.response.HttpInterfaceDigest;
 import com.dxm.anymock.web.biz.api.response.PagedData;
-import com.dxm.anymock.web.biz.util.RowBoundsUtil;
+import com.dxm.anymock.web.biz.converter.RowBoundsConverter;
 import com.dxm.anymock.web.biz.api.request.BasePagedRequest;
 import com.dxm.anymock.web.biz.api.request.HttpInterfacePagedRequest;
 import com.dxm.anymock.web.biz.api.request.HttpInterfaceSnapshotPagedRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -37,10 +47,32 @@ public class HttpInterfaceServiceImpl implements HttpInterfaceService {
     @Autowired
     private RedisDao redisDao;
 
+    @Autowired
+    private HostInfoService hostInfoService;
+
+    private List<HttpInterfaceDigest> fillingDigestInfo(List<HttpInterface> httpInterfaceList) {
+        HostInfo hostInfo = hostInfoService.selectHostInfo();
+
+        List<HttpInterfaceDigest> httpInterfaceDigestList = new LinkedList<>();
+        httpInterfaceList.forEach(httpInterface -> {
+            HttpInterfaceDigest httpInterfaceDigest = ConvertUtil.convert(httpInterface, HttpInterfaceDigest.class);
+            try {
+                URL url = new URL("http",
+                        hostInfo.getHost(), hostInfo.getHttpInterfacePort(), httpInterface.getRequestUri());
+                httpInterfaceDigest.setUrl(url.toString());
+            } catch (MalformedURLException e) {
+                httpInterfaceDigest.setUrl("-");
+            }
+            httpInterfaceDigestList.add(httpInterfaceDigest);
+        });
+        return httpInterfaceDigestList;
+    }
+
     @Override
     public PagedData selectAll(BasePagedRequest request) {
         PagedData pagedData = new PagedData(request);
-        pagedData.setList(httpInterfaceDao.selectAll(RowBoundsUtil.convertFromPagedRequest(request)));
+        pagedData.setList(fillingDigestInfo(httpInterfaceDao.selectAll(
+                RowBoundsConverter.convertFromPagedRequest(request))));
         pagedData.setTotal(httpInterfaceDao.countAll());
         return pagedData;
     }
@@ -48,15 +80,26 @@ public class HttpInterfaceServiceImpl implements HttpInterfaceService {
     @Override
     public PagedData selectBySpaceId(HttpInterfacePagedRequest request) {
         PagedData pagedData = new PagedData(request);
-        pagedData.setList(httpInterfaceDao.selectBySpaceId(
-                request.getSpaceId(), RowBoundsUtil.convertFromPagedRequest(request)));
+        pagedData.setList(fillingDigestInfo(httpInterfaceDao.selectBySpaceId(
+                request.getSpaceId(), RowBoundsConverter.convertFromPagedRequest(request))));
         pagedData.setTotal(httpInterfaceDao.countBySpaceId(request.getSpaceId()));
         return pagedData;
     }
 
     @Override
-    public HttpInterface selectById(Long id) {
-        return httpInterfaceDao.selectById(id);
+    public HttpInterfaceDetail selectById(Long id) {
+        HttpInterfaceDetail httpInterfaceDetail
+                = ConvertUtil.convert(httpInterfaceDao.selectById(id), HttpInterfaceDetail.class);
+
+        Long spaceId = httpInterfaceDetail.getSpaceId();
+        LinkedList<Long> path = new LinkedList<>();
+        while (!spaceId.equals(GlobalConstant.FAKE_ROOT_SPACE_ID)) {
+            path.addFirst(spaceId);
+            spaceId = spaceDao.selectById(spaceId).getParentId();
+        }
+
+        httpInterfaceDetail.setPath(path);
+        return httpInterfaceDetail;
     }
 
     @Override
@@ -106,7 +149,7 @@ public class HttpInterfaceServiceImpl implements HttpInterfaceService {
         Long httpInterfaceId = request.getHttpInterfaceId();
         PagedData pagedData = new PagedData(request);
         pagedData.setList(httpInterfaceSnapshotDao.selectSnapshotByHttpInterfaceId(
-                httpInterfaceId, RowBoundsUtil.convertFromPagedRequest(request)));
+                httpInterfaceId, RowBoundsConverter.convertFromPagedRequest(request)));
         pagedData.setTotal(httpInterfaceSnapshotDao.countSnapshotByHttpInterfaceId(httpInterfaceId));
         return pagedData;
     }

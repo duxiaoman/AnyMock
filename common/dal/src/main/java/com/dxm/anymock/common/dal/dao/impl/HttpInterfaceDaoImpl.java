@@ -2,7 +2,7 @@ package com.dxm.anymock.common.dal.dao.impl;
 
 import com.dxm.anymock.common.base.GlobalConstant;
 import com.dxm.anymock.common.base.entity.*;
-import com.dxm.anymock.common.base.utils.ConvertUtils;
+import com.dxm.anymock.common.base.util.ConvertUtil;
 import com.dxm.anymock.common.base.enums.ErrorCode;
 import com.dxm.anymock.common.base.exception.BaseException;
 import com.dxm.anymock.common.dal.dao.*;
@@ -46,7 +46,7 @@ public class HttpInterfaceDaoImpl implements HttpInterfaceDao {
     public List<HttpInterface> selectAll(RowBounds rowBounds) {
         HttpInterfacePOExample example = new HttpInterfacePOExample();
         example.setOrderByClause("last_update_time desc");
-        return ConvertUtils.convert(
+        return ConvertUtil.convert(
                 httpInterfacePOMapper.selectByExampleWithRowbounds(example, rowBounds),
                 HttpInterface.class);
     }
@@ -61,7 +61,7 @@ public class HttpInterfaceDaoImpl implements HttpInterfaceDao {
         HttpInterfacePOExample example = new HttpInterfacePOExample();
         example.createCriteria().andSpaceIdEqualTo(spaceId);
         example.setOrderByClause("last_update_time desc");
-        return ConvertUtils.convert(
+        return ConvertUtil.convert(
                 httpInterfacePOMapper.selectByExampleWithRowbounds(example, rowBounds), HttpInterface.class);
     }
 
@@ -89,7 +89,7 @@ public class HttpInterfaceDaoImpl implements HttpInterfaceDao {
             return null;
         } else if (httpInterfacePOWithBLOBsList.size() == 1) {
             HttpInterface httpInterface
-                    = ConvertUtils.convert(httpInterfacePOWithBLOBsList.get(0), HttpInterface.class);
+                    = ConvertUtil.convert(httpInterfacePOWithBLOBsList.get(0), HttpInterface.class);
             fillingSubProperties(httpInterface, false);
             return httpInterface;
         } else {
@@ -108,7 +108,7 @@ public class HttpInterfaceDaoImpl implements HttpInterfaceDao {
         if (httpInterfacePOWithBLOBs == null) {
             throw new BaseException(ErrorCode.HTTP_INTERFACE_NOT_FOUND);
         }
-        HttpInterface httpInterface = ConvertUtils.convert(httpInterfacePOWithBLOBs, HttpInterface.class);
+        HttpInterface httpInterface = ConvertUtil.convert(httpInterfacePOWithBLOBs, HttpInterface.class);
         fillingSubProperties(httpInterface, true);
         return httpInterface;
     }
@@ -116,7 +116,7 @@ public class HttpInterfaceDaoImpl implements HttpInterfaceDao {
     @Override
     public void insert(HttpInterface httpInterface) {
         HttpInterfacePOWithBLOBs httpInterfacePOWithBLOBs
-                = ConvertUtils.convert(httpInterface, HttpInterfacePOWithBLOBs.class);
+                = ConvertUtil.convert(httpInterface, HttpInterfacePOWithBLOBs.class);
         fillingLastUpdateInfo(httpInterfacePOWithBLOBs);
         int resultSize;
         try {
@@ -150,7 +150,7 @@ public class HttpInterfaceDaoImpl implements HttpInterfaceDao {
     public void update(HttpInterface httpInterface) {
         // update httpInterface
         HttpInterfacePOWithBLOBs httpInterfacePOWithBLOBs
-                = ConvertUtils.convert(httpInterface, HttpInterfacePOWithBLOBs.class);
+                = ConvertUtil.convert(httpInterface, HttpInterfacePOWithBLOBs.class);
         fillingLastUpdateInfo(httpInterfacePOWithBLOBs);
         int resultSize;
         try {
@@ -166,17 +166,29 @@ public class HttpInterfaceDaoImpl implements HttpInterfaceDao {
         }
 
         Long httpInterfaceId = httpInterface.getId();
-        // todo 先diff一次，如果完全相当则不用执行相关逻辑
-        responseHeaderDao.deleteByHttpInterfaceId(httpInterfaceId);
-        responseHeaderDao.insert(httpInterfaceId, httpInterface.getResponseHeaderList());
+        if (!HttpHeader.equals(
+                responseHeaderDao.selectByHttpInterfaceId(httpInterfaceId),
+                httpInterface.getResponseHeaderList())
+        ) {
+            responseHeaderDao.deleteByHttpInterfaceId(httpInterfaceId);
+            responseHeaderDao.insert(httpInterfaceId, httpInterface.getResponseHeaderList());
+        }
 
-        // todo 先diff一次，如果完全相当则不用执行相关逻辑
-        callbackRequestHeaderDao.deleteByHttpInterfaceId(httpInterfaceId);
-        callbackRequestHeaderDao.insert(httpInterfaceId, httpInterface.getCallbackRequestHeaderList());
+        if (!HttpHeader.equals(
+                callbackRequestHeaderDao.selectByHttpInterfaceId(httpInterfaceId),
+                httpInterface.getCallbackRequestHeaderList())
+        ) {
+            callbackRequestHeaderDao.deleteByHttpInterfaceId(httpInterfaceId);
+            callbackRequestHeaderDao.insert(httpInterfaceId, httpInterface.getCallbackRequestHeaderList());
+        }
 
-        // todo 先diff一次，如果完全相当则不用执行相关逻辑
-        branchScriptDao.deleteByHttpInterfaceId(httpInterfaceId);
-        branchScriptDao.insert(httpInterfaceId, httpInterface.getBranchScriptList());
+        if (!BranchScript.equals(
+                branchScriptDao.selectByHttpInterfaceId(httpInterfaceId),
+                httpInterface.getBranchScriptList())
+        ) {
+            branchScriptDao.deleteByHttpInterfaceId(httpInterfaceId);
+            branchScriptDao.insert(httpInterfaceId, httpInterface.getBranchScriptList());
+        }
     }
 
     @Override

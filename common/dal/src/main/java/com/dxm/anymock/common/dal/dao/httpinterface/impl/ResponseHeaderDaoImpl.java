@@ -3,7 +3,7 @@ package com.dxm.anymock.common.dal.dao.httpinterface.impl;
 import com.dxm.anymock.common.base.entity.HttpHeader;
 import com.dxm.anymock.common.base.enums.ErrorCode;
 import com.dxm.anymock.common.base.exception.BaseException;
-import com.dxm.anymock.common.base.utils.ConvertUtils;
+import com.dxm.anymock.common.base.util.ConvertUtil;
 import com.dxm.anymock.common.dal.dao.httpinterface.ResponseHeaderDao;
 import com.dxm.anymock.common.dal.entity.HttpInterfaceResponseHeaderPO;
 import com.dxm.anymock.common.dal.entity.HttpInterfaceResponseHeaderPOExample;
@@ -25,7 +25,7 @@ public class ResponseHeaderDaoImpl implements ResponseHeaderDao {
     public void insert(Long httpInterfaceId, List<HttpHeader> httpHeaders) {
         httpHeaders.forEach(responseHeader -> {
             HttpInterfaceResponseHeaderPO responseHeaderPO
-                    = ConvertUtils.convert(responseHeader, HttpInterfaceResponseHeaderPO.class);
+                    = ConvertUtil.convert(responseHeader, HttpInterfaceResponseHeaderPO.class);
             responseHeaderPO.setHttpInterfaceId(httpInterfaceId);
 
             int localResultSize;
@@ -52,7 +52,7 @@ public class ResponseHeaderDaoImpl implements ResponseHeaderDao {
     public List<HttpHeader> selectByHttpInterfaceId(Long httpInterfaceId) {
         HttpInterfaceResponseHeaderPOExample responseHeaderExample = new HttpInterfaceResponseHeaderPOExample();
         responseHeaderExample.createCriteria().andHttpInterfaceIdEqualTo(httpInterfaceId);
-        return ConvertUtils.convert(
+        return ConvertUtil.convert(
                 httpInterfaceResponseHeaderPOMapper.selectByExample(responseHeaderExample), HttpHeader.class);
     }
 }

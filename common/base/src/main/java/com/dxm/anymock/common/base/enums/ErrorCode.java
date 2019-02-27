@@ -1,6 +1,7 @@
 package com.dxm.anymock.common.base.enums;
 
 public enum ErrorCode implements CodeBasedEnum {
+    SUCCESS("000000"),
     ILLEGAL_ARGUMENT("100000"),
 
     SPACE_DUPLICATE_KEY("210001"),

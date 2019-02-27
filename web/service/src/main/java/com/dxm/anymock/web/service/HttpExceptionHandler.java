@@ -1,6 +1,6 @@
 package com.dxm.anymock.web.service;
 
-import com.dxm.anymock.common.base.utils.MessageUtils;
+import com.dxm.anymock.common.base.util.MessageUtil;
 import com.dxm.anymock.common.base.BaseResponse;
 import com.dxm.anymock.common.base.entity.FieldError;
 import com.dxm.anymock.common.base.enums.ErrorCode;
@@ -23,12 +23,12 @@ public class HttpExceptionHandler {
     private static final Logger logger = LoggerFactory.getLogger(HttpExceptionHandler.class);
 
     @Autowired
-    private MessageUtils messageUtils;
+    private MessageUtil messageUtil;
 
     private BaseResponse generateBaseResponseByErrorCode(ErrorCode errorCode) {
         BaseResponse response = new BaseResponse();
         response.setResultCode(errorCode.getCode());
-        response.setResultMsg(messageUtils.getErrorMsg(errorCode));
+        response.setResultMsg(messageUtil.getMsg(errorCode));
         return response;
     }
 
@@ -45,7 +45,7 @@ public class HttpExceptionHandler {
     public BaseResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         BaseResponse response = new BaseResponse();
         response.setResultCode(ErrorCode.ILLEGAL_ARGUMENT.getCode());
-        response.setResultMsg(messageUtils.getErrorMsg(ErrorCode.ILLEGAL_ARGUMENT));
+        response.setResultMsg(messageUtil.getMsg(ErrorCode.ILLEGAL_ARGUMENT));
 
         BindingResult bindingResult = e.getBindingResult();
         if (bindingResult.hasErrors()) {

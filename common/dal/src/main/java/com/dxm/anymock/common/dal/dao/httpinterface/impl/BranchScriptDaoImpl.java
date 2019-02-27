@@ -3,7 +3,7 @@ package com.dxm.anymock.common.dal.dao.httpinterface.impl;
 import com.dxm.anymock.common.base.entity.BranchScript;
 import com.dxm.anymock.common.base.enums.ErrorCode;
 import com.dxm.anymock.common.base.exception.BaseException;
-import com.dxm.anymock.common.base.utils.ConvertUtils;
+import com.dxm.anymock.common.base.util.ConvertUtil;
 import com.dxm.anymock.common.dal.dao.httpinterface.BranchScriptDao;
 import com.dxm.anymock.common.dal.entity.HttpInterfaceBranchScriptPOExample;
 import com.dxm.anymock.common.dal.entity.HttpInterfaceBranchScriptPOWithBLOBs;
@@ -25,7 +25,7 @@ public class BranchScriptDaoImpl implements BranchScriptDao {
     public void insert(Long httpInterfaceId, List<BranchScript> httpHeaders) {
         httpHeaders.forEach(branchScript -> {
             HttpInterfaceBranchScriptPOWithBLOBs httpInterfaceBranchScriptPOWithBLOBs
-                    = ConvertUtils.convert(branchScript, HttpInterfaceBranchScriptPOWithBLOBs.class);
+                    = ConvertUtil.convert(branchScript, HttpInterfaceBranchScriptPOWithBLOBs.class);
             httpInterfaceBranchScriptPOWithBLOBs.setHttpInterfaceId(httpInterfaceId);
 
             int localResultSize;
@@ -52,7 +52,7 @@ public class BranchScriptDaoImpl implements BranchScriptDao {
     public List<BranchScript> selectByHttpInterfaceId(Long httpInterfaceId) {
         HttpInterfaceBranchScriptPOExample branchScriptPOExample = new HttpInterfaceBranchScriptPOExample();
         branchScriptPOExample.createCriteria().andHttpInterfaceIdEqualTo(httpInterfaceId);
-        return ConvertUtils.convert(httpInterfaceBranchScriptPOMapper.selectByExampleWithBLOBs(
+        return ConvertUtil.convert(httpInterfaceBranchScriptPOMapper.selectByExampleWithBLOBs(
                 branchScriptPOExample), BranchScript.class);
     }
 
@@ -67,6 +67,6 @@ public class BranchScriptDaoImpl implements BranchScriptDao {
         if (branchScriptPOWithBLOBsList.size() != 1) {
             throw new BaseException(ErrorCode.HTTP_INTERFACE_BRANCH_SCRIPT_NOT_FOUND);
         }
-        return ConvertUtils.convert(branchScriptPOWithBLOBsList.get(0), BranchScript.class);
+        return ConvertUtil.convert(branchScriptPOWithBLOBsList.get(0), BranchScript.class);
     }
 }
