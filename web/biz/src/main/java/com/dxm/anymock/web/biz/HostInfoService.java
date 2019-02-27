@@ -1,7 +1,7 @@
 package com.dxm.anymock.web.biz;
 
-import com.dxm.anymock.web.biz.api.response.HostInfo;
+import com.dxm.anymock.web.biz.api.response.CoreHostInfo;
 
 public interface HostInfoService {
-    HostInfo selectHostInfo();
+    CoreHostInfo selectCoreHostInfo();
 }

@@ -3,9 +3,7 @@ package com.dxm.anymock.web.service.controller;
 import com.dxm.anymock.common.base.BaseResponse;
 import com.dxm.anymock.common.base.GlobalConstant;
 import com.dxm.anymock.web.biz.HostInfoService;
-import com.dxm.anymock.web.biz.api.response.HostInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,9 +16,9 @@ public class HostInfoController {
    @Autowired
    private HostInfoService hostInfoService;
 
-    @PostMapping("/host_info/select")
+    @PostMapping("/host_info/core")
     @ResponseBody
-    public BaseResponse selectHostInfo() {
-        return BaseResponse.success(hostInfoService.selectHostInfo());
+    public BaseResponse selectCoreHostInfo() {
+        return BaseResponse.success(hostInfoService.selectCoreHostInfo());
     }
 }

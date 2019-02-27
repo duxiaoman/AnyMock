@@ -1,7 +1,7 @@
 package com.dxm.anymock.web.biz.impl;
 
 import com.dxm.anymock.web.biz.HostInfoService;
-import com.dxm.anymock.web.biz.api.response.HostInfo;
+import com.dxm.anymock.web.biz.api.response.CoreHostInfo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +15,10 @@ public class HostInfoServiceImpl implements HostInfoService {
     private Integer httpInterfacePort;
 
     @Override
-    public HostInfo selectHostInfo() {
-        HostInfo hostInfo = new HostInfo();
-        hostInfo.setHost(host);
-        hostInfo.setHttpInterfacePort(httpInterfacePort);
-        return hostInfo;
+    public CoreHostInfo selectCoreHostInfo() {
+        CoreHostInfo coreHostInfo = new CoreHostInfo();
+        coreHostInfo.setHost(host);
+        coreHostInfo.setHttpInterfacePort(httpInterfacePort);
+        return coreHostInfo;
     }
 }

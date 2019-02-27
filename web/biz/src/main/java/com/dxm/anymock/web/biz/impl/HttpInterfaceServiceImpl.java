@@ -14,7 +14,7 @@ import com.dxm.anymock.common.dal.dao.RedisDao;
 import com.dxm.anymock.common.dal.dao.SpaceDao;
 import com.dxm.anymock.web.biz.HostInfoService;
 import com.dxm.anymock.web.biz.HttpInterfaceService;
-import com.dxm.anymock.web.biz.api.response.HostInfo;
+import com.dxm.anymock.web.biz.api.response.CoreHostInfo;
 import com.dxm.anymock.web.biz.api.response.HttpInterfaceDetail;
 import com.dxm.anymock.web.biz.api.response.HttpInterfaceDigest;
 import com.dxm.anymock.web.biz.api.response.PagedData;
@@ -51,14 +51,14 @@ public class HttpInterfaceServiceImpl implements HttpInterfaceService {
     private HostInfoService hostInfoService;
 
     private List<HttpInterfaceDigest> fillingDigestInfo(List<HttpInterface> httpInterfaceList) {
-        HostInfo hostInfo = hostInfoService.selectHostInfo();
+        CoreHostInfo coreHostInfo = hostInfoService.selectCoreHostInfo();
 
         List<HttpInterfaceDigest> httpInterfaceDigestList = new LinkedList<>();
         httpInterfaceList.forEach(httpInterface -> {
             HttpInterfaceDigest httpInterfaceDigest = ConvertUtil.convert(httpInterface, HttpInterfaceDigest.class);
             try {
                 URL url = new URL("http",
-                        hostInfo.getHost(), hostInfo.getHttpInterfacePort(), httpInterface.getRequestUri());
+                        coreHostInfo.getHost(), coreHostInfo.getHttpInterfacePort(), httpInterface.getRequestUri());
                 httpInterfaceDigest.setUrl(url.toString());
             } catch (MalformedURLException e) {
                 httpInterfaceDigest.setUrl("-");

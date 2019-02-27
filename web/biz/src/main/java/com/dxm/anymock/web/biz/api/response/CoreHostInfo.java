@@ -2,7 +2,7 @@ package com.dxm.anymock.web.biz.api.response;
 
 import com.alibaba.fastjson.JSONObject;
 
-public class HostInfo {
+public class CoreHostInfo {
     private String host;
     private Integer httpInterfacePort;
 
