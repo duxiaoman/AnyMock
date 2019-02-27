@@ -32,9 +32,9 @@ public class HttpInterfaceController {
     @Autowired
     private MessageUtil messageUtil;
 
-    @PostMapping("/interface_http/detectConflict")
+    @PostMapping("/interface_http/conflictDetection")
     @ResponseBody
-    public BaseResponse detectConflict(
+    public BaseResponse conflictDetection(
             @Validated @RequestBody RequestType requestType
     ) {
         ConflictJudgement conflictJudgement = new ConflictJudgement();
