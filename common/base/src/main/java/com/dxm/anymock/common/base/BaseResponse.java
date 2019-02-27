@@ -50,6 +50,7 @@ public class BaseResponse {
         BaseResponse baseResponse = new BaseResponse();
         baseResponse.setResultCode(ErrorCode.SUCCESS.getCode());
         baseResponse.setResultMsg(msg);
+        baseResponse.setData(data);
         return baseResponse;
     }
 
