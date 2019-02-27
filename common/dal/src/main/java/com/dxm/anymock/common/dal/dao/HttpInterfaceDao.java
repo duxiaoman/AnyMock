@@ -15,6 +15,7 @@ public interface HttpInterfaceDao {
     List<HttpInterface> selectBySpaceId(Long spaceId);
     HttpInterface selectById(Long id);
     HttpInterface selectByRequestType(RequestType requestType);
+    Long countByUri(String uri);
     BranchScript selectBranchScript(Long id, String branchName);
     void insert(HttpInterface httpInterface);
     void update(HttpInterface httpInterface);

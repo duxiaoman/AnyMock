@@ -9,14 +9,14 @@ import com.dxm.anymock.web.biz.api.request.BasePagedRequest;
 import com.dxm.anymock.web.biz.api.response.HttpInterfaceDetail;
 import com.dxm.anymock.web.biz.api.response.PagedData;
 
-import java.util.List;
-
 public interface HttpInterfaceService {
 
     PagedData selectAll(BasePagedRequest request);
     PagedData selectBySpaceId(HttpInterfacePagedRequest request);
 
     HttpInterfaceDetail selectById(Long id);
+
+    Long countByUri(String uri);
 
     // not public
     HttpInterface selectByRequestType(RequestType requestType);

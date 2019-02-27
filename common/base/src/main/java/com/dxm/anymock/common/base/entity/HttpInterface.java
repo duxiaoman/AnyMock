@@ -2,10 +2,7 @@ package com.dxm.anymock.common.base.entity;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dxm.anymock.common.base.GlobalConstant;
-import com.dxm.anymock.common.base.check.CommonDeleteCheck;
-import com.dxm.anymock.common.base.check.CommonInsertCheck;
-import com.dxm.anymock.common.base.check.CommonUpdateCheck;
-import com.dxm.anymock.common.base.check.SpaceIdCheck;
+import com.dxm.anymock.common.base.check.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -15,7 +12,7 @@ import java.util.List;
 
 public class HttpInterface implements Serializable {
 
-    @NotNull(groups = {CommonUpdateCheck.class, CommonDeleteCheck.class})
+    @NotNull(groups = {CommonIdCheck.class, CommonUpdateCheck.class, CommonDeleteCheck.class})
     private Long id;
 
     @NotBlank(groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
@@ -68,7 +65,7 @@ public class HttpInterface implements Serializable {
     @NotNull(groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
     private Boolean start;
 
-    @NotNull(groups = {CommonInsertCheck.class, CommonUpdateCheck.class, SpaceIdCheck.class})
+    @NotNull(groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
     private Long spaceId;
 
     @NotNull(groups = {CommonInsertCheck.class, CommonUpdateCheck.class})

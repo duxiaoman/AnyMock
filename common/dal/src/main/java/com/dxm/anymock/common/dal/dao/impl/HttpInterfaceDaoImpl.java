@@ -98,6 +98,13 @@ public class HttpInterfaceDaoImpl implements HttpInterfaceDao {
     }
 
     @Override
+    public Long countByUri(String uri) {
+        HttpInterfacePOExample example = new HttpInterfacePOExample();
+        example.createCriteria().andRequestUriEqualTo(uri);
+        return httpInterfacePOMapper.countByExample(example);
+    }
+
+    @Override
     public BranchScript selectBranchScript(Long id, String branchName) {
         return branchScriptDao.selectByHttpInterfaceIdAndName(id, branchName);
     }

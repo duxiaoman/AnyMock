@@ -6,13 +6,14 @@ import com.dxm.anymock.common.base.entity.HttpInterface;
 import com.dxm.anymock.common.base.entity.RequestType;
 import com.dxm.anymock.common.base.entity.HttpInterfaceSnapshot;
 import com.dxm.anymock.common.base.enums.SuccessMsg;
+import com.dxm.anymock.common.base.enums.SupportedRequestMethod;
 import com.dxm.anymock.common.base.util.MessageUtil;
 import com.dxm.anymock.web.biz.HttpInterfaceService;
 import com.dxm.anymock.common.base.BaseResponse;
 import com.dxm.anymock.web.biz.api.request.HttpInterfacePagedRequest;
 import com.dxm.anymock.web.biz.api.request.HttpInterfaceSnapshotPagedRequest;
 import com.dxm.anymock.web.biz.api.request.BasePagedRequest;
-import com.dxm.anymock.web.biz.api.response.PagedData;
+import com.dxm.anymock.web.biz.api.response.ConflictJudgement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -30,6 +31,28 @@ public class HttpInterfaceController {
 
     @Autowired
     private MessageUtil messageUtil;
+
+    @PostMapping("/interface_http/detectConflict")
+    @ResponseBody
+    public BaseResponse detectConflict(
+            @Validated @RequestBody RequestType requestType
+    ) {
+        ConflictJudgement conflictJudgement = new ConflictJudgement();
+        if (requestType.getMethod() != null) {
+            conflictJudgement.setConflict((httpInterfaceService.selectByRequestType(requestType) != null));
+        } else {
+            Long count = httpInterfaceService.countByUri(requestType.getUri());
+            if (count.equals(0L)) {
+                conflictJudgement.setConflict(false);
+            } else if (count.equals((long)SupportedRequestMethod.values().length)) {
+                conflictJudgement.setConflict(true);
+            } else {
+                conflictJudgement.setConflict(false);
+                conflictJudgement.setMayConflict(true);
+            }
+        }
+        return BaseResponse.success(conflictJudgement);
+    }
 
     @PostMapping("/interface_http/selectById")
     @ResponseBody

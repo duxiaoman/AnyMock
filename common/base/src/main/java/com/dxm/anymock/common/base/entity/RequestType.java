@@ -2,8 +2,13 @@ package com.dxm.anymock.common.base.entity;
 
 import com.alibaba.fastjson.JSONObject;
 
+import javax.validation.constraints.NotNull;
+
 public class RequestType {
+
     private String method;
+
+    @NotNull
     private String uri;
 
     public RequestType() {}

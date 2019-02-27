@@ -1,5 +1,6 @@
 package com.dxm.anymock.core.biz.impl;
 
+import com.dxm.anymock.common.base.exception.GroovyScriptExecException;
 import com.dxm.anymock.core.biz.GroovyService;
 import com.dxm.anymock.core.biz.entity.MockContext;
 import groovy.lang.Binding;
@@ -45,14 +46,18 @@ public class GroovyServiceImpl implements GroovyService {
         profiler.start("groovy code source");
         GroovyCodeSource groovyCodeSource = new GroovyCodeSource(text, name, "/groovy/script");
 
-        profiler.start("parse class");
-        Class groovyClass = groovyClassLoader.parseClass(groovyCodeSource);
+        try {
+            profiler.start("parse class");
+            Class groovyClass = groovyClassLoader.parseClass(groovyCodeSource);
 
-        profiler.start("create script");
-        Script script = InvokerHelper.createScript(groovyClass, mockContext.getGroovyBinding());
+            profiler.start("create script");
+            Script script = InvokerHelper.createScript(groovyClass, mockContext.getGroovyBinding());
 
-        profiler.start("run");
-        script.run();
+            profiler.start("run");
+            script.run();
+        } catch (Throwable e) {
+            throw new GroovyScriptExecException(e);
+        }
         return stringWriter.toString();
     }
 }

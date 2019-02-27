@@ -3,8 +3,10 @@ package com.dxm.anymock.core.web;
 import com.dxm.anymock.common.base.BaseResponse;
 import com.dxm.anymock.common.base.enums.ErrorCode;
 import com.dxm.anymock.common.base.exception.BaseException;
+import com.dxm.anymock.common.base.exception.GroovyScriptExecException;
 import com.dxm.anymock.common.base.util.MessageUtil;
 import groovy.lang.GroovyRuntimeException;
+import org.codehaus.groovy.ant.Groovy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,40 +24,30 @@ public class HttpExceptionHandler {
     @Autowired
     private MessageUtil messageUtil;
 
-    private BaseResponse buildBaseResponse(ErrorCode errorCode) {
-        return buildBaseResponse(errorCode, null);
-    }
-
-    private BaseResponse buildBaseResponse(ErrorCode errorCode, Object data) {
-        BaseResponse response = new BaseResponse();
-        response.setResultCode(errorCode.getCode());
-        response.setResultMsg(messageUtil.getMsg(errorCode));
-        response.setData(data);
-        return response;
+    private String buildRespTitle(ErrorCode errorCode) {
+        return String.format("[%s-%s]", errorCode.getCode(), messageUtil.getMsg(errorCode));
     }
 
     @ExceptionHandler(BaseException.class)
     @ResponseBody
-    public ResponseEntity<BaseResponse> handleBaseException(BaseException e) {
-        BaseResponse response = buildBaseResponse(e.getErrorCode());
-        logger.warn("{}", response, e);
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<String> handleBaseException(BaseException e) {
+        logger.warn("", e);
+        return new ResponseEntity<>(buildRespTitle(e.getErrorCode()), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(GroovyRuntimeException.class)
+    @ExceptionHandler(GroovyScriptExecException.class)
     @ResponseBody
-    public ResponseEntity<BaseResponse> handleGroovyRuntimeException(GroovyRuntimeException e) {
-        BaseResponse response = buildBaseResponse(ErrorCode.GROOVY_RUNTIME_EXCEPTION, e.getMessage());
-        logger.warn("{}", response, e);
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<String> handleGroovyScriptExecException(GroovyScriptExecException e) {
+        logger.warn("", e);
+        String body = buildRespTitle(ErrorCode.GROOVY_SCRIPT_EXEC_EXCEPTION) + "\n" + e.getMessage();
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public ResponseEntity<BaseResponse> handleException(Exception e) {
-        BaseResponse response = buildBaseResponse(ErrorCode.UNEXPECTED_ERROR);
-        logger.error("{}", response, e);
-        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<String> handleException(Exception e) {
+        logger.error("", e);
+        return new ResponseEntity<>(buildRespTitle(ErrorCode.UNEXPECTED_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
 

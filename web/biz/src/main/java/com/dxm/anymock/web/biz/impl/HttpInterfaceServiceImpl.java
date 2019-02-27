@@ -103,6 +103,11 @@ public class HttpInterfaceServiceImpl implements HttpInterfaceService {
     }
 
     @Override
+    public Long countByUri(String uri) {
+        return httpInterfaceDao.countByUri(uri);
+    }
+
+    @Override
     public void insert(HttpInterface httpInterface) {
         if (!spaceDao.level(httpInterface.getSpaceId()).equals(GlobalConstant.ALLOW_CREATE_INTERFACE_SPACE_LEVEL)) {
             throw new BaseException(ErrorCode.CANT_INSERT_INTERFACE_UNDER_THIS_SPACE_LEVEL);
@@ -161,7 +166,7 @@ public class HttpInterfaceServiceImpl implements HttpInterfaceService {
 
     private void beforeRecordChange(Long id, HttpInterfaceOpType httpInterfaceOpType) {
         HttpInterface httpInterface = selectById(id);
-        redisDao.clearCache(new RequestType(httpInterface));
+        redisDao.clearHttpInterfaceCache(new RequestType(httpInterface));
         httpInterfaceSnapshotDao.saveSnapshot(httpInterface, httpInterfaceOpType);
     }
 }

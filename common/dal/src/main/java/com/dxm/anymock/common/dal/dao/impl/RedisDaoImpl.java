@@ -32,7 +32,7 @@ public class RedisDaoImpl implements RedisDao {
     }
 
     @Override
-    public void clearCache(RequestType requestType) {
+    public void clearHttpInterfaceCache(RequestType requestType) {
         String httpInterfaceKey = buildHttpInterfaceKey(requestType);
         String branchScriptKey = buildBranchScriptKey(requestType);
         httpInterfaceRedisTemplate.delete(httpInterfaceKey);
