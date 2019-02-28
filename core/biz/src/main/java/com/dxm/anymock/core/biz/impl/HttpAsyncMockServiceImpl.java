@@ -57,7 +57,7 @@ public class HttpAsyncMockServiceImpl implements HttpAsyncMockService {
     private void writeRequestContent(HttpMockContext httpMockContext, String requestContent) throws IOException {
         HttpURLConnection httpURLConnection = httpMockContext.getHttpURLConnection();
         if (StringUtils.isNotBlank(requestContent)) {
-            if (HttpMethod.GET.matches("GET")) {
+            if (HttpMethod.GET.matches(httpMockContext.getHttpInterface().getCallbackRequestMethod())) {
                 // rewrite url
                 try {
                     Field field = URLConnection.class.getDeclaredField("url");
