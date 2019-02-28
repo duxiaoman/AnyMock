@@ -12,12 +12,16 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
+import sun.net.www.ParseUtil;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.lang.reflect.Field;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 
 @Service
@@ -41,25 +45,37 @@ public class HttpAsyncMockServiceImpl implements HttpAsyncMockService {
     private void initHttpURLConnection(MockContext mockContext) throws IOException {
         HttpInterface httpInterface = mockContext.getHttpInterface();
         URL url = new URL(httpInterface.getCallbackRequestUrl());
+
         HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
         httpURLConnection.setDoInput(true);
         httpURLConnection.setRequestMethod(httpInterface.getCallbackRequestMethod());
+
         httpInterface.getCallbackRequestHeaderList()
                 .forEach(httpHeader -> httpURLConnection.setRequestProperty(httpHeader.getName(), httpHeader.getValue()));
         mockContext.setHttpURLConnection(httpURLConnection);
     }
 
-    private void writeRequestBody(MockContext mockContext, String body) throws IOException {
+    private void writeRequestContent(MockContext mockContext, String requestContent) throws IOException {
         HttpURLConnection httpURLConnection = mockContext.getHttpURLConnection();
-        if (StringUtils.isNotBlank(body)) {
-            if (StringUtils.equals(mockContext.getHttpInterface().getCallbackRequestMethod().toUpperCase(), "GET")) {
-                throw new RuntimeException("HTTP request method is GET but body is not blank");
+        if (StringUtils.isNotBlank(requestContent)) {
+            if (HttpMethod.GET.matches("GET")) {
+                // rewrite url
+                try {
+                    Field field = URLConnection.class.getDeclaredField("url");
+                    field.setAccessible(true);
+
+                    field.set(httpURLConnection, new URL(String.format("%s?%s",
+                            mockContext.getHttpInterface().getCallbackRequestUrl(), requestContent)));
+                } catch (NoSuchFieldException | IllegalAccessException e) {
+                    throw new BaseException(ErrorCode.UNEXPECTED_ERROR);
+                }
+            } else {
+                httpURLConnection.setDoOutput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(requestContent.getBytes());
+                outputStream.flush();
+                outputStream.close();
             }
-            httpURLConnection.setDoOutput(true);
-            OutputStream outputStream = httpURLConnection.getOutputStream();
-            outputStream.write(body.getBytes());
-            outputStream.flush();
-            outputStream.close();
         }
     }
 
@@ -70,27 +86,27 @@ public class HttpAsyncMockServiceImpl implements HttpAsyncMockService {
         initHttpURLConnection(mockContext);
 
         HttpInterface httpInterface = mockContext.getHttpInterface();
-        String requestBody;
+        String requestContent;
         switch (mockContext.getConfigMode()) {
             case STATIC:
-                requestBody = httpInterface.getCallbackRequestBody();
+                requestContent = httpInterface.getCallbackRequestBody();
                 break;
             case SCRIPT:
-                requestBody = groovyService.exec(mockContext, httpInterface.getAsyncScript());
+                requestContent = groovyService.exec(mockContext, httpInterface.getAsyncScript());
                 break;
             case SCRIPT_WITH_BRANCH:
-                requestBody = groovyService.exec(mockContext, mockContext.getBranchScript().getAsyncScript());
+                requestContent = groovyService.exec(mockContext, mockContext.getBranchScript().getAsyncScript());
                 break;
             default:
                 throw new BaseException(ErrorCode.UNKNOWN_CONFIG_MODE);
         }
-        logger.info("RequestBody = {}", requestBody);
-        writeRequestBody(mockContext, requestBody);
+        logger.info("RequestContent = {}", requestContent);
+        writeRequestContent(mockContext, requestContent);
 
         int responseCode = mockContext.getHttpURLConnection().getResponseCode();
         logger.info("ResponseCode = {}", responseCode);
 
-        String responseBody = IOUtils.toString(mockContext.getHttpURLConnection().getInputStream(), StandardCharsets.UTF_8);
-        logger.info("ResponseBody = {}", responseBody);
+        String responseContent = IOUtils.toString(mockContext.getHttpURLConnection().getInputStream(), StandardCharsets.UTF_8);
+        logger.info("ResponseContent = {}", responseContent);
     }
 }
