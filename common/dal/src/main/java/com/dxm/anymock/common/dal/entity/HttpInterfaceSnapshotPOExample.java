@@ -1254,6 +1254,76 @@ public class HttpInterfaceSnapshotPOExample {
             addCriterion("snapshot_time not between", value1, value2, "snapshotTime");
             return (Criteria) this;
         }
+
+        public Criteria andHttpInterfaceNameIsNull() {
+            addCriterion("http_interface_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceNameIsNotNull() {
+            addCriterion("http_interface_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceNameEqualTo(String value) {
+            addCriterion("http_interface_name =", value, "httpInterfaceName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceNameNotEqualTo(String value) {
+            addCriterion("http_interface_name <>", value, "httpInterfaceName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceNameGreaterThan(String value) {
+            addCriterion("http_interface_name >", value, "httpInterfaceName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceNameGreaterThanOrEqualTo(String value) {
+            addCriterion("http_interface_name >=", value, "httpInterfaceName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceNameLessThan(String value) {
+            addCriterion("http_interface_name <", value, "httpInterfaceName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceNameLessThanOrEqualTo(String value) {
+            addCriterion("http_interface_name <=", value, "httpInterfaceName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceNameLike(String value) {
+            addCriterion("http_interface_name like", value, "httpInterfaceName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceNameNotLike(String value) {
+            addCriterion("http_interface_name not like", value, "httpInterfaceName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceNameIn(List<String> values) {
+            addCriterion("http_interface_name in", values, "httpInterfaceName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceNameNotIn(List<String> values) {
+            addCriterion("http_interface_name not in", values, "httpInterfaceName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceNameBetween(String value1, String value2) {
+            addCriterion("http_interface_name between", value1, value2, "httpInterfaceName");
+            return (Criteria) this;
+        }
+
+        public Criteria andHttpInterfaceNameNotBetween(String value1, String value2) {
+            addCriterion("http_interface_name not between", value1, value2, "httpInterfaceName");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

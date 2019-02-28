@@ -31,6 +31,8 @@ public class HttpInterfacePO {
 
     private Date lastUpdateTime;
 
+    private String name;
+
     public Long getId() {
         return id;
     }
@@ -141,5 +143,13 @@ public class HttpInterfacePO {
 
     public void setLastUpdateTime(Date lastUpdateTime) {
         this.lastUpdateTime = lastUpdateTime;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 }

@@ -16,6 +16,7 @@
     <result column="space_id" jdbcType="BIGINT" property="spaceId" />
     <result column="last_update_user" jdbcType="VARCHAR" property="lastUpdateUser" />
     <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.dxm.anymock.common.dal.entity.HttpInterfacePOWithBLOBs">
     <result column="response_body" jdbcType="LONGVARCHAR" property="responseBody" />
@@ -85,7 +86,7 @@
   <sql id="Base_Column_List">
     id, request_uri, request_method, description, need_async_callback, config_mode, callback_request_url, 
     callback_request_method, sync_delay, async_delay, start, space_id, last_update_user, 
-    last_update_time
+    last_update_time, name
   </sql>
   <sql id="Blob_Column_List">
     response_body, callback_request_body, branch_jump_script, sync_script, async_script
@@ -144,7 +145,7 @@
       callback_request_url, callback_request_method, 
       sync_delay, async_delay, start, 
       space_id, last_update_user, last_update_time, 
-      response_body, callback_request_body, 
+      name, response_body, callback_request_body, 
       branch_jump_script, sync_script, async_script
       )
     values (#{id,jdbcType=BIGINT}, #{requestUri,jdbcType=VARCHAR}, #{requestMethod,jdbcType=VARCHAR}, 
@@ -152,7 +153,7 @@
       #{callbackRequestUrl,jdbcType=VARCHAR}, #{callbackRequestMethod,jdbcType=VARCHAR}, 
       #{syncDelay,jdbcType=INTEGER}, #{asyncDelay,jdbcType=INTEGER}, #{start,jdbcType=BIT}, 
       #{spaceId,jdbcType=BIGINT}, #{lastUpdateUser,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, 
-      #{responseBody,jdbcType=LONGVARCHAR}, #{callbackRequestBody,jdbcType=LONGVARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{responseBody,jdbcType=LONGVARCHAR}, #{callbackRequestBody,jdbcType=LONGVARCHAR}, 
       #{branchJumpScript,jdbcType=LONGVARCHAR}, #{syncScript,jdbcType=LONGVARCHAR}, #{asyncScript,jdbcType=LONGVARCHAR}
       )
   </insert>
@@ -200,6 +201,9 @@
       </if>
       <if test="lastUpdateTime != null">
         last_update_time,
+      </if>
+      <if test="name != null">
+        name,
       </if>
       <if test="responseBody != null">
         response_body,
@@ -259,6 +263,9 @@
       </if>
       <if test="lastUpdateTime != null">
         #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="responseBody != null">
         #{responseBody,jdbcType=LONGVARCHAR},
@@ -328,6 +335,9 @@
       <if test="record.lastUpdateTime != null">
         last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
       <if test="record.responseBody != null">
         response_body = #{record.responseBody,jdbcType=LONGVARCHAR},
       </if>
@@ -364,6 +374,7 @@
       space_id = #{record.spaceId,jdbcType=BIGINT},
       last_update_user = #{record.lastUpdateUser,jdbcType=VARCHAR},
       last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      name = #{record.name,jdbcType=VARCHAR},
       response_body = #{record.responseBody,jdbcType=LONGVARCHAR},
       callback_request_body = #{record.callbackRequestBody,jdbcType=LONGVARCHAR},
       branch_jump_script = #{record.branchJumpScript,jdbcType=LONGVARCHAR},
@@ -388,7 +399,8 @@
       start = #{record.start,jdbcType=BIT},
       space_id = #{record.spaceId,jdbcType=BIGINT},
       last_update_user = #{record.lastUpdateUser,jdbcType=VARCHAR},
-      last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP}
+      last_update_time = #{record.lastUpdateTime,jdbcType=TIMESTAMP},
+      name = #{record.name,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -435,6 +447,9 @@
       <if test="lastUpdateTime != null">
         last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
       <if test="responseBody != null">
         response_body = #{responseBody,jdbcType=LONGVARCHAR},
       </if>
@@ -468,6 +483,7 @@
       space_id = #{spaceId,jdbcType=BIGINT},
       last_update_user = #{lastUpdateUser,jdbcType=VARCHAR},
       last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      name = #{name,jdbcType=VARCHAR},
       response_body = #{responseBody,jdbcType=LONGVARCHAR},
       callback_request_body = #{callbackRequestBody,jdbcType=LONGVARCHAR},
       branch_jump_script = #{branchJumpScript,jdbcType=LONGVARCHAR},
@@ -489,7 +505,8 @@
       start = #{start,jdbcType=BIT},
       space_id = #{spaceId,jdbcType=BIGINT},
       last_update_user = #{lastUpdateUser,jdbcType=VARCHAR},
-      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP}
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      name = #{name,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByExampleWithBLOBsWithRowbounds" parameterType="com.dxm.anymock.common.dal.entity.HttpInterfacePOExample" resultMap="ResultMapWithBLOBs">

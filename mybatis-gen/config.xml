@@ -23,19 +23,19 @@
         </javaTypeResolver>
 
         <javaModelGenerator targetPackage="${target.model.package}"
-          targetProject="../app/common/dal/src/main/java">
+          targetProject="../common/dal/src/main/java">
             <property name="enableSubPackages" value="true" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
 
         <sqlMapGenerator targetPackage="${target.model.package}"
-          targetProject="../app/common/dal/src/main/resources/META-INF/mappers/auto">
+          targetProject="../common/dal/src/main/resources/META-INF/mappers/auto">
             <property name="enableSubPackages" value="true" />
         </sqlMapGenerator>
 
         <javaClientGenerator type="XMLMAPPER" 
           targetPackage="${target.client.package}" 
-          targetProject="../app/common/dal/src/main/java">
+          targetProject="../common/dal/src/main/java">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 

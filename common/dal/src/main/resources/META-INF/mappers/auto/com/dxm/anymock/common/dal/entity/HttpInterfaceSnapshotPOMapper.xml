@@ -20,6 +20,7 @@
     <result column="op_type" jdbcType="INTEGER" property="opType" />
     <result column="op_user" jdbcType="VARCHAR" property="opUser" />
     <result column="snapshot_time" jdbcType="TIMESTAMP" property="snapshotTime" />
+    <result column="http_interface_name" jdbcType="VARCHAR" property="httpInterfaceName" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.dxm.anymock.common.dal.entity.HttpInterfaceSnapshotPOWithBLOBs">
     <result column="http_interface_response_body" jdbcType="LONGVARCHAR" property="httpInterfaceResponseBody" />
@@ -94,7 +95,7 @@
     http_interface_description, http_interface_need_async_callback, http_interface_config_mode, 
     http_interface_callback_request_url, http_interface_callback_request_method, http_interface_sync_delay, 
     http_interface_async_delay, http_interface_start, http_interface_space_id, http_interface_last_update_user, 
-    http_interface_last_update_time, op_type, op_user, snapshot_time
+    http_interface_last_update_time, op_type, op_user, snapshot_time, http_interface_name
   </sql>
   <sql id="Blob_Column_List">
     http_interface_response_body, http_interface_callback_request_body, http_interface_branch_jump_script, 
@@ -157,11 +158,12 @@
       http_interface_sync_delay, http_interface_async_delay, 
       http_interface_start, http_interface_space_id, http_interface_last_update_user, 
       http_interface_last_update_time, op_type, 
-      op_user, snapshot_time, http_interface_response_body, 
-      http_interface_callback_request_body, http_interface_branch_jump_script, 
-      http_interface_sync_script, http_interface_async_script, 
-      http_interface_response_header_list, http_interface_callback_request_header_list, 
-      http_interface_branch_script_list)
+      op_user, snapshot_time, http_interface_name, 
+      http_interface_response_body, http_interface_callback_request_body, 
+      http_interface_branch_jump_script, http_interface_sync_script, 
+      http_interface_async_script, http_interface_response_header_list, 
+      http_interface_callback_request_header_list, http_interface_branch_script_list
+      )
     values (#{id,jdbcType=BIGINT}, #{httpInterfaceId,jdbcType=BIGINT}, #{httpInterfaceRequestUri,jdbcType=VARCHAR}, 
       #{httpInterfaceRequestMethod,jdbcType=VARCHAR}, #{httpInterfaceDescription,jdbcType=VARCHAR}, 
       #{httpInterfaceNeedAsyncCallback,jdbcType=BIT}, #{httpInterfaceConfigMode,jdbcType=INTEGER}, 
@@ -169,11 +171,12 @@
       #{httpInterfaceSyncDelay,jdbcType=INTEGER}, #{httpInterfaceAsyncDelay,jdbcType=INTEGER}, 
       #{httpInterfaceStart,jdbcType=BIT}, #{httpInterfaceSpaceId,jdbcType=BIGINT}, #{httpInterfaceLastUpdateUser,jdbcType=VARCHAR}, 
       #{httpInterfaceLastUpdateTime,jdbcType=TIMESTAMP}, #{opType,jdbcType=INTEGER}, 
-      #{opUser,jdbcType=VARCHAR}, #{snapshotTime,jdbcType=TIMESTAMP}, #{httpInterfaceResponseBody,jdbcType=LONGVARCHAR}, 
-      #{httpInterfaceCallbackRequestBody,jdbcType=LONGVARCHAR}, #{httpInterfaceBranchJumpScript,jdbcType=LONGVARCHAR}, 
-      #{httpInterfaceSyncScript,jdbcType=LONGVARCHAR}, #{httpInterfaceAsyncScript,jdbcType=LONGVARCHAR}, 
-      #{httpInterfaceResponseHeaderList,jdbcType=LONGVARCHAR}, #{httpInterfaceCallbackRequestHeaderList,jdbcType=LONGVARCHAR}, 
-      #{httpInterfaceBranchScriptList,jdbcType=LONGVARCHAR})
+      #{opUser,jdbcType=VARCHAR}, #{snapshotTime,jdbcType=TIMESTAMP}, #{httpInterfaceName,jdbcType=VARCHAR}, 
+      #{httpInterfaceResponseBody,jdbcType=LONGVARCHAR}, #{httpInterfaceCallbackRequestBody,jdbcType=LONGVARCHAR}, 
+      #{httpInterfaceBranchJumpScript,jdbcType=LONGVARCHAR}, #{httpInterfaceSyncScript,jdbcType=LONGVARCHAR}, 
+      #{httpInterfaceAsyncScript,jdbcType=LONGVARCHAR}, #{httpInterfaceResponseHeaderList,jdbcType=LONGVARCHAR}, 
+      #{httpInterfaceCallbackRequestHeaderList,jdbcType=LONGVARCHAR}, #{httpInterfaceBranchScriptList,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.dxm.anymock.common.dal.entity.HttpInterfaceSnapshotPOWithBLOBs">
     insert into am_http_interface_snapshot
@@ -231,6 +234,9 @@
       </if>
       <if test="snapshotTime != null">
         snapshot_time,
+      </if>
+      <if test="httpInterfaceName != null">
+        http_interface_name,
       </if>
       <if test="httpInterfaceResponseBody != null">
         http_interface_response_body,
@@ -311,6 +317,9 @@
       </if>
       <if test="snapshotTime != null">
         #{snapshotTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="httpInterfaceName != null">
+        #{httpInterfaceName,jdbcType=VARCHAR},
       </if>
       <if test="httpInterfaceResponseBody != null">
         #{httpInterfaceResponseBody,jdbcType=LONGVARCHAR},
@@ -401,6 +410,9 @@
       <if test="record.snapshotTime != null">
         snapshot_time = #{record.snapshotTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.httpInterfaceName != null">
+        http_interface_name = #{record.httpInterfaceName,jdbcType=VARCHAR},
+      </if>
       <if test="record.httpInterfaceResponseBody != null">
         http_interface_response_body = #{record.httpInterfaceResponseBody,jdbcType=LONGVARCHAR},
       </if>
@@ -450,6 +462,7 @@
       op_type = #{record.opType,jdbcType=INTEGER},
       op_user = #{record.opUser,jdbcType=VARCHAR},
       snapshot_time = #{record.snapshotTime,jdbcType=TIMESTAMP},
+      http_interface_name = #{record.httpInterfaceName,jdbcType=VARCHAR},
       http_interface_response_body = #{record.httpInterfaceResponseBody,jdbcType=LONGVARCHAR},
       http_interface_callback_request_body = #{record.httpInterfaceCallbackRequestBody,jdbcType=LONGVARCHAR},
       http_interface_branch_jump_script = #{record.httpInterfaceBranchJumpScript,jdbcType=LONGVARCHAR},
@@ -481,7 +494,8 @@
       http_interface_last_update_time = #{record.httpInterfaceLastUpdateTime,jdbcType=TIMESTAMP},
       op_type = #{record.opType,jdbcType=INTEGER},
       op_user = #{record.opUser,jdbcType=VARCHAR},
-      snapshot_time = #{record.snapshotTime,jdbcType=TIMESTAMP}
+      snapshot_time = #{record.snapshotTime,jdbcType=TIMESTAMP},
+      http_interface_name = #{record.httpInterfaceName,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -540,6 +554,9 @@
       <if test="snapshotTime != null">
         snapshot_time = #{snapshotTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="httpInterfaceName != null">
+        http_interface_name = #{httpInterfaceName,jdbcType=VARCHAR},
+      </if>
       <if test="httpInterfaceResponseBody != null">
         http_interface_response_body = #{httpInterfaceResponseBody,jdbcType=LONGVARCHAR},
       </if>
@@ -586,6 +603,7 @@
       op_type = #{opType,jdbcType=INTEGER},
       op_user = #{opUser,jdbcType=VARCHAR},
       snapshot_time = #{snapshotTime,jdbcType=TIMESTAMP},
+      http_interface_name = #{httpInterfaceName,jdbcType=VARCHAR},
       http_interface_response_body = #{httpInterfaceResponseBody,jdbcType=LONGVARCHAR},
       http_interface_callback_request_body = #{httpInterfaceCallbackRequestBody,jdbcType=LONGVARCHAR},
       http_interface_branch_jump_script = #{httpInterfaceBranchJumpScript,jdbcType=LONGVARCHAR},
@@ -614,7 +632,8 @@
       http_interface_last_update_time = #{httpInterfaceLastUpdateTime,jdbcType=TIMESTAMP},
       op_type = #{opType,jdbcType=INTEGER},
       op_user = #{opUser,jdbcType=VARCHAR},
-      snapshot_time = #{snapshotTime,jdbcType=TIMESTAMP}
+      snapshot_time = #{snapshotTime,jdbcType=TIMESTAMP},
+      http_interface_name = #{httpInterfaceName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByExampleWithBLOBsWithRowbounds" parameterType="com.dxm.anymock.common.dal.entity.HttpInterfaceSnapshotPOExample" resultMap="ResultMapWithBLOBs">

@@ -39,6 +39,8 @@ public class HttpInterfaceSnapshotPO {
 
     private Date snapshotTime;
 
+    private String httpInterfaceName;
+
     public Long getId() {
         return id;
     }
@@ -181,5 +183,13 @@ public class HttpInterfaceSnapshotPO {
 
     public void setSnapshotTime(Date snapshotTime) {
         this.snapshotTime = snapshotTime;
+    }
+
+    public String getHttpInterfaceName() {
+        return httpInterfaceName;
+    }
+
+    public void setHttpInterfaceName(String httpInterfaceName) {
+        this.httpInterfaceName = httpInterfaceName == null ? null : httpInterfaceName.trim();
     }
 }

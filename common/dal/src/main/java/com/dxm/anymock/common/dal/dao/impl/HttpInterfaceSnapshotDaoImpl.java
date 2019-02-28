@@ -56,6 +56,7 @@ public class HttpInterfaceSnapshotDaoImpl implements HttpInterfaceSnapshotDao {
         snapshot.setHttpInterfaceBranchScriptList(JSONObject.toJSONString(httpInterface.getBranchScriptList()));
         snapshot.setHttpInterfaceLastUpdateUser(httpInterface.getLastUpdateUser());
         snapshot.setHttpInterfaceLastUpdateTime(httpInterface.getLastUpdateTime());
+        snapshot.setHttpInterfaceName(httpInterface.getName());
         snapshot.setOpType(httpInterfaceOpType.getCode());
         snapshot.setOpUser(GlobalConstant.DEFAULT_USER);
         snapshot.setSnapshotTime(new Date());
@@ -113,6 +114,7 @@ public class HttpInterfaceSnapshotDaoImpl implements HttpInterfaceSnapshotDao {
         httpInterface.setSpaceId(source.getHttpInterfaceSpaceId());
         httpInterface.setLastUpdateUser(source.getHttpInterfaceLastUpdateUser());
         httpInterface.setLastUpdateTime(source.getHttpInterfaceLastUpdateTime());
+        httpInterface.setName(source.getHttpInterfaceName());
         target.setHttpInterface(httpInterface);
         return target;
     }

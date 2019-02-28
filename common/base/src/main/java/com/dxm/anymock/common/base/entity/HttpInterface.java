@@ -80,9 +80,20 @@ public class HttpInterface implements Serializable {
     @Valid
     private List<BranchScript> branchScriptList;
 
+    @NotBlank(groups = {CommonInsertCheck.class, CommonUpdateCheck.class})
+    private String name;
+
     private String lastUpdateUser;
 
     private Date lastUpdateTime;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Long getId() {
         return id;
