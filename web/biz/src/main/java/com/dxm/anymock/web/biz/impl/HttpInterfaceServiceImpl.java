@@ -20,6 +20,7 @@ import com.dxm.anymock.web.biz.converter.RowBoundsConverter;
 import com.dxm.anymock.web.biz.api.request.BasePagedRequest;
 import com.dxm.anymock.web.biz.api.request.HttpInterfacePagedRequest;
 import com.dxm.anymock.web.biz.api.request.HttpInterfaceSnapshotPagedRequest;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -104,7 +105,7 @@ public class HttpInterfaceServiceImpl implements HttpInterfaceService {
     public ConflictJudgement conflictDetection(RequestType requestType) {
         ConflictJudgement conflictJudgement = new ConflictJudgement();
 
-        if (requestType.getMethod() != null) {
+        if (requestType.getMethod() != null && StringUtils.isNotBlank(requestType.getMethod())) {
             conflictJudgement.setDetectable(true);
             conflictJudgement.setConflict((selectByRequestType(requestType) != null));
         } else {

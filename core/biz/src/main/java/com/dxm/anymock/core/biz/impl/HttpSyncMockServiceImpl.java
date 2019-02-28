@@ -85,44 +85,34 @@ public class HttpSyncMockServiceImpl implements HttpSyncMockService {
     public void mock(MockContext mockContext) throws IOException {
         logger.info("HttpSyncMockService start");
 
-        ProfilerRegistry profilerRegistry = ProfilerRegistry.getThreadContextInstance();
-        Profiler profiler = profilerRegistry.get(HttpSyncMockService.class.getSimpleName());
-        profiler.start("mock sync delay");
         mockSyncDelay(mockContext);
-
-        profiler.start("set resp header");
         setResponseHeader(mockContext);
 
         HttpInterface httpInterface = mockContext.getHttpInterface();
         String responseBody;
         logger.info("ConfigMode = {}", mockContext.getConfigMode().name());
+
         switch (mockContext.getConfigMode()) {
             case STATIC:
                 responseBody = httpInterface.getResponseBody();
                 break;
             case SCRIPT:
-                profiler.start("exec sync script");
-                profiler.startNested(GroovyService.class.getSimpleName());
+                groovyService.initBinding(mockContext);
+                groovyService.bindSyncProperty(mockContext);
                 responseBody = groovyService.exec(mockContext, httpInterface.getSyncScript());
                 break;
             case SCRIPT_WITH_BRANCH:
-                profiler.start("exec branch jump script");
-                profiler.startNested(GroovyService.class.getSimpleName());
+                groovyService.initBinding(mockContext);
+                groovyService.bindSyncProperty(mockContext);
                 String branchName = groovyService.exec(mockContext, httpInterface.getBranchJumpScript());
                 logger.info("BranchName = {}", branchName);
-
-                profiler.start("load branch script");
                 loadBranchScript(mockContext, branchName);
-
-                profiler.start("exec branch script");
-                profiler.startNested(GroovyService.class.getSimpleName());
                 responseBody = groovyService.exec(mockContext, mockContext.getBranchScript().getSyncScript());
                 break;
             default:
                 throw new BaseException(ErrorCode.UNKNOWN_CONFIG_MODE);
         }
         logger.info("ResponseBody = {}", responseBody);
-        profiler.start("write resp body");
         writeResponseBody(mockContext, responseBody);
     }
 }

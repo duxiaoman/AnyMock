@@ -92,9 +92,11 @@ public class HttpAsyncMockServiceImpl implements HttpAsyncMockService {
                 requestContent = httpInterface.getCallbackRequestBody();
                 break;
             case SCRIPT:
+                groovyService.bindAsyncProperty(mockContext);
                 requestContent = groovyService.exec(mockContext, httpInterface.getAsyncScript());
                 break;
             case SCRIPT_WITH_BRANCH:
+                groovyService.bindAsyncProperty(mockContext);
                 requestContent = groovyService.exec(mockContext, mockContext.getBranchScript().getAsyncScript());
                 break;
             default:

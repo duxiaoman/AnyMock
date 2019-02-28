@@ -131,29 +131,12 @@ public class HttpMockServiceImpl implements HttpMockService {
 
     @Override
     public void mock(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        // init profiler
-        Profiler profiler = new Profiler("THREAD-PROFILER");
-        profiler.setLogger(logger);
-        ProfilerRegistry profilerRegistry = ProfilerRegistry.getThreadContextInstance();
-        profiler.registerWith(profilerRegistry);
-
-        profiler.start("init MockContext");
         MockContext mockContext = new MockContext(request, response);
-
-        profiler.start("load httpInterface");
         loadHttpInterface(mockContext);
-
-        profiler.start("store http body");
         storeHttpBody(mockContext);
-
-        profiler.start("log request msg");
         logRawHttpRequestMsg(mockContext);
-
-        profiler.start("sync mock");
-        profiler.startNested(HttpSyncMockService.class.getSimpleName());
         httpSyncMockService.mock(mockContext);
 
-        profiler.start("async mock");
         if (BooleanUtils.isTrue(mockContext.getHttpInterface().getNeedAsyncCallback())) {
             threadPoolTaskExecutor.execute(() -> {
                 try {
@@ -163,7 +146,5 @@ public class HttpMockServiceImpl implements HttpMockService {
                 }
             });
         }
-        profiler.stop();
-        profiler.log();
     }
 }

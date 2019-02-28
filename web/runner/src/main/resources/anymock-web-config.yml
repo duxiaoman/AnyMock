@@ -21,3 +21,6 @@ anymock:
   core:
     host: 127.0.0.1
     http-interface-port: 8330
+
+fe:
+  path: file:///C:/Users/lizhenxi01/Desktop/dxm/open-source/anymock-fe/dist/

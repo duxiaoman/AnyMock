@@ -1,0 +1,29 @@
+spring:
+  jackson:
+    default-property-inclusion: non_null
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+  datasource:
+    url: jdbc:mysql://cp01-ocean-2480.epc.baidu.com:8306/anymock_opensource_prod?serverTimezone=UTC
+    username: root
+    password: root
+    type: com.zaxxer.hikari.HikariDataSource
+  redis:
+    host: 10.157.28.45
+    port: 8331
+
+server:
+  port: 8329
+
+fe:
+  path:
+
+logging:
+  file: logs/anymock-web.log
+
+anymock:
+  core:
+    host: 10.157.28.45
+    http-interface-port: 8330

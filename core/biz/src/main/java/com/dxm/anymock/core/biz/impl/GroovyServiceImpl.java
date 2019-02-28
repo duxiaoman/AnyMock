@@ -24,40 +24,38 @@ public class GroovyServiceImpl implements GroovyService {
 
     @Override
     public String exec(MockContext mockContext, String text) {
-        ProfilerRegistry profilerRegistry = ProfilerRegistry.getThreadContextInstance();
-        Profiler profiler = profilerRegistry.get(GroovyService.class.getSimpleName());
-
-        profiler.start("bind");
-        if (mockContext.getGroovyBinding() == null) {
-            Binding binding = new Binding();
-            binding.setProperty("request", mockContext.getHttpServletRequest());
-            binding.setProperty("response", mockContext.getHttpServletResponse());
-            mockContext.setGroovyBinding(binding);
-        }
-
-        profiler.start("redirect output");
         StringWriter stringWriter = new StringWriter();
         PrintWriter printWriter = new PrintWriter(stringWriter);
         mockContext.getGroovyBinding().setProperty("out", printWriter);
 
-        profiler.start("gen script name");
         String name = "script" + System.currentTimeMillis() + Math.abs(text.hashCode()) + ".groovy";
-
-        profiler.start("groovy code source");
         GroovyCodeSource groovyCodeSource = new GroovyCodeSource(text, name, "/groovy/script");
 
         try {
-            profiler.start("parse class");
             Class groovyClass = groovyClassLoader.parseClass(groovyCodeSource);
-
-            profiler.start("create script");
             Script script = InvokerHelper.createScript(groovyClass, mockContext.getGroovyBinding());
-
-            profiler.start("run");
             script.run();
         } catch (Throwable e) {
             throw new GroovyScriptExecException(mockContext.getRawHttpRequestMsg(), e);
         }
         return stringWriter.toString();
+    }
+
+    @Override
+    public void initBinding(MockContext mockContext) {
+        mockContext.setGroovyBinding(new Binding());
+    }
+
+    @Override
+    public void bindSyncProperty(MockContext mockContext) {
+        Binding binding = mockContext.getGroovyBinding();
+        binding.setProperty("request", mockContext.getHttpServletRequest());
+        binding.setProperty("response", mockContext.getHttpServletResponse());
+    }
+
+    @Override
+    public void bindAsyncProperty(MockContext mockContext) {
+        Binding binding = mockContext.getGroovyBinding();
+        binding.setProperty("httpURLConnection", mockContext.getHttpURLConnection());
     }
 }
