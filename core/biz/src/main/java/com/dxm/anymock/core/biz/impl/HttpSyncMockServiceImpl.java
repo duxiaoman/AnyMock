@@ -4,20 +4,16 @@ import com.dxm.anymock.common.base.GlobalConstant;
 import com.dxm.anymock.common.base.entity.BranchScript;
 import com.dxm.anymock.common.base.entity.HttpInterface;
 import com.dxm.anymock.common.base.entity.RequestType;
-import com.dxm.anymock.common.base.enums.ConfigMode;
 import com.dxm.anymock.common.base.enums.ErrorCode;
 import com.dxm.anymock.common.base.exception.BaseException;
 import com.dxm.anymock.common.dal.dao.HttpInterfaceDao;
 import com.dxm.anymock.common.dal.dao.RedisDao;
 import com.dxm.anymock.core.biz.GroovyService;
 import com.dxm.anymock.core.biz.HttpSyncMockService;
-import com.dxm.anymock.core.biz.entity.MockContext;
-import groovy.lang.Binding;
+import com.dxm.anymock.core.biz.entity.HttpMockContext;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.profiler.Profiler;
-import org.slf4j.profiler.ProfilerRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,8 +33,8 @@ public class HttpSyncMockServiceImpl implements HttpSyncMockService {
     @Autowired
     private HttpInterfaceDao httpInterfaceDao;
 
-    private void mockSyncDelay(MockContext mockContext) {
-        HttpInterface httpInterface = mockContext.getHttpInterface();
+    private void mockSyncDelay(HttpMockContext httpMockContext) {
+        HttpInterface httpInterface = httpMockContext.getHttpInterface();
         if (httpInterface.getSyncDelay() > GlobalConstant.MAX_SYNC_DELAY) {
             throw new BaseException(ErrorCode.SYNC_DELAY_TOO_LARGE);
         }
@@ -51,21 +47,21 @@ public class HttpSyncMockServiceImpl implements HttpSyncMockService {
         }
     }
 
-    private void setResponseHeader(MockContext mockContext) {
-        mockContext.getHttpInterface().getResponseHeaderList().forEach(httpHeader ->
-                mockContext.getHttpServletResponse().setHeader(httpHeader.getName(), httpHeader.getValue())
+    private void setResponseHeader(HttpMockContext httpMockContext) {
+        httpMockContext.getHttpInterface().getResponseHeaderList().forEach(httpHeader ->
+                httpMockContext.getHttpServletResponse().setHeader(httpHeader.getName(), httpHeader.getValue())
         );
     }
 
-    private void writeResponseBody(MockContext mockContext, String body) throws IOException {
+    private void writeResponseBody(HttpMockContext httpMockContext, String body) throws IOException {
         if (StringUtils.isNotBlank(body)) {
-            mockContext.getHttpServletResponse().getWriter().write(body);
+            httpMockContext.getHttpServletResponse().getWriter().write(body);
         }
     }
 
-    private void loadBranchScript(MockContext mockContext, String branchName) {
-        RequestType requestType = mockContext.getRequestType();
-        Long httpInterfaceId = mockContext.getHttpInterface().getId();
+    private void loadBranchScript(HttpMockContext httpMockContext, String branchName) {
+        RequestType requestType = httpMockContext.getRequestType();
+        Long httpInterfaceId = httpMockContext.getHttpInterface().getId();
 
         logger.info("Loading branch script from redis...");
         BranchScript branchScript = redisDao.getBranchScript(requestType, branchName);
@@ -78,41 +74,41 @@ public class HttpSyncMockServiceImpl implements HttpSyncMockService {
             redisDao.setBranchScript(requestType, branchName, branchScript);
         }
 
-        mockContext.setBranchScript(branchScript);
+        httpMockContext.setBranchScript(branchScript);
     }
 
     @Override
-    public void mock(MockContext mockContext) throws IOException {
+    public void mock(HttpMockContext httpMockContext) throws IOException {
         logger.info("HttpSyncMockService start");
 
-        mockSyncDelay(mockContext);
-        setResponseHeader(mockContext);
+        mockSyncDelay(httpMockContext);
+        setResponseHeader(httpMockContext);
 
-        HttpInterface httpInterface = mockContext.getHttpInterface();
+        HttpInterface httpInterface = httpMockContext.getHttpInterface();
         String responseBody;
-        logger.info("ConfigMode = {}", mockContext.getConfigMode().name());
+        logger.info("ConfigMode = {}", httpMockContext.getConfigMode().name());
 
-        switch (mockContext.getConfigMode()) {
+        switch (httpMockContext.getConfigMode()) {
             case STATIC:
                 responseBody = httpInterface.getResponseBody();
                 break;
             case SCRIPT:
-                groovyService.initBinding(mockContext);
-                groovyService.bindSyncProperty(mockContext);
-                responseBody = groovyService.exec(mockContext, httpInterface.getSyncScript());
+                groovyService.initBinding(httpMockContext);
+                groovyService.bindSyncProperty(httpMockContext);
+                responseBody = groovyService.exec(httpMockContext, httpInterface.getSyncScript());
                 break;
             case SCRIPT_WITH_BRANCH:
-                groovyService.initBinding(mockContext);
-                groovyService.bindSyncProperty(mockContext);
-                String branchName = groovyService.exec(mockContext, httpInterface.getBranchJumpScript());
+                groovyService.initBinding(httpMockContext);
+                groovyService.bindSyncProperty(httpMockContext);
+                String branchName = groovyService.exec(httpMockContext, httpInterface.getBranchJumpScript());
                 logger.info("BranchName = {}", branchName);
-                loadBranchScript(mockContext, branchName);
-                responseBody = groovyService.exec(mockContext, mockContext.getBranchScript().getSyncScript());
+                loadBranchScript(httpMockContext, branchName);
+                responseBody = groovyService.exec(httpMockContext, httpMockContext.getBranchScript().getSyncScript());
                 break;
             default:
                 throw new BaseException(ErrorCode.UNKNOWN_CONFIG_MODE);
         }
         logger.info("ResponseBody = {}", responseBody);
-        writeResponseBody(mockContext, responseBody);
+        writeResponseBody(httpMockContext, responseBody);
     }
 }

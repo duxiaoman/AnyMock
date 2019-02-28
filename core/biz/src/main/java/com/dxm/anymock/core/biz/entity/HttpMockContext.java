@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.net.HttpURLConnection;
 import java.util.Enumeration;
 
-public class MockContext {
+public class HttpMockContext {
     private RequestType requestType;
     private HttpInterface httpInterface;
     private HttpServletRequest httpServletRequest;
@@ -50,7 +50,7 @@ public class MockContext {
         return rawHttpRequestMsg;
     }
 
-    public MockContext(HttpServletRequest request, HttpServletResponse response) {
+    public HttpMockContext(HttpServletRequest request, HttpServletResponse response) {
         this.httpServletRequest = request;
         this.httpServletResponse = response;
     }

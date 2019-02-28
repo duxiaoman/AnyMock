@@ -1,10 +1,10 @@
 package com.dxm.anymock.core.biz;
 
-import com.dxm.anymock.core.biz.entity.MockContext;
+import com.dxm.anymock.core.biz.entity.HttpMockContext;
 
 public interface GroovyService {
-    String exec(MockContext mockContext, String text);
-    void initBinding(MockContext mockContext);
-    void bindSyncProperty(MockContext mockContext);
-    void bindAsyncProperty(MockContext mockContext);
+    String exec(HttpMockContext httpMockContext, String text);
+    void initBinding(HttpMockContext httpMockContext);
+    void bindSyncProperty(HttpMockContext httpMockContext);
+    void bindAsyncProperty(HttpMockContext httpMockContext);
 }

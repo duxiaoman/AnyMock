@@ -6,7 +6,7 @@ import com.dxm.anymock.common.base.enums.ErrorCode;
 import com.dxm.anymock.common.base.exception.BaseException;
 import com.dxm.anymock.core.biz.GroovyService;
 import com.dxm.anymock.core.biz.HttpAsyncMockService;
-import com.dxm.anymock.core.biz.entity.MockContext;
+import com.dxm.anymock.core.biz.entity.HttpMockContext;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
-import sun.net.www.ParseUtil;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -32,8 +31,8 @@ public class HttpAsyncMockServiceImpl implements HttpAsyncMockService {
     @Autowired
     private GroovyService groovyService;
 
-    private void mockAsyncDelay(MockContext mockContext) throws InterruptedException {
-        HttpInterface httpInterface = mockContext.getHttpInterface();
+    private void mockAsyncDelay(HttpMockContext httpMockContext) throws InterruptedException {
+        HttpInterface httpInterface = httpMockContext.getHttpInterface();
         if (httpInterface.getAsyncDelay() > GlobalConstant.MAX_ASYNC_DELAY) {
             throw new BaseException(ErrorCode.ASYNC_DELAY_TOO_LARGE);
         }
@@ -42,8 +41,8 @@ public class HttpAsyncMockServiceImpl implements HttpAsyncMockService {
         }
     }
 
-    private void initHttpURLConnection(MockContext mockContext) throws IOException {
-        HttpInterface httpInterface = mockContext.getHttpInterface();
+    private void initHttpURLConnection(HttpMockContext httpMockContext) throws IOException {
+        HttpInterface httpInterface = httpMockContext.getHttpInterface();
         URL url = new URL(httpInterface.getCallbackRequestUrl());
 
         HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
@@ -52,11 +51,11 @@ public class HttpAsyncMockServiceImpl implements HttpAsyncMockService {
 
         httpInterface.getCallbackRequestHeaderList()
                 .forEach(httpHeader -> httpURLConnection.setRequestProperty(httpHeader.getName(), httpHeader.getValue()));
-        mockContext.setHttpURLConnection(httpURLConnection);
+        httpMockContext.setHttpURLConnection(httpURLConnection);
     }
 
-    private void writeRequestContent(MockContext mockContext, String requestContent) throws IOException {
-        HttpURLConnection httpURLConnection = mockContext.getHttpURLConnection();
+    private void writeRequestContent(HttpMockContext httpMockContext, String requestContent) throws IOException {
+        HttpURLConnection httpURLConnection = httpMockContext.getHttpURLConnection();
         if (StringUtils.isNotBlank(requestContent)) {
             if (HttpMethod.GET.matches("GET")) {
                 // rewrite url
@@ -65,7 +64,7 @@ public class HttpAsyncMockServiceImpl implements HttpAsyncMockService {
                     field.setAccessible(true);
 
                     field.set(httpURLConnection, new URL(String.format("%s?%s",
-                            mockContext.getHttpInterface().getCallbackRequestUrl(), requestContent)));
+                            httpMockContext.getHttpInterface().getCallbackRequestUrl(), requestContent)));
                 } catch (NoSuchFieldException | IllegalAccessException e) {
                     throw new BaseException(ErrorCode.UNEXPECTED_ERROR);
                 }
@@ -80,35 +79,35 @@ public class HttpAsyncMockServiceImpl implements HttpAsyncMockService {
     }
 
     @Override
-    public void mock(MockContext mockContext) throws Exception {
+    public void mock(HttpMockContext httpMockContext) throws Exception {
         logger.info("HttpAsyncMockService start");
-        mockAsyncDelay(mockContext);
-        initHttpURLConnection(mockContext);
+        mockAsyncDelay(httpMockContext);
+        initHttpURLConnection(httpMockContext);
 
-        HttpInterface httpInterface = mockContext.getHttpInterface();
+        HttpInterface httpInterface = httpMockContext.getHttpInterface();
         String requestContent;
-        switch (mockContext.getConfigMode()) {
+        switch (httpMockContext.getConfigMode()) {
             case STATIC:
                 requestContent = httpInterface.getCallbackRequestBody();
                 break;
             case SCRIPT:
-                groovyService.bindAsyncProperty(mockContext);
-                requestContent = groovyService.exec(mockContext, httpInterface.getAsyncScript());
+                groovyService.bindAsyncProperty(httpMockContext);
+                requestContent = groovyService.exec(httpMockContext, httpInterface.getAsyncScript());
                 break;
             case SCRIPT_WITH_BRANCH:
-                groovyService.bindAsyncProperty(mockContext);
-                requestContent = groovyService.exec(mockContext, mockContext.getBranchScript().getAsyncScript());
+                groovyService.bindAsyncProperty(httpMockContext);
+                requestContent = groovyService.exec(httpMockContext, httpMockContext.getBranchScript().getAsyncScript());
                 break;
             default:
                 throw new BaseException(ErrorCode.UNKNOWN_CONFIG_MODE);
         }
         logger.info("RequestContent = {}", requestContent);
-        writeRequestContent(mockContext, requestContent);
+        writeRequestContent(httpMockContext, requestContent);
 
-        int responseCode = mockContext.getHttpURLConnection().getResponseCode();
+        int responseCode = httpMockContext.getHttpURLConnection().getResponseCode();
         logger.info("ResponseCode = {}", responseCode);
 
-        String responseContent = IOUtils.toString(mockContext.getHttpURLConnection().getInputStream(), StandardCharsets.UTF_8);
+        String responseContent = IOUtils.toString(httpMockContext.getHttpURLConnection().getInputStream(), StandardCharsets.UTF_8);
         logger.info("ResponseContent = {}", responseContent);
     }
 }

@@ -1,7 +1,7 @@
 package com.dxm.anymock.core.biz;
 
-import com.dxm.anymock.core.biz.entity.MockContext;
+import com.dxm.anymock.core.biz.entity.HttpMockContext;
 
 public interface HttpAsyncMockService {
-    void mock(MockContext mockContext) throws Exception;
+    void mock(HttpMockContext httpMockContext) throws Exception;
 }

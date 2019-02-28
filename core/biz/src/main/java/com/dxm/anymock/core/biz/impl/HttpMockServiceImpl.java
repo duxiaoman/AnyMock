@@ -12,21 +12,15 @@ import com.dxm.anymock.common.dal.dao.RedisDao;
 import com.dxm.anymock.core.biz.HttpAsyncMockService;
 import com.dxm.anymock.core.biz.HttpMockService;
 import com.dxm.anymock.core.biz.HttpSyncMockService;
-import com.dxm.anymock.core.biz.entity.MockContext;
-import groovy.lang.GroovyClassLoader;
+import com.dxm.anymock.core.biz.entity.HttpMockContext;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.BooleanUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.profiler.Profiler;
-import org.slf4j.profiler.ProfilerRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.util.ContentCachingRequestWrapper;
-import org.springframework.web.util.ContentCachingResponseWrapper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,16 +50,16 @@ public class HttpMockServiceImpl implements HttpMockService {
     @Autowired
     private HttpAsyncMockService httpAsyncMockService;
 
-    private void logRawHttpRequestMsg(MockContext mockContext) {
+    private void logRawHttpRequestMsg(HttpMockContext httpMockContext) {
         if (logger.isInfoEnabled()) {
             logger.info("\n################### HTTP REQUEST ###################\n"
-                    + mockContext.getRawHttpRequestMsg()
+                    + httpMockContext.getRawHttpRequestMsg()
                     + "\n####################################################");
         }
     }
 
-    private void storeHttpBody(MockContext mockContext) throws IOException {
-        HttpServletRequest request = mockContext.getHttpServletRequest();
+    private void storeHttpBody(HttpMockContext httpMockContext) throws IOException {
+        HttpServletRequest request = httpMockContext.getHttpServletRequest();
         String contentType = request.getContentType();
         String method = request.getMethod();
         String requestEncoding =  request.getCharacterEncoding();
@@ -100,8 +94,8 @@ public class HttpMockServiceImpl implements HttpMockService {
         request.setAttribute("body", body);
     }
 
-    private void loadHttpInterface(MockContext mockContext) {
-        RequestType requestType = new RequestType(mockContext.getHttpServletRequest());
+    private void loadHttpInterface(HttpMockContext httpMockContext) {
+        RequestType requestType = new RequestType(httpMockContext.getHttpServletRequest());
 
         logger.info("Loading HTTP interface from redis...");
         HttpInterface httpInterface = redisDao.getHttpInterface(requestType);
@@ -124,23 +118,23 @@ public class HttpMockServiceImpl implements HttpMockService {
             throw new BaseException(ErrorCode.UNKNOWN_CONFIG_MODE);
         }
 
-        mockContext.setRequestType(requestType);
-        mockContext.setHttpInterface(httpInterface);
-        mockContext.setConfigMode(configMode);
+        httpMockContext.setRequestType(requestType);
+        httpMockContext.setHttpInterface(httpInterface);
+        httpMockContext.setConfigMode(configMode);
     }
 
     @Override
     public void mock(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        MockContext mockContext = new MockContext(request, response);
-        loadHttpInterface(mockContext);
-        storeHttpBody(mockContext);
-        logRawHttpRequestMsg(mockContext);
-        httpSyncMockService.mock(mockContext);
+        HttpMockContext httpMockContext = new HttpMockContext(request, response);
+        loadHttpInterface(httpMockContext);
+        storeHttpBody(httpMockContext);
+        logRawHttpRequestMsg(httpMockContext);
+        httpSyncMockService.mock(httpMockContext);
 
-        if (BooleanUtils.isTrue(mockContext.getHttpInterface().getNeedAsyncCallback())) {
+        if (BooleanUtils.isTrue(httpMockContext.getHttpInterface().getNeedAsyncCallback())) {
             threadPoolTaskExecutor.execute(() -> {
                 try {
-                    httpAsyncMockService.mock(mockContext);
+                    httpAsyncMockService.mock(httpMockContext);
                 } catch (Exception e) {
                     logger.warn("", e);
                 }
