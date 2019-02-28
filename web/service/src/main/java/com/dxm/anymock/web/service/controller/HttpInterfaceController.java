@@ -10,6 +10,7 @@ import com.dxm.anymock.common.base.enums.SupportedRequestMethod;
 import com.dxm.anymock.common.base.util.MessageUtil;
 import com.dxm.anymock.web.biz.HttpInterfaceService;
 import com.dxm.anymock.common.base.BaseResponse;
+import com.dxm.anymock.web.biz.api.request.HttpInterfaceConflictDetectionRequest;
 import com.dxm.anymock.web.biz.api.request.HttpInterfacePagedRequest;
 import com.dxm.anymock.web.biz.api.request.HttpInterfaceSnapshotPagedRequest;
 import com.dxm.anymock.web.biz.api.request.BasePagedRequest;
@@ -35,9 +36,9 @@ public class HttpInterfaceController {
     @PostMapping("/interface_http/conflictDetection")
     @ResponseBody
     public BaseResponse conflictDetection(
-            @Validated @RequestBody RequestType requestType
+            @Validated @RequestBody HttpInterfaceConflictDetectionRequest request
     ) {
-        return BaseResponse.success(httpInterfaceService.conflictDetection(requestType));
+        return BaseResponse.success(httpInterfaceService.conflictDetection(request));
     }
 
     @PostMapping("/interface_http/selectById")

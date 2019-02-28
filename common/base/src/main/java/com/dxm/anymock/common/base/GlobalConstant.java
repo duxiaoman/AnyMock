@@ -13,5 +13,5 @@ public class GlobalConstant {
     public static final int    MAX_ASYNC_DELAY = 20000;
     public static final int    MAX_SPACE_LEVEL = 2;
     public static final int    ALLOW_CREATE_INTERFACE_SPACE_LEVEL = 2;
-    public static final long   FAKE_ROOT_SPACE_ID = 0;
+    public static final long   FAKE_ID = 0;
 }

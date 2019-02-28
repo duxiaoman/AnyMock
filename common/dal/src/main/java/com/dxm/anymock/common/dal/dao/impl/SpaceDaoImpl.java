@@ -80,7 +80,7 @@ public class SpaceDaoImpl implements SpaceDao {
     public Integer level(Long id) {
         Integer level = 0;
         while (true) {
-            if (id.equals(GlobalConstant.FAKE_ROOT_SPACE_ID)) {
+            if (id.equals(GlobalConstant.FAKE_ID)) {
                 break;
             }
             SpacePO spacePO = spacePOMapper.selectByPrimaryKey(id);

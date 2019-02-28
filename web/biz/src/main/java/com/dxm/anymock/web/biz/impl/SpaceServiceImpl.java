@@ -9,7 +9,6 @@ import com.dxm.anymock.common.dal.dao.SpaceDao;
 import com.dxm.anymock.web.biz.api.response.SpaceTreeNode;
 import com.dxm.anymock.web.biz.HttpInterfaceService;
 import com.dxm.anymock.web.biz.SpaceService;
-import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,7 +51,7 @@ public class SpaceServiceImpl implements SpaceService {
     @Override
     public List<SpaceTreeNode> tree() {
         List<SpaceTreeNode> spaceTreeNodeList = new LinkedList<>();
-        List<Space> spaceList = spaceDao.selectByParentId(GlobalConstant.FAKE_ROOT_SPACE_ID);
+        List<Space> spaceList = spaceDao.selectByParentId(GlobalConstant.FAKE_ID);
         spaceList.forEach(space -> spaceTreeNodeList.add(fillingSpaceTreeNode(space, new LinkedList<>())));
         return spaceTreeNodeList;
     }

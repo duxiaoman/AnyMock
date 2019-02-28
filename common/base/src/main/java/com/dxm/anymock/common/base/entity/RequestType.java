@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 
 public class RequestType {
 
+    @NotNull
     private String method;
 
     @NotNull

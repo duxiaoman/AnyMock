@@ -15,6 +15,7 @@ import com.dxm.anymock.common.dal.dao.RedisDao;
 import com.dxm.anymock.common.dal.dao.SpaceDao;
 import com.dxm.anymock.web.biz.HostInfoService;
 import com.dxm.anymock.web.biz.HttpInterfaceService;
+import com.dxm.anymock.web.biz.api.request.HttpInterfaceConflictDetectionRequest;
 import com.dxm.anymock.web.biz.api.response.*;
 import com.dxm.anymock.web.biz.converter.RowBoundsConverter;
 import com.dxm.anymock.web.biz.api.request.BasePagedRequest;
@@ -92,7 +93,7 @@ public class HttpInterfaceServiceImpl implements HttpInterfaceService {
 
         Long spaceId = httpInterfaceDetail.getSpaceId();
         LinkedList<Long> path = new LinkedList<>();
-        while (!spaceId.equals(GlobalConstant.FAKE_ROOT_SPACE_ID)) {
+        while (!spaceId.equals(GlobalConstant.FAKE_ID)) {
             path.addFirst(spaceId);
             spaceId = spaceDao.selectById(spaceId).getParentId();
         }
@@ -102,22 +103,33 @@ public class HttpInterfaceServiceImpl implements HttpInterfaceService {
     }
 
     @Override
-    public ConflictJudgement conflictDetection(RequestType requestType) {
+    public ConflictJudgement conflictDetection(HttpInterfaceConflictDetectionRequest request) {
         ConflictJudgement conflictJudgement = new ConflictJudgement();
-
-        if (requestType.getMethod() != null && StringUtils.isNotBlank(requestType.getMethod())) {
-            conflictJudgement.setDetectable(true);
-            conflictJudgement.setConflict((selectByRequestType(requestType) != null));
-        } else {
-            Long count = httpInterfaceDao.countByUri(requestType.getUri());
-            if (count.equals(0L)) {
-                conflictJudgement.setDetectable(true);
-                conflictJudgement.setConflict(false);
-            } else if (count.equals((long) SupportedRequestMethod.values().length)) {
-                conflictJudgement.setDetectable(true);
-                conflictJudgement.setConflict(true);
+        if (request.getId().equals(GlobalConstant.FAKE_ID)) {
+            // insert
+            if (StringUtils.isBlank(request.getMethod())) {
+                Long count = httpInterfaceDao.countByUri(request.getUri());
+                if (count.equals(0L)) {
+                    conflictJudgement.setDetectable(true);
+                    conflictJudgement.setConflict(false);
+                } else if (count.equals((long) SupportedRequestMethod.values().length)) {
+                    conflictJudgement.setDetectable(true);
+                    conflictJudgement.setConflict(true);
+                } else {
+                    conflictJudgement.setDetectable(false);
+                }
             } else {
-                conflictJudgement.setDetectable(false);
+                conflictJudgement.setDetectable(true);
+                conflictJudgement.setConflict(selectByRequestType(request) != null);
+            }
+        } else {
+            // update detect without self
+            conflictJudgement.setDetectable(true);
+            HttpInterface httpInterface = selectByRequestType(request);
+            if (httpInterface == null || httpInterface.getId().equals(request.getId())) {
+                conflictJudgement.setConflict(false);
+            } else {
+                conflictJudgement.setConflict(true);
             }
         }
         return conflictJudgement;
