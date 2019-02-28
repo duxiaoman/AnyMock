@@ -18,7 +18,7 @@ server:
   port: 8329
 
 fe:
-  path: file:///home/work/dxm/open-source/anymock-fe/dist
+  path: file:///home/work/dxm/open-source/anymock-fe/dist/
 
 logging:
   file: logs/anymock-web.log
