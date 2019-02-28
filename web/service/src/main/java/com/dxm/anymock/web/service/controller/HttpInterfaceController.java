@@ -37,21 +37,7 @@ public class HttpInterfaceController {
     public BaseResponse conflictDetection(
             @Validated @RequestBody RequestType requestType
     ) {
-        ConflictJudgement conflictJudgement = new ConflictJudgement();
-        if (requestType.getMethod() != null) {
-            conflictJudgement.setConflict((httpInterfaceService.selectByRequestType(requestType) != null));
-        } else {
-            Long count = httpInterfaceService.countByUri(requestType.getUri());
-            if (count.equals(0L)) {
-                conflictJudgement.setConflict(false);
-            } else if (count.equals((long)SupportedRequestMethod.values().length)) {
-                conflictJudgement.setConflict(true);
-            } else {
-                conflictJudgement.setConflict(false);
-                conflictJudgement.setMayConflict(true);
-            }
-        }
-        return BaseResponse.success(conflictJudgement);
+        return BaseResponse.success(httpInterfaceService.conflictDetection(requestType));
     }
 
     @PostMapping("/interface_http/selectById")
@@ -133,22 +119,6 @@ public class HttpInterfaceController {
             @Validated @RequestBody HttpInterface httpInterface
     ) {
         return BaseResponse.success(httpInterfaceService.selectByRequestType(new RequestType(httpInterface)));
-    }
-
-    @PostMapping("/interface_http_snapshot/selectByHttpInterfaceId")
-    @ResponseBody
-    public BaseResponse selectSnapshotByHttpInterfaceId(
-            @Validated @RequestBody HttpInterfaceSnapshotPagedRequest request
-    ) {
-        return BaseResponse.success(httpInterfaceService.selectSnapshotByHttpInterfaceId(request));
-    }
-
-    @PostMapping("/interface_http_snapshot/selectById")
-    @ResponseBody
-    public BaseResponse selectSnapshotById(
-            @Validated(value = CommonIdCheck.class) @RequestBody HttpInterfaceSnapshot httpInterfaceSnapshot
-    ) {
-        return BaseResponse.success(httpInterfaceService.selectSnapshotById(httpInterfaceSnapshot.getId()));
     }
 
     private void clearLastUpdateInfo(HttpInterface httpInterface) {

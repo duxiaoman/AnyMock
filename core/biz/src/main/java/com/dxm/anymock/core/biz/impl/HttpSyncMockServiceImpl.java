@@ -63,7 +63,10 @@ public class HttpSyncMockServiceImpl implements HttpSyncMockService {
         }
     }
 
-    private BranchScript loadBranchScript(RequestType requestType, String branchName, Long httpInterfaceId) {
+    private void loadBranchScript(MockContext mockContext, String branchName) {
+        RequestType requestType = mockContext.getRequestType();
+        Long httpInterfaceId = mockContext.getHttpInterface().getId();
+
         logger.info("Loading branch script from redis...");
         BranchScript branchScript = redisDao.getBranchScript(requestType, branchName);
         if (branchScript == null) {
@@ -74,7 +77,8 @@ public class HttpSyncMockServiceImpl implements HttpSyncMockService {
             }
             redisDao.setBranchScript(requestType, branchName, branchScript);
         }
-        return branchScript;
+
+        mockContext.setBranchScript(branchScript);
     }
 
     @Override
@@ -106,13 +110,13 @@ public class HttpSyncMockServiceImpl implements HttpSyncMockService {
                 profiler.startNested(GroovyService.class.getSimpleName());
                 String branchName = groovyService.exec(mockContext, httpInterface.getBranchJumpScript());
                 logger.info("BranchName = {}", branchName);
+
                 profiler.start("load branch script");
-                BranchScript branchScript = loadBranchScript(
-                        mockContext.getRequestType(), branchName, mockContext.getHttpInterface().getId());
-                mockContext.setBranchScript(branchScript);
-                profiler.start("exce branch script");
+                loadBranchScript(mockContext, branchName);
+
+                profiler.start("exec branch script");
                 profiler.startNested(GroovyService.class.getSimpleName());
-                responseBody = groovyService.exec(mockContext, branchScript.getSyncScript());
+                responseBody = groovyService.exec(mockContext, mockContext.getBranchScript().getSyncScript());
                 break;
             default:
                 throw new BaseException(ErrorCode.UNKNOWN_CONFIG_MODE);

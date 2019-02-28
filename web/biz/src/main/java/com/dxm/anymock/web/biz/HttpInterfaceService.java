@@ -6,6 +6,7 @@ import com.dxm.anymock.common.base.entity.RequestType;
 import com.dxm.anymock.web.biz.api.request.HttpInterfacePagedRequest;
 import com.dxm.anymock.web.biz.api.request.HttpInterfaceSnapshotPagedRequest;
 import com.dxm.anymock.web.biz.api.request.BasePagedRequest;
+import com.dxm.anymock.web.biz.api.response.ConflictJudgement;
 import com.dxm.anymock.web.biz.api.response.HttpInterfaceDetail;
 import com.dxm.anymock.web.biz.api.response.PagedData;
 
@@ -16,7 +17,7 @@ public interface HttpInterfaceService {
 
     HttpInterfaceDetail selectById(Long id);
 
-    Long countByUri(String uri);
+    ConflictJudgement conflictDetection(RequestType requestType);
 
     // not public
     HttpInterface selectByRequestType(RequestType requestType);

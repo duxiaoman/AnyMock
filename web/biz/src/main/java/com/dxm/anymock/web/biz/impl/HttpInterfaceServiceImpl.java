@@ -6,6 +6,7 @@ import com.dxm.anymock.common.base.entity.HttpInterfaceSnapshot;
 import com.dxm.anymock.common.base.entity.RequestType;
 import com.dxm.anymock.common.base.enums.ErrorCode;
 import com.dxm.anymock.common.base.enums.HttpInterfaceOpType;
+import com.dxm.anymock.common.base.enums.SupportedRequestMethod;
 import com.dxm.anymock.common.base.exception.BaseException;
 import com.dxm.anymock.common.base.util.ConvertUtil;
 import com.dxm.anymock.common.dal.dao.HttpInterfaceDao;
@@ -14,10 +15,7 @@ import com.dxm.anymock.common.dal.dao.RedisDao;
 import com.dxm.anymock.common.dal.dao.SpaceDao;
 import com.dxm.anymock.web.biz.HostInfoService;
 import com.dxm.anymock.web.biz.HttpInterfaceService;
-import com.dxm.anymock.web.biz.api.response.CoreHostInfo;
-import com.dxm.anymock.web.biz.api.response.HttpInterfaceDetail;
-import com.dxm.anymock.web.biz.api.response.HttpInterfaceDigest;
-import com.dxm.anymock.web.biz.api.response.PagedData;
+import com.dxm.anymock.web.biz.api.response.*;
 import com.dxm.anymock.web.biz.converter.RowBoundsConverter;
 import com.dxm.anymock.web.biz.api.request.BasePagedRequest;
 import com.dxm.anymock.web.biz.api.request.HttpInterfacePagedRequest;
@@ -103,8 +101,25 @@ public class HttpInterfaceServiceImpl implements HttpInterfaceService {
     }
 
     @Override
-    public Long countByUri(String uri) {
-        return httpInterfaceDao.countByUri(uri);
+    public ConflictJudgement conflictDetection(RequestType requestType) {
+        ConflictJudgement conflictJudgement = new ConflictJudgement();
+
+        if (requestType.getMethod() != null) {
+            conflictJudgement.setDetectable(true);
+            conflictJudgement.setConflict((selectByRequestType(requestType) != null));
+        } else {
+            Long count = httpInterfaceDao.countByUri(requestType.getUri());
+            if (count.equals(0L)) {
+                conflictJudgement.setDetectable(true);
+                conflictJudgement.setConflict(false);
+            } else if (count.equals((long) SupportedRequestMethod.values().length)) {
+                conflictJudgement.setDetectable(true);
+                conflictJudgement.setConflict(true);
+            } else {
+                conflictJudgement.setDetectable(false);
+            }
+        }
+        return conflictJudgement;
     }
 
     @Override

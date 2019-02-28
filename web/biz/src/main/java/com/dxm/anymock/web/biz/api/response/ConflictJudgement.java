@@ -1,8 +1,10 @@
 package com.dxm.anymock.web.biz.api.response;
 
+import com.alibaba.fastjson.JSONObject;
+
 public class ConflictJudgement {
     private Boolean conflict;
-    private Boolean mayConflict;
+    private Boolean detectable;
 
     public Boolean getConflict() {
         return conflict;
@@ -12,11 +14,16 @@ public class ConflictJudgement {
         this.conflict = conflict;
     }
 
-    public Boolean getMayConflict() {
-        return mayConflict;
+    public Boolean getDetectable() {
+        return detectable;
     }
 
-    public void setMayConflict(Boolean mayConflict) {
-        this.mayConflict = mayConflict;
+    public void setDetectable(Boolean detectable) {
+        this.detectable = detectable;
+    }
+
+    @Override
+    public String toString() {
+        return JSONObject.toJSONString(this);
     }
 }

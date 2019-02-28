@@ -1,12 +1,9 @@
 package com.dxm.anymock.core.web;
 
-import com.dxm.anymock.common.base.BaseResponse;
 import com.dxm.anymock.common.base.enums.ErrorCode;
 import com.dxm.anymock.common.base.exception.BaseException;
 import com.dxm.anymock.common.base.exception.GroovyScriptExecException;
 import com.dxm.anymock.common.base.util.MessageUtil;
-import groovy.lang.GroovyRuntimeException;
-import org.codehaus.groovy.ant.Groovy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class HttpExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(HttpExceptionHandler.class);
+
+    private static final String HORIZONTAL_RULE
+            = "\n##############################################################################\n";
 
     @Autowired
     private MessageUtil messageUtil;
@@ -39,7 +39,11 @@ public class HttpExceptionHandler {
     @ResponseBody
     public ResponseEntity<String> handleGroovyScriptExecException(GroovyScriptExecException e) {
         logger.warn("", e);
-        String body = buildRespTitle(ErrorCode.GROOVY_SCRIPT_EXEC_EXCEPTION) + "\n" + e.getMessage();
+        String body = buildRespTitle(ErrorCode.GROOVY_SCRIPT_EXEC_EXCEPTION)
+                + HORIZONTAL_RULE
+                + e.getMessage()
+                + HORIZONTAL_RULE
+                + e.getRawHttpRequestMsg();
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 

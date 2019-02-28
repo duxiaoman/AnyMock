@@ -2,6 +2,7 @@ package com.dxm.anymock.common.base.entity;
 
 import com.alibaba.fastjson.JSONObject;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 
 public class RequestType {
@@ -12,6 +13,11 @@ public class RequestType {
     private String uri;
 
     public RequestType() {}
+
+    public RequestType(HttpServletRequest request) {
+        this.method = request.getMethod();
+        this.uri = request.getRequestURI();
+    }
 
     public RequestType(HttpInterface httpInterface) {
         this.method = httpInterface.getRequestMethod();

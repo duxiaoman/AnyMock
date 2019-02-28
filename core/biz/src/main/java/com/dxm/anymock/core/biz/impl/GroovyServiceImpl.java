@@ -56,7 +56,7 @@ public class GroovyServiceImpl implements GroovyService {
             profiler.start("run");
             script.run();
         } catch (Throwable e) {
-            throw new GroovyScriptExecException(e);
+            throw new GroovyScriptExecException(mockContext.getRawHttpRequestMsg(), e);
         }
         return stringWriter.toString();
     }

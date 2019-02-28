@@ -9,6 +9,7 @@ import groovy.lang.Binding;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.HttpURLConnection;
+import java.util.Enumeration;
 
 public class MockContext {
     private RequestType requestType;
@@ -19,6 +20,40 @@ public class MockContext {
     private HttpURLConnection httpURLConnection;
     private Binding groovyBinding;
     private BranchScript branchScript;
+    private String rawHttpRequestMsg;
+
+    public String getRawHttpRequestMsg() {
+        HttpServletRequest request = httpServletRequest;
+        if (rawHttpRequestMsg == null) {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(request.getMethod());
+            stringBuilder.append(" ");
+            stringBuilder.append(request.getRequestURI());
+            if (request.getQueryString() != null) {
+                stringBuilder.append("?");
+                stringBuilder.append(request.getQueryString());
+            }
+            stringBuilder.append("\n");
+
+            Enumeration headerNames = request.getHeaderNames();
+            while (headerNames.hasMoreElements()) {
+                String key = (String)headerNames.nextElement();
+                stringBuilder.append(key);
+                stringBuilder.append(":");
+                stringBuilder.append(request.getHeader(key));
+                stringBuilder.append("\n");
+            }
+            stringBuilder.append("\n");
+            stringBuilder.append(request.getAttribute("body"));
+            rawHttpRequestMsg = stringBuilder.toString();
+        }
+        return rawHttpRequestMsg;
+    }
+
+    public MockContext(HttpServletRequest request, HttpServletResponse response) {
+        this.httpServletRequest = request;
+        this.httpServletResponse = response;
+    }
 
     public RequestType getRequestType() {
         return requestType;
@@ -83,4 +118,5 @@ public class MockContext {
     public void setBranchScript(BranchScript branchScript) {
         this.branchScript = branchScript;
     }
+
 }
