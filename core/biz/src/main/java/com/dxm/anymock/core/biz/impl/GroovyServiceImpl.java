@@ -8,6 +8,8 @@ import groovy.lang.GroovyClassLoader;
 import groovy.lang.GroovyCodeSource;
 import groovy.lang.Script;
 import org.codehaus.groovy.runtime.InvokerHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ import java.io.StringWriter;
 
 @Service
 public class GroovyServiceImpl implements GroovyService {
+
+    private static final Logger logger = LoggerFactory.getLogger(GroovyServiceImpl.class);
 
     @Autowired
     private GroovyClassLoader groovyClassLoader;
@@ -32,11 +36,15 @@ public class GroovyServiceImpl implements GroovyService {
         try {
             Class groovyClass = groovyClassLoader.parseClass(groovyCodeSource);
             Script script = InvokerHelper.createScript(groovyClass, httpMockContext.getGroovyBinding());
-            script.run();
+            Object retVal = script.run();
+            logger.info(stringWriter.toString());
+            if (retVal.getClass().getMethod("toString").getDeclaringClass().equals(Object.class)) {
+                throw new RuntimeException("toString is not overwrite");
+            }
+            return retVal.toString();
         } catch (Throwable e) {
             throw new GroovyScriptExecException(httpMockContext.getRawHttpRequestMsg(), e);
         }
-        return stringWriter.toString();
     }
 
     @Override
