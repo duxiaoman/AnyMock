@@ -59,9 +59,12 @@ nohup java -jar anymock-core-runner-1.0-SNAPSHOT.jar --spring.profiles.active=${
 # 切换到编译产出目录
 cd output/web
 
-# 后台运行，其中${env}需替换为配置文件环境名
+# 1. 下载前端代码库（anymock-fe）！！！，并将anmock-web-config-${env}.yml中的fe.path修改为anymock-fe的dist目录地址
+# 2. 后台运行，其中${env}需替换为配置文件环境名
 nohup java -jar anymock-web-runner-1.0-SNAPSHOT.jar --spring.profiles.active=${env} >/dev/null 2>/dev/null &
 ```
+
+接下来访问http://${ip}:8329/fe/index.html开始使用吧。
 
 ## 测试
 如何执行自动化测试
