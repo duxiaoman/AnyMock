@@ -81,7 +81,10 @@ public class HttpSyncMockServiceImpl implements HttpSyncMockService {
     public void mock(HttpMockContext httpMockContext) throws IOException {
         logger.info("HttpSyncMockService start");
 
+        // 同步延时
         mockSyncDelay(httpMockContext);
+
+        // 设置响应头
         setResponseHeader(httpMockContext);
 
         HttpInterface httpInterface = httpMockContext.getHttpInterface();

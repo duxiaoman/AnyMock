@@ -21,6 +21,10 @@ public class GroovyServiceImpl implements GroovyService {
 
     private static final Logger logger = LoggerFactory.getLogger(GroovyServiceImpl.class);
 
+    private static final String PRE_IMPORT = ""
+            + "import groovy.util.XmlSlurper\n"
+            + "import groovy.json.JsonSlurper\n";
+
     @Autowired
     private GroovyClassLoader groovyClassLoader;
 
@@ -31,6 +35,7 @@ public class GroovyServiceImpl implements GroovyService {
         httpMockContext.getGroovyBinding().setProperty("out", printWriter);
 
         String name = "script" + System.currentTimeMillis() + Math.abs(text.hashCode()) + ".groovy";
+        text = PRE_IMPORT + text;
         GroovyCodeSource groovyCodeSource = new GroovyCodeSource(text, name, "/groovy/script");
 
         try {
@@ -38,8 +43,8 @@ public class GroovyServiceImpl implements GroovyService {
             Script script = InvokerHelper.createScript(groovyClass, httpMockContext.getGroovyBinding());
             Object retVal = script.run();
             logger.info(stringWriter.toString());
-            if (retVal.getClass().getMethod("toString").getDeclaringClass().equals(Object.class)) {
-                throw new RuntimeException("toString is not overwrite");
+            if (!(retVal instanceof String)) {
+                throw new RuntimeException("Script exec result type is not String");
             }
             return retVal.toString();
         } catch (Throwable e) {

@@ -81,7 +81,10 @@ public class HttpAsyncMockServiceImpl implements HttpAsyncMockService {
     @Override
     public void mock(HttpMockContext httpMockContext) throws Exception {
         logger.info("HttpAsyncMockService start");
+        // 异步延迟
         mockAsyncDelay(httpMockContext);
+
+        // 初始化HttpUrlConnection
         initHttpURLConnection(httpMockContext);
 
         HttpInterface httpInterface = httpMockContext.getHttpInterface();

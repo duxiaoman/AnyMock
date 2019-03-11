@@ -104,6 +104,7 @@ public class HttpInterfaceServiceImpl implements HttpInterfaceService {
 
     @Override
     public ConflictJudgement conflictDetection(HttpInterfaceConflictDetectionRequest request) {
+        // 以后尽力避免这么设计
         ConflictJudgement conflictJudgement = new ConflictJudgement();
         if (request.getId().equals(GlobalConstant.FAKE_ID)) {
             // insert

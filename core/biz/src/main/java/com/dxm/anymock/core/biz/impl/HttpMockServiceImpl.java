@@ -17,6 +17,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -50,23 +51,18 @@ public class HttpMockServiceImpl implements HttpMockService {
     @Autowired
     private HttpAsyncMockService httpAsyncMockService;
 
-    private void logRawHttpRequestMsg(HttpMockContext httpMockContext) {
-        if (logger.isInfoEnabled()) {
-            logger.info("\n################### HTTP REQUEST ###################\n"
-                    + httpMockContext.getRawHttpRequestMsg()
-                    + "\n####################################################");
-        }
-    }
-
     private void storeHttpBody(HttpMockContext httpMockContext) throws IOException {
         HttpServletRequest request = httpMockContext.getHttpServletRequest();
         String contentType = request.getContentType();
         String method = request.getMethod();
         String requestEncoding =  request.getCharacterEncoding();
+
+        // 判断是否为x-www-form-urlencoded模式
         boolean isFormPost = (contentType != null && contentType.contains(FORM_CONTENT_TYPE) &&
                 HttpMethod.POST.matches(method));
         String body;
         if (isFormPost) {
+            // 通过读取getParameterMap反构造出body
             StringBuilder content = new StringBuilder();
             Map<String, String[]> form = request.getParameterMap();
             for (Iterator<String> nameIterator = form.keySet().iterator(); nameIterator.hasNext(); ) {
@@ -89,6 +85,7 @@ public class HttpMockServiceImpl implements HttpMockService {
             }
             body = content.toString();
         } else {
+            // 直接读取输入流获取body
             body = IOUtils.toString(request.getInputStream(), requestEncoding);
         }
         request.setAttribute("body", body);
@@ -125,20 +122,38 @@ public class HttpMockServiceImpl implements HttpMockService {
 
     @Override
     public void mock(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String threadUUID = UUID.randomUUID().toString();
+        MDC.put("ctxLogId", threadUUID);
+
         HttpMockContext httpMockContext = new HttpMockContext(request, response);
+
+        // 加载HTTP接口数据
         loadHttpInterface(httpMockContext);
+
+        // 由于输入流能且仅能读取一次，而后续可能多次调用，因此需要临时存储
         storeHttpBody(httpMockContext);
-        logRawHttpRequestMsg(httpMockContext);
+
+        if (logger.isInfoEnabled()) {
+            logger.info("\n################### HTTP REQUEST ###################\n"
+                    + httpMockContext.getRawHttpRequestMsg()
+                    + "\n####################################################");
+        }
+
+        // 同步
         httpSyncMockService.mock(httpMockContext);
 
+        // 异步
         if (BooleanUtils.isTrue(httpMockContext.getHttpInterface().getNeedAsyncCallback())) {
             threadPoolTaskExecutor.execute(() -> {
                 try {
+                    MDC.put("ctxLogId", threadUUID);
                     httpAsyncMockService.mock(httpMockContext);
+                    MDC.clear();
                 } catch (Exception e) {
                     logger.warn("", e);
                 }
             });
         }
+        MDC.clear();
     }
 }
