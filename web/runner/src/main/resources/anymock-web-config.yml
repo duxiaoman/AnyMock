@@ -1,4 +1,6 @@
 spring:
+  thymeleaf:
+    cache: false
   jackson:
     default-property-inclusion: non_null
   http:
