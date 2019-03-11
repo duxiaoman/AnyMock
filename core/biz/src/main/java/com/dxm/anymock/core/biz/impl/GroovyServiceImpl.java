@@ -43,8 +43,8 @@ public class GroovyServiceImpl implements GroovyService {
             Script script = InvokerHelper.createScript(groovyClass, httpMockContext.getGroovyBinding());
             Object retVal = script.run();
             logger.info(stringWriter.toString());
-            if (!(retVal instanceof String)) {
-                throw new RuntimeException("Script exec result type is not String");
+            if (retVal.getClass().getMethod("toString").getDeclaringClass().equals(Object.class)) {
+                throw new RuntimeException("Failed to cast script exec result to String");
             }
             return retVal.toString();
         } catch (Throwable e) {
