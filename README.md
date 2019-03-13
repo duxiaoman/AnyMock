@@ -2,7 +2,7 @@
 简要说明
 
 ## 快速开始
-### 安装依赖
+### 安装依赖（内部服务器）
 ```sh
 # 安装Jumbo
 bash -c "$( curl http://jumbo.baidu.com/install_jumbo.sh )"; source ~/.bashrc
@@ -27,6 +27,9 @@ jumbo install mysql
 
 # 启动mysql
 ${JUMBO_ROOT}/share/mysql/mysql.server start
+
+# 设置mysql密码
+mysqladmin -u root -p password toor
 
 # 使用anymock_opensource.sql中的语句创建数据库
 ```
