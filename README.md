@@ -22,6 +22,12 @@ source ${JUMBO_ROOT}/opt/sun-java8/sun-java8.sh
 # 启用redis
 nohup redis-server ~/.jumbo/etc/redis.conf --port 8331 > /dev/null 2>/dev/null &
 
+# 安装mysql
+jumbo install mysql
+
+# 启动mysql
+${JUMBO_ROOT}/share/mysql/mysql.server start
+
 # 使用anymock_opensource.sql中的语句创建数据库
 ```
 
