@@ -130,6 +130,7 @@ public class HttpMockServiceImpl implements HttpMockService {
 
     @Override
     public void mock(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        logger.info("Mock Start");
         HttpMockContext context = new HttpMockContext();
 
         // 加载HTTP接口数据
