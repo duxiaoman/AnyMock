@@ -80,7 +80,7 @@ public class HttpInterfaceBO extends HttpInterfaceKeyBO implements Serializable 
     private List<HttpInterfaceHeaderBO> callbackRequestHeaderList;
 
     @NotNull(groups = {Insert.class, Update.class})
-    private List<HttpInterfaceBranchBO> branchList;
+    private List<HttpInterfaceBranchBO> branchScriptList;
 
     public Long getId() {
         return id;
@@ -258,11 +258,11 @@ public class HttpInterfaceBO extends HttpInterfaceKeyBO implements Serializable 
         this.callbackRequestHeaderList = callbackRequestHeaderList;
     }
 
-    public List<HttpInterfaceBranchBO> getBranchList() {
-        return branchList;
+    public List<HttpInterfaceBranchBO> getBranchScriptList() {
+        return branchScriptList;
     }
 
-    public void setBranchList(List<HttpInterfaceBranchBO> branchList) {
-        this.branchList = branchList;
+    public void setBranchScriptList(List<HttpInterfaceBranchBO> branchScriptList) {
+        this.branchScriptList = branchScriptList;
     }
 }

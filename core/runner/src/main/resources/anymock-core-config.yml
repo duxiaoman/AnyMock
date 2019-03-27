@@ -1,25 +1,35 @@
 spring:
-  jackson:
-    default-property-inclusion: non_null
   http:
     encoding:
       charset: UTF-8
       force: true
   datasource:
-    url: jdbc:mysql://cp01-ocean-2480.epc.baidu.com:8306/anymock_opensource?serverTimezone=UTC
+    url: jdbc:mysql://127.0.0.1:3306/anymock_opensource?serverTimezone=UTC
     username: root
-    password: root
+    password: toor
     type: com.zaxxer.hikari.HikariDataSource
   redis:
-    host: yq01-lizhenxi-dxm.epc.baidu.com
-    port: 8331
+    host: 127.0.0.1
+    port: 6379
 
 server:
   port: 8330
 
 logging:
-  level:
-    MOCK-SERVICE-LOGGER: DEBUG
+  pattern:
+    console: >
+      %clr(%d{${LOG_DATEFORMAT_PATTERN:yyyy-MM-dd HH:mm:ss.SSS}}){faint}
+      %clr(${LOG_LEVEL_PATTERN:-%5p})
+      %clr(${PID:- }){magenta}
+      %clr(---){faint}
+      %clr([%15.15t]){faint}
+      %clr([%X{mdc_trace_id}]){faint}
+      %clr(%-40.40logger{39}){cyan}
+      %clr(:){faint} %m${LOG_EXCEPTION_CONVERSION_WORD:%wEx}
+    file: >
+     %d{${LOG_DATEFORMAT_PATTERN:yyyy-MM-dd HH:mm:ss.SSS}}
+     ${LOG_LEVEL_PATTERN:-%5p}
+     ${PID:- } --- [%t] [%X{mdc_trace_id}] %-40.40logger{39}: %m${LOG_EXCEPTION_CONVERSION_WORD:%wEx}
 
 thread-pool-task-executor:
   core-pool-size: 24

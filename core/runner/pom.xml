@@ -21,7 +21,7 @@
     <dependencies>
         <dependency>
             <groupId>com.dxm.anymock</groupId>
-            <artifactId>anymock-core-service</artifactId>
+            <artifactId>anymock-core-web</artifactId>
         </dependency>
     </dependencies>
 

@@ -31,8 +31,8 @@ public class HttpInterfaceCacheManager {
         }
     }
 
-    public void set(HttpInterfaceKeyBO httpInterfaceKeyBO, HttpInterfaceBO httpInterfaceBO) {
-        String key = buildKey(httpInterfaceKeyBO);
+    public void set(HttpInterfaceBO httpInterfaceBO) {
+        String key = buildKey(httpInterfaceBO);
         httpInterfaceRedisTemplate.opsForValue().set(key, httpInterfaceBO);
     }
 }

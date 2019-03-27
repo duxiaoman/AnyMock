@@ -11,7 +11,7 @@
  Target Server Version : 80012
  File Encoding         : 65001
 
- Date: 27/03/2019 19:50:27
+ Date: 27/03/2019 20:36:32
 */
 
 SET NAMES utf8mb4;
@@ -42,12 +42,12 @@ CREATE TABLE `anymock_http_interface`  (
   `last_update_user` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `access_authority` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `gmt_create` datetime(0) NOT NULL,
-  `gmt_modified` datetime(0) NOT NULL,
+  `gmt_create` datetime NOT NULL,
+  `gmt_modified` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_request_mapping`(`request_uri`, `request_method`) USING BTREE,
   INDEX `idx_space_id`(`space_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 83 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 98 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for anymock_http_interface_branch
@@ -91,8 +91,8 @@ CREATE TABLE `anymock_http_interface_snapshot`  (
   `http_interface` mediumtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `op_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `gmt_create` datetime(0) NOT NULL,
-  `gmt_modified` datetime(0) NOT NULL,
+  `gmt_create` datetime NOT NULL,
+  `gmt_modified` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_id`(`http_interface_id`) USING BTREE,
   INDEX `idx_request_mapping`(`http_interface_request_uri`, `http_interface_request_method`) USING BTREE,
@@ -109,8 +109,8 @@ CREATE TABLE `anymock_space`  (
   `parent_id` bigint(20) NOT NULL,
   `access_authority` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `level` int(11) NOT NULL,
-  `gmt_create` datetime(0) NOT NULL,
-  `gmt_modified` datetime(0) NOT NULL,
+  `gmt_create` datetime NOT NULL,
+  `gmt_modified` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `uk_label`(`label`, `parent_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 91 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;

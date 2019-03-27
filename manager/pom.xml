@@ -19,7 +19,7 @@
     <name>anymock-manager</name>
 
     <modules>
-        <module>service</module>
+        <module>biz</module>
         <module>runner</module>
         <module>web</module>
     </modules>

@@ -41,7 +41,7 @@
 
             <dependency>
                 <groupId>com.dxm.anymock</groupId>
-                <artifactId>anymock-core-service</artifactId>
+                <artifactId>anymock-core-web</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
 

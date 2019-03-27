@@ -8,19 +8,20 @@
 
     <parent>
         <groupId>com.dxm.anymock</groupId>
-        <artifactId>anymock</artifactId>
+        <artifactId>anymock-core</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../</relativePath>
     </parent>
 
-    <artifactId>anymock-core</artifactId>
+    <artifactId>anymock-core-web</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
-    <name>anymock-core</name>
+    <packaging>jar</packaging>
+    <name>anymock-core-web</name>
 
-    <modules>
-        <module>biz</module>
-        <module>web</module>
-        <module>runner</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>com.dxm.anymock</groupId>
+            <artifactId>anymock-core-biz</artifactId>
+        </dependency>
+    </dependencies>
 </project>

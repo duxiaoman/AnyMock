@@ -7,8 +7,6 @@ import com.dxm.anymock.common.dal.dao.HttpInterfaceBranchDao;
 import com.dxm.anymock.common.dal.dao.HttpInterfaceDao;
 import com.dxm.anymock.common.dal.dao.HttpInterfaceHeaderDao;
 import com.dxm.anymock.common.dal.model.HttpInterfaceBO;
-import com.dxm.anymock.common.dal.model.HttpInterfaceBranchBO;
-import com.dxm.anymock.common.dal.model.HttpInterfaceHeaderBO;
 import com.dxm.anymock.common.dal.model.HttpInterfaceKeyBO;
 import com.dxm.anymock.common.dal.model.enums.AccessAuthority;
 import com.dxm.anymock.common.dal.model.enums.ConfigMode;
@@ -123,7 +121,7 @@ public class HttpInterfaceDaoImpl implements HttpInterfaceDao {
         httpInterfaceHeaderDao.batchCreate(
                 httpInterfaceBO.getCallbackRequestHeaderList(), httpInterfaceId, HttpHeaderType.CALLBACK_REQUEST);
         httpInterfaceBranchDao.batchCreate(
-                httpInterfaceBO.getBranchList(), httpInterfaceId);
+                httpInterfaceBO.getBranchScriptList(), httpInterfaceId);
     }
 
     @Override
@@ -157,7 +155,7 @@ public class HttpInterfaceDaoImpl implements HttpInterfaceDao {
 
         httpInterfaceBranchDao.batchDelete(httpInterfaceId);
         httpInterfaceBranchDao.batchCreate(
-                httpInterfaceBO.getBranchList(), httpInterfaceId);
+                httpInterfaceBO.getBranchScriptList(), httpInterfaceId);
     }
 
     @Override
@@ -203,7 +201,7 @@ public class HttpInterfaceDaoImpl implements HttpInterfaceDao {
         Long id = httpInterfaceDO.getId();
         httpInterfaceBO.setResponseHeaderList(httpInterfaceHeaderDao.batchQuery(id, HttpHeaderType.RESPONSE));
         httpInterfaceBO.setCallbackRequestHeaderList(httpInterfaceHeaderDao.batchQuery(id, HttpHeaderType.CALLBACK_REQUEST));
-        httpInterfaceBO.setBranchList(httpInterfaceBranchDao.batchQuery(id));
+        httpInterfaceBO.setBranchScriptList(httpInterfaceBranchDao.batchQuery(id));
         return httpInterfaceBO;
     }
 
