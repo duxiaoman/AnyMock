@@ -16,6 +16,10 @@ public class HttpController {
     @Autowired
     private HttpMockService httpMockService;
 
+    @RequestMapping(value = "/")
+    @ResponseBody
+    public void ignore() {}
+
     @RequestMapping(value = "/**/*")
     public void handleHttpRequests(HttpServletRequest request, HttpServletResponse response) throws IOException {
         httpMockService.mock(request, response);
