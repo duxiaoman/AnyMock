@@ -4,12 +4,12 @@ spring:
       charset: UTF-8
       force: true
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/anymock_opensource?serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/anymock_opensource?serverTimezone=UTC
     username: root
     password: toor
     type: com.zaxxer.hikari.HikariDataSource
   redis:
-    host: 127.0.0.1
+    host: localhost
     port: 6379
 
 server:

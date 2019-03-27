@@ -21,6 +21,7 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         UserRole userRole;
         String userAgent = request.getHeader("User-Agent");
+        logger.info("UserAgent = {}", userAgent);
         if (userAgent != null && userAgent.contains(password)) {
             userRole = UserRole.ADMIN;
         } else {
