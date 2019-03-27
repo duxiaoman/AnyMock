@@ -13,7 +13,7 @@ public class HttpTracer extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        logger.info("{} {}", request.getMethod(), request.getRequestURI());
+        logger.info("{} {} {}", request.getRemoteAddr(), request.getMethod(), request.getRequestURI());
         return true;
     }
 }
