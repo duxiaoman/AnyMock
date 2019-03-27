@@ -23,7 +23,7 @@ public class GroovyServiceImpl implements GroovyService {
 
     private static final Logger logger = LoggerFactory.getLogger(GroovyServiceImpl.class);
 
-    private static final String PRE_IMPORT = "import groovy.security.XmlSlurper\n"
+    private static final String PRE_IMPORT = "import groovy.util.XmlSlurper\n"
                                            + "import groovy.json.JsonSlurper\n";
 
     @Autowired
