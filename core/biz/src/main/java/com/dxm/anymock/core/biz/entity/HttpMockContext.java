@@ -1,9 +1,6 @@
 package com.dxm.anymock.core.biz.entity;
 
-import com.dxm.anymock.common.base.entity.BranchScript;
-import com.dxm.anymock.common.base.entity.HttpInterface;
 import com.dxm.anymock.common.base.entity.RequestType;
-import com.dxm.anymock.common.base.enums.ConfigMode;
 import groovy.lang.Binding;
 
 import javax.servlet.http.HttpServletRequest;

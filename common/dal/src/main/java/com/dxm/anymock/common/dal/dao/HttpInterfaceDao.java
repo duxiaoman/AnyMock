@@ -1,26 +1,20 @@
 package com.dxm.anymock.common.dal.dao;
 
-import com.dxm.anymock.common.base.entity.BranchScript;
-import com.dxm.anymock.common.base.entity.HttpInterface;
-import com.dxm.anymock.common.base.entity.RequestType;
+import com.dxm.anymock.common.dal.model.HttpInterfaceBO;
+import com.dxm.anymock.common.dal.model.HttpInterfaceKeyBO;
 import org.apache.ibatis.session.RowBounds;
 
 import java.util.List;
 
 public interface HttpInterfaceDao {
-    List<HttpInterface> selectAll(RowBounds rowBounds);
-    Long countAll();
-    List<HttpInterface> selectBySpaceId(Long spaceId, RowBounds rowBounds);
-    Long countBySpaceId(Long spaceId);
-    List<HttpInterface> selectBySpaceId(Long spaceId);
-    HttpInterface selectById(Long id);
-    HttpInterface selectByRequestType(RequestType requestType);
-    Long countByUri(String uri);
-    BranchScript selectBranchScript(Long id, String branchName);
-    void insert(HttpInterface httpInterface);
-    void update(HttpInterface httpInterface);
+    HttpInterfaceBO queryById(Long id);
+    List<HttpInterfaceBO> queryAllWithRowBoundsOrderByClause(RowBounds rowBounds, String orderByClause);
+    List<HttpInterfaceBO> queryBySpaceIdWithRowBoundsOrderByClause(Long spaceId, RowBounds rowBounds, String orderByClause);
+    List<HttpInterfaceBO> queryBySpaceId(Long spaceId);
+    HttpInterfaceBO queryByKey(HttpInterfaceKeyBO httpInterfaceKeyBO);
+    void create(HttpInterfaceBO httpInterfaceBO);
+    void update(HttpInterfaceBO httpInterfaceBO);
     void delete(Long id);
-
-    void start(Long id);
-    void shutdown(Long id);
+    Long countAll();
+    Long countBySpaceId(Long spaceId);
 }

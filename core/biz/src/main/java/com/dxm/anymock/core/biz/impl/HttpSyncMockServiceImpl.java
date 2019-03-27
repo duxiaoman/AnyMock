@@ -1,11 +1,8 @@
 package com.dxm.anymock.core.biz.impl;
 
-import com.dxm.anymock.common.base.GlobalConstant;
-import com.dxm.anymock.common.base.entity.BranchScript;
-import com.dxm.anymock.common.base.entity.HttpInterface;
 import com.dxm.anymock.common.base.entity.RequestType;
-import com.dxm.anymock.common.base.enums.ErrorCode;
-import com.dxm.anymock.common.base.exception.BaseException;
+import com.dxm.anymock.common.base.enums.ResultCode;
+import com.dxm.anymock.common.base.exception.BizException;
 import com.dxm.anymock.common.dal.dao.HttpInterfaceDao;
 import com.dxm.anymock.common.dal.dao.RedisDao;
 import com.dxm.anymock.core.biz.GroovyService;
@@ -36,14 +33,14 @@ public class HttpSyncMockServiceImpl implements HttpSyncMockService {
     private void mockSyncDelay(HttpMockContext httpMockContext) {
         HttpInterface httpInterface = httpMockContext.getHttpInterface();
         if (httpInterface.getSyncDelay() > GlobalConstant.MAX_SYNC_DELAY) {
-            throw new BaseException(ErrorCode.SYNC_DELAY_TOO_LARGE);
+            throw new BizException(ResultCode.SYNC_DELAY_TOO_LARGE);
         }
         try {
             if (httpInterface.getSyncDelay() > 0) {
                 Thread.sleep(httpInterface.getSyncDelay());
             }
         } catch (InterruptedException e) {
-            throw new BaseException(ErrorCode.UNEXPECTED_ERROR, e);
+            throw new BizException(ResultCode.UNEXPECTED_ERROR, e);
         }
     }
 
@@ -69,7 +66,7 @@ public class HttpSyncMockServiceImpl implements HttpSyncMockService {
             logger.info("Loading branch script from DB...");
             branchScript = httpInterfaceDao.selectBranchScript(httpInterfaceId, branchName);
             if (branchScript == null) {
-                throw new BaseException(ErrorCode.HTTP_INTERFACE_BRANCH_SCRIPT_NOT_FOUND);
+                throw new BizException(ResultCode.HTTP_INTERFACE_BRANCH_SCRIPT_NOT_FOUND);
             }
             redisDao.setBranchScript(requestType, branchName, branchScript);
         }
@@ -109,7 +106,7 @@ public class HttpSyncMockServiceImpl implements HttpSyncMockService {
                 responseBody = groovyService.exec(httpMockContext, httpMockContext.getBranchScript().getSyncScript());
                 break;
             default:
-                throw new BaseException(ErrorCode.UNKNOWN_CONFIG_MODE);
+                throw new BizException(ResultCode.UNKNOWN_CONFIG_MODE);
         }
         logger.info("ResponseBody = {}", responseBody);
         writeResponseBody(httpMockContext, responseBody);

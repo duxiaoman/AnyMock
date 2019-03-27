@@ -1,96 +1,124 @@
 package com.dxm.anymock.common.dal.dao.impl;
 
-import com.dxm.anymock.common.base.GlobalConstant;
-import com.dxm.anymock.common.base.util.ConvertUtil;
-import com.dxm.anymock.common.base.entity.Space;
-import com.dxm.anymock.common.base.enums.ErrorCode;
-import com.dxm.anymock.common.base.exception.BaseException;
+import com.dxm.anymock.common.base.enums.ResultCode;
+import com.dxm.anymock.common.base.exception.BizException;
+import com.dxm.anymock.common.dal.IncorrectResultSizeException;
 import com.dxm.anymock.common.dal.dao.SpaceDao;
-import com.dxm.anymock.common.dal.entity.SpacePO;
-import com.dxm.anymock.common.dal.entity.SpacePOExample;
-import com.dxm.anymock.common.dal.mapper.auto.SpacePOMapper;
+import com.dxm.anymock.common.dal.model.SpaceBO;
+import com.dxm.anymock.common.dal.entity.SpaceDO;
+import com.dxm.anymock.common.dal.entity.SpaceDOExample;
+import com.dxm.anymock.common.dal.mapper.auto.SpaceDOMapper;
+import com.dxm.anymock.common.dal.model.enums.AccessAuthority;
+import org.apache.commons.lang3.EnumUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 @Repository
-@Transactional
 public class SpaceDaoImpl implements SpaceDao {
 
     @Autowired
-    private SpacePOMapper spacePOMapper;
+    private SpaceDOMapper spaceDOMapper;
 
     @Override
-    public Space selectById(Long id) {
-        return ConvertUtil.convert(spacePOMapper.selectByPrimaryKey(id), Space.class);
+    public SpaceBO queryById(Long id) {
+        SpaceDO spaceDO = spaceDOMapper.selectByPrimaryKey(id);
+        if (spaceDO == null) {
+            return null;
+        }
+        return convertToBO(spaceDO);
     }
 
     @Override
-    public List<Space> selectByParentId(Long parentId) {
-        SpacePOExample example = new SpacePOExample();
+    public List<SpaceBO> queryByParentId(Long parentId) {
+        return queryByParentIdOrderByClause(parentId, null);
+    }
+
+    @Override
+    public List<SpaceBO> queryByParentIdOrderByClause(Long parentId, String orderByClause) {
+        SpaceDOExample example = new SpaceDOExample();
         example.createCriteria().andParentIdEqualTo(parentId);
-        return ConvertUtil.convert(spacePOMapper.selectByExample(example), Space.class);
+        example.setOrderByClause(orderByClause);
+        return convertToBOList(spaceDOMapper.selectByExample(example));
     }
 
     @Override
-    public void insert(Space space) {
+    public void create(SpaceBO spaceBO) {
+        SpaceDO spaceDO = convertToDO(spaceBO);
+        Date now = new Date();
+        spaceDO.setId(null);
+        spaceDO.setGmtCreate(now);
+        spaceDO.setGmtModified(now);
+
         int resultSize;
         try {
-            resultSize = spacePOMapper.insert(ConvertUtil.convert(space, SpacePO.class));
+            resultSize = spaceDOMapper.insert(spaceDO);
         } catch (DuplicateKeyException e) {
-            throw new BaseException(ErrorCode.SPACE_DUPLICATE_KEY);
+            throw new BizException(ResultCode.DUPLICATE_KEY_SPACE);
         }
 
         if (resultSize != 1) {
-            throw new IncorrectResultSizeDataAccessException(1, resultSize);
+            throw new IncorrectResultSizeException(resultSize);
         }
     }
 
     @Override
-    public void update(Space space) {
+    public void update(SpaceBO spaceBO) {
+        SpaceDO spaceDO = convertToDO(spaceBO);
+        spaceDO.setGmtCreate(null);
+        spaceDO.setGmtModified(new Date());
+
         int resultSize;
         try {
-            resultSize = spacePOMapper.updateByPrimaryKeySelective(ConvertUtil.convert(space, SpacePO.class));
+            resultSize = spaceDOMapper.updateByPrimaryKeySelective(spaceDO);
         } catch (DuplicateKeyException e) {
-            throw new BaseException(ErrorCode.SPACE_DUPLICATE_KEY);
+            throw new BizException(ResultCode.DUPLICATE_KEY_SPACE);
         }
 
         if (resultSize == 0) {
-            throw new BaseException(ErrorCode.SPACE_NOT_FOUND);
+            throw new BizException(ResultCode.NOT_FOUND_SPACE);
         } else if (resultSize != 1) {
-            throw new IncorrectResultSizeDataAccessException(1, resultSize);
+            throw new IncorrectResultSizeException(resultSize);
         }
     }
 
     @Override
     public void delete(Long id) {
-        int resultSize = spacePOMapper.deleteByPrimaryKey(id);
+        int resultSize = spaceDOMapper.deleteByPrimaryKey(id);
         if (resultSize == 0) {
-            throw new BaseException(ErrorCode.SPACE_NOT_FOUND);
+            throw new BizException(ResultCode.NOT_FOUND_SPACE);
         } else if (resultSize != 1) {
-            throw new IncorrectResultSizeDataAccessException(1, resultSize);
+            throw new IncorrectResultSizeException(resultSize);
         }
     }
 
-    @Override
-    public Integer level(Long id) {
-        Integer level = 0;
-        while (true) {
-            if (id.equals(GlobalConstant.FAKE_ID)) {
-                break;
-            }
-            SpacePO spacePO = spacePOMapper.selectByPrimaryKey(id);
-            if (spacePO != null) {
-                level++;
-            } else {
-                throw new BaseException(ErrorCode.SPACE_NOT_FOUND);
-            }
-            id = spacePO.getParentId();
+    private SpaceBO convertToBO(SpaceDO spaceDO) {
+        SpaceBO spaceBO = new SpaceBO();
+        BeanUtils.copyProperties(spaceDO, spaceBO);
+        spaceBO.setAccessAuthority(EnumUtils.getEnum(AccessAuthority.class, spaceDO.getAccessAuthority()));
+        return spaceBO;
+    }
+
+    private List<SpaceBO> convertToBOList(List<SpaceDO> spaceDOList) {
+        List<SpaceBO> spaceBOList = new LinkedList<>();
+        spaceDOList.forEach(spaceDO -> spaceBOList.add(convertToBO(spaceDO)));
+        return spaceBOList;
+    }
+
+    private SpaceDO convertToDO(SpaceBO spaceBO) {
+        if (spaceBO == null) {
+            return null;
         }
-        return level;
+        SpaceDO spaceDO = new SpaceDO();
+        BeanUtils.copyProperties(spaceBO, spaceDO);
+        if (spaceBO.getAccessAuthority() != null) {
+            spaceDO.setAccessAuthority(spaceBO.getAccessAuthority().name());
+        }
+        return spaceDO;
     }
 }

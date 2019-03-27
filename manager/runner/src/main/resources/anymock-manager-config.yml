@@ -1,0 +1,38 @@
+spring:
+  thymeleaf:
+    cache: false
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/anymock_opensource?serverTimezone=UTC
+    username: root
+    password: toor
+    type: com.zaxxer.hikari.HikariDataSource
+  redis:
+    host: 127.0.0.1
+    port: 6379
+
+logging:
+  pattern:
+    console: >
+     %clr(%d{${LOG_DATEFORMAT_PATTERN:yyyy-MM-dd HH:mm:ss.SSS}}){faint}
+     %clr(${LOG_LEVEL_PATTERN:-%5p})
+     %clr(${PID:- }){magenta}
+     %clr(---){faint}
+     %clr([%15.15t]){faint}
+     %clr([%X{mdc_trace_id}]){faint}
+     %clr(%-40.40logger{39}){cyan}
+     %clr(:){faint} %m${LOG_EXCEPTION_CONVERSION_WORD:%wEx}
+
+server:
+  port: 8329
+
+anymock:
+  core:
+    host: 127.0.0.1
+    http-interface-port: 8330
+
+fe:
+  path: file:///C:/Users/lizhenxi01/Desktop/dxm/open-source/anymock-fe/dist/

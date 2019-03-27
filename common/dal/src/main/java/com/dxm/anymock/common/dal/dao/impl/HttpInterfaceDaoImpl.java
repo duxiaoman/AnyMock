@@ -1,257 +1,215 @@
 package com.dxm.anymock.common.dal.dao.impl;
 
-import com.dxm.anymock.common.base.GlobalConstant;
-import com.dxm.anymock.common.base.entity.*;
-import com.dxm.anymock.common.base.util.ConvertUtil;
-import com.dxm.anymock.common.base.enums.ErrorCode;
-import com.dxm.anymock.common.base.exception.BaseException;
-import com.dxm.anymock.common.dal.dao.*;
-import com.dxm.anymock.common.dal.dao.httpinterface.BranchScriptDao;
-import com.dxm.anymock.common.dal.dao.httpinterface.CallbackRequestHeaderDao;
-import com.dxm.anymock.common.dal.dao.httpinterface.ResponseHeaderDao;
-import com.dxm.anymock.common.dal.entity.*;
-import com.dxm.anymock.common.dal.mapper.auto.*;
-import org.apache.commons.lang3.BooleanUtils;
+import com.dxm.anymock.common.base.enums.ResultCode;
+import com.dxm.anymock.common.base.exception.BizException;
+import com.dxm.anymock.common.dal.IncorrectResultSizeException;
+import com.dxm.anymock.common.dal.dao.HttpInterfaceBranchDao;
+import com.dxm.anymock.common.dal.dao.HttpInterfaceDao;
+import com.dxm.anymock.common.dal.dao.HttpInterfaceHeaderDao;
+import com.dxm.anymock.common.dal.model.HttpInterfaceBO;
+import com.dxm.anymock.common.dal.model.HttpInterfaceBranchBO;
+import com.dxm.anymock.common.dal.model.HttpInterfaceHeaderBO;
+import com.dxm.anymock.common.dal.model.HttpInterfaceKeyBO;
+import com.dxm.anymock.common.dal.model.enums.AccessAuthority;
+import com.dxm.anymock.common.dal.model.enums.ConfigMode;
+import com.dxm.anymock.common.dal.model.enums.HttpHeaderType;
+import com.dxm.anymock.common.dal.entity.HttpInterfaceDO;
+import com.dxm.anymock.common.dal.entity.HttpInterfaceDOExample;
+import com.dxm.anymock.common.dal.mapper.auto.HttpInterfaceDOMapper;
+import org.apache.commons.lang3.EnumUtils;
 import org.apache.ibatis.session.RowBounds;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 @Repository
 @Transactional
 public class HttpInterfaceDaoImpl implements HttpInterfaceDao {
 
-    private static final Logger logger = LoggerFactory.getLogger(HttpInterfaceDaoImpl.class);
+    @Autowired
+    private HttpInterfaceDOMapper httpInterfaceDOMapper;
 
     @Autowired
-    private HttpInterfacePOMapper httpInterfacePOMapper;
+    private HttpInterfaceHeaderDao httpInterfaceHeaderDao;
 
     @Autowired
-    private ResponseHeaderDao responseHeaderDao;
-
-    @Autowired
-    private CallbackRequestHeaderDao callbackRequestHeaderDao;
-
-    @Autowired
-    private BranchScriptDao branchScriptDao;
+    private HttpInterfaceBranchDao httpInterfaceBranchDao;
 
     @Override
-    public List<HttpInterface> selectAll(RowBounds rowBounds) {
-        HttpInterfacePOExample example = new HttpInterfacePOExample();
-        example.setOrderByClause("last_update_time desc");
-        return ConvertUtil.convert(
-                httpInterfacePOMapper.selectByExampleWithRowbounds(example, rowBounds),
-                HttpInterface.class);
-    }
-
-    @Override
-    public Long countAll() {
-        return httpInterfacePOMapper.countByExample(new HttpInterfacePOExample());
-    }
-
-    @Override
-    public List<HttpInterface> selectBySpaceId(Long spaceId, RowBounds rowBounds) {
-        HttpInterfacePOExample example = new HttpInterfacePOExample();
-        example.createCriteria().andSpaceIdEqualTo(spaceId);
-        example.setOrderByClause("last_update_time desc");
-        return ConvertUtil.convert(
-                httpInterfacePOMapper.selectByExampleWithRowbounds(example, rowBounds), HttpInterface.class);
-    }
-
-    @Override
-    public Long countBySpaceId(Long spaceId) {
-        HttpInterfacePOExample example = new HttpInterfacePOExample();
-        example.createCriteria().andSpaceIdEqualTo(spaceId);
-        return httpInterfacePOMapper.countByExample(example);
-    }
-
-    @Override
-    public List<HttpInterface> selectBySpaceId(Long spaceId) {
-        return selectBySpaceId(spaceId, new RowBounds());
-    }
-
-    @Override
-    public HttpInterface selectByRequestType(RequestType requestType) {
-        HttpInterfacePOExample httpInterfacePOExample = new HttpInterfacePOExample();
-        httpInterfacePOExample.createCriteria()
-                .andRequestMethodEqualTo(requestType.getMethod())
-                .andRequestUriEqualTo(requestType.getUri());
-        List<HttpInterfacePOWithBLOBs> httpInterfacePOWithBLOBsList
-                = httpInterfacePOMapper.selectByExampleWithBLOBs(httpInterfacePOExample);
-        if (httpInterfacePOWithBLOBsList.size() == 0) {
+    public HttpInterfaceBO queryById(Long id) {
+        HttpInterfaceDO httpInterfaceDO = httpInterfaceDOMapper.selectByPrimaryKey(id);
+        if (httpInterfaceDO == null) {
             return null;
-        } else if (httpInterfacePOWithBLOBsList.size() == 1) {
-            HttpInterface httpInterface
-                    = ConvertUtil.convert(httpInterfacePOWithBLOBsList.get(0), HttpInterface.class);
-            fillingSubProperties(httpInterface, false);
-            return httpInterface;
+        }
+        return convertToBO(httpInterfaceDO);
+    }
+
+    @Override
+    public List<HttpInterfaceBO> queryAllWithRowBoundsOrderByClause(RowBounds rowBounds, String orderByClause) {
+        HttpInterfaceDOExample example = new HttpInterfaceDOExample();
+        example.setOrderByClause(orderByClause);
+        return convertToBOList(httpInterfaceDOMapper.selectByExampleWithRowbounds(example, rowBounds));
+    }
+
+    @Override
+    public List<HttpInterfaceBO> queryBySpaceIdWithRowBoundsOrderByClause(Long spaceId, RowBounds rowBounds, String orderByClause) {
+        HttpInterfaceDOExample example = new HttpInterfaceDOExample();
+        example.createCriteria().andSpaceIdEqualTo(spaceId);
+        example.setOrderByClause(orderByClause);
+        return convertToBOList(httpInterfaceDOMapper.selectByExampleWithRowbounds(example, rowBounds));
+    }
+
+    @Override
+    public List<HttpInterfaceBO> queryBySpaceId(Long spaceId) {
+        return queryBySpaceIdWithRowBoundsOrderByClause(spaceId, new RowBounds(), null);
+    }
+
+    @Override
+    public HttpInterfaceBO queryByKey(HttpInterfaceKeyBO httpInterfaceKeyBO) {
+        HttpInterfaceDOExample example = new HttpInterfaceDOExample();
+        example.createCriteria()
+                .andRequestUriEqualTo(httpInterfaceKeyBO.getRequestUri())
+                .andRequestMethodEqualTo(httpInterfaceKeyBO.getRequestMethod());
+        List<HttpInterfaceDO> httpInterfaceDOList = httpInterfaceDOMapper.selectByExample(example);
+        int resultSize = httpInterfaceDOList.size();
+        if (resultSize == 0) {
+            return null;
+        } else if (resultSize == 1) {
+            return convertToBO(httpInterfaceDOList.get(0));
         } else {
-            throw new IncorrectResultSizeDataAccessException(1, httpInterfacePOWithBLOBsList.size());
+            throw new IncorrectResultSizeException(resultSize);
         }
     }
 
     @Override
-    public Long countByUri(String uri) {
-        HttpInterfacePOExample example = new HttpInterfacePOExample();
-        example.createCriteria().andRequestUriEqualTo(uri);
-        return httpInterfacePOMapper.countByExample(example);
-    }
+    public void create(HttpInterfaceBO httpInterfaceBO) {
+        HttpInterfaceDO httpInterfaceDO = convertToDO(httpInterfaceBO);
+        Date now = new Date();
+        httpInterfaceDO.setId(null);
+        httpInterfaceDO.setGmtCreate(now);
+        httpInterfaceDO.setGmtModified(now);
 
-    @Override
-    public BranchScript selectBranchScript(Long id, String branchName) {
-        return branchScriptDao.selectByHttpInterfaceIdAndName(id, branchName);
-    }
-
-    @Override
-    public HttpInterface selectById(Long id) {
-        HttpInterfacePOWithBLOBs httpInterfacePOWithBLOBs = httpInterfacePOMapper.selectByPrimaryKey(id);
-        if (httpInterfacePOWithBLOBs == null) {
-            throw new BaseException(ErrorCode.HTTP_INTERFACE_NOT_FOUND);
-        }
-        HttpInterface httpInterface = ConvertUtil.convert(httpInterfacePOWithBLOBs, HttpInterface.class);
-        fillingSubProperties(httpInterface, true);
-        return httpInterface;
-    }
-
-    @Override
-    public void insert(HttpInterface httpInterface) {
-        HttpInterfacePOWithBLOBs httpInterfacePOWithBLOBs
-                = ConvertUtil.convert(httpInterface, HttpInterfacePOWithBLOBs.class);
-        fillingLastUpdateInfo(httpInterfacePOWithBLOBs);
         int resultSize;
         try {
-            resultSize = httpInterfacePOMapper.insert(httpInterfacePOWithBLOBs);
+            resultSize = httpInterfaceDOMapper.insert(httpInterfaceDO);
         } catch (DuplicateKeyException e) {
-            throw new BaseException(ErrorCode.HTTP_INTERFACE_DUPLICATE_KEY);
+            throw new BizException(ResultCode.DUPLICATE_KEY_HTTP_INTERFACE);
         }
 
         if (resultSize != 1) {
-            throw new IncorrectResultSizeDataAccessException(1, resultSize);
+            throw new IncorrectResultSizeException(resultSize);
         }
 
         // get httpInterface.id
-        HttpInterfacePOExample httpInterfacePOExample = new HttpInterfacePOExample();
-        httpInterfacePOExample.createCriteria()
-                .andRequestMethodEqualTo(httpInterface.getRequestMethod())
-                .andRequestUriEqualTo(httpInterface.getRequestUri());
-        List<HttpInterfacePOWithBLOBs> httpInterfacePOWithBLOBsList
-                = httpInterfacePOMapper.selectByExampleWithBLOBs(httpInterfacePOExample);
-        if (httpInterfacePOWithBLOBsList.size() != 1) {
-            throw new IncorrectResultSizeDataAccessException(1, httpInterfacePOWithBLOBsList.size());
+        HttpInterfaceDOExample example = new HttpInterfaceDOExample();
+        example.createCriteria()
+                .andRequestMethodEqualTo(httpInterfaceDO.getRequestMethod())
+                .andRequestUriEqualTo(httpInterfaceDO.getRequestUri());
+        List<HttpInterfaceDO> httpInterfaceDOList
+                = httpInterfaceDOMapper.selectByExample(example);
+        if (httpInterfaceDOList.size() != 1) {
+            throw new IncorrectResultSizeException(httpInterfaceDOList.size());
         }
 
-        Long httpInterfaceId = httpInterfacePOWithBLOBsList.get(0).getId();
-        responseHeaderDao.insert(httpInterfaceId, httpInterface.getResponseHeaderList());
-        callbackRequestHeaderDao.insert(httpInterfaceId, httpInterface.getCallbackRequestHeaderList());
-        branchScriptDao.insert(httpInterfaceId, httpInterface.getBranchScriptList());
+        Long httpInterfaceId = httpInterfaceDOList.get(0).getId();
+        httpInterfaceHeaderDao.batchCreate(
+                httpInterfaceBO.getResponseHeaderList(), httpInterfaceId, HttpHeaderType.RESPONSE);
+        httpInterfaceHeaderDao.batchCreate(
+                httpInterfaceBO.getCallbackRequestHeaderList(), httpInterfaceId, HttpHeaderType.CALLBACK_REQUEST);
+        httpInterfaceBranchDao.batchCreate(
+                httpInterfaceBO.getBranchList(), httpInterfaceId);
     }
 
     @Override
-    public void update(HttpInterface httpInterface) {
-        // update httpInterface
-        HttpInterfacePOWithBLOBs httpInterfacePOWithBLOBs
-                = ConvertUtil.convert(httpInterface, HttpInterfacePOWithBLOBs.class);
-        fillingLastUpdateInfo(httpInterfacePOWithBLOBs);
+    public void update(HttpInterfaceBO httpInterfaceBO) {
+        HttpInterfaceDO httpInterfaceDO = convertToDO(httpInterfaceBO);
+        httpInterfaceDO.setGmtCreate(null);
+        httpInterfaceDO.setGmtModified(new Date());
+
         int resultSize;
         try {
-            resultSize = httpInterfacePOMapper.updateByPrimaryKeyWithBLOBs(httpInterfacePOWithBLOBs);
+            resultSize = httpInterfaceDOMapper.updateByPrimaryKeySelective(httpInterfaceDO);
         } catch (DuplicateKeyException e) {
-            throw new BaseException(ErrorCode.HTTP_INTERFACE_DUPLICATE_KEY);
+            throw new BizException(ResultCode.DUPLICATE_KEY_HTTP_INTERFACE);
         }
 
-        if (resultSize == 0) {
-            throw new BaseException(ErrorCode.HTTP_INTERFACE_NOT_FOUND);
-        } else if (resultSize != 1) {
-            throw new IncorrectResultSizeDataAccessException(1, resultSize);
+        if (resultSize != 1) {
+            throw new IncorrectResultSizeException(resultSize);
         }
 
-        Long httpInterfaceId = httpInterface.getId();
-        if (!HttpHeader.equals(
-                responseHeaderDao.selectByHttpInterfaceId(httpInterfaceId),
-                httpInterface.getResponseHeaderList())
-        ) {
-            responseHeaderDao.deleteByHttpInterfaceId(httpInterfaceId);
-            responseHeaderDao.insert(httpInterfaceId, httpInterface.getResponseHeaderList());
-        }
+        // get httpInterface.id
+        Long httpInterfaceId = httpInterfaceBO.getId();
 
-        if (!HttpHeader.equals(
-                callbackRequestHeaderDao.selectByHttpInterfaceId(httpInterfaceId),
-                httpInterface.getCallbackRequestHeaderList())
-        ) {
-            callbackRequestHeaderDao.deleteByHttpInterfaceId(httpInterfaceId);
-            callbackRequestHeaderDao.insert(httpInterfaceId, httpInterface.getCallbackRequestHeaderList());
-        }
+        // todo 若完全相同则不更新
+        httpInterfaceHeaderDao.batchDelete(httpInterfaceId, HttpHeaderType.RESPONSE);
+        httpInterfaceHeaderDao.batchCreate(
+                httpInterfaceBO.getResponseHeaderList(), httpInterfaceId, HttpHeaderType.RESPONSE);
 
-        if (!BranchScript.equals(
-                branchScriptDao.selectByHttpInterfaceId(httpInterfaceId),
-                httpInterface.getBranchScriptList())
-        ) {
-            branchScriptDao.deleteByHttpInterfaceId(httpInterfaceId);
-            branchScriptDao.insert(httpInterfaceId, httpInterface.getBranchScriptList());
-        }
+        httpInterfaceHeaderDao.batchDelete(httpInterfaceId, HttpHeaderType.CALLBACK_REQUEST);
+        httpInterfaceHeaderDao.batchCreate(
+                httpInterfaceBO.getCallbackRequestHeaderList(), httpInterfaceId, HttpHeaderType.CALLBACK_REQUEST);
+
+        httpInterfaceBranchDao.batchDelete(httpInterfaceId);
+        httpInterfaceBranchDao.batchCreate(
+                httpInterfaceBO.getBranchList(), httpInterfaceId);
     }
 
     @Override
     public void delete(Long id) {
-        responseHeaderDao.deleteByHttpInterfaceId(id);
-        callbackRequestHeaderDao.deleteByHttpInterfaceId(id);
-        branchScriptDao.deleteByHttpInterfaceId(id);
+        httpInterfaceHeaderDao.batchDelete(id, HttpHeaderType.RESPONSE);
+        httpInterfaceHeaderDao.batchDelete(id, HttpHeaderType.CALLBACK_REQUEST);
+        httpInterfaceBranchDao.batchDelete(id);
 
-        int resultSize = httpInterfacePOMapper.deleteByPrimaryKey(id);
+        int resultSize = httpInterfaceDOMapper.deleteByPrimaryKey(id);
         if (resultSize == 0) {
-            throw new BaseException(ErrorCode.HTTP_INTERFACE_NOT_FOUND);
+            throw new BizException(ResultCode.NOT_FOUND_HTTP_INTERFACE);
         } else if (resultSize != 1) {
-            throw new IncorrectResultSizeDataAccessException(1, resultSize);
+            throw new IncorrectResultSizeException(resultSize);
         }
     }
 
     @Override
-    public void start(Long id) {
-        HttpInterfacePOWithBLOBs httpInterfacePOWithBLOBs = new HttpInterfacePOWithBLOBs();
-        httpInterfacePOWithBLOBs.setId(id);
-        httpInterfacePOWithBLOBs.setStart(true);
-        fillingLastUpdateInfo(httpInterfacePOWithBLOBs);
-
-        int resultSize = httpInterfacePOMapper.updateByPrimaryKeySelective(httpInterfacePOWithBLOBs);
-        if (resultSize != 1) {
-            throw new IncorrectResultSizeDataAccessException(1, resultSize);
-        }
+    public Long countAll() {
+        return httpInterfaceDOMapper.countByExample(new HttpInterfaceDOExample());
     }
 
     @Override
-    public void shutdown(Long id) {
-        HttpInterfacePOWithBLOBs httpInterfacePOWithBLOBs = new HttpInterfacePOWithBLOBs();
-        httpInterfacePOWithBLOBs.setId(id);
-        httpInterfacePOWithBLOBs.setStart(false);
-        fillingLastUpdateInfo(httpInterfacePOWithBLOBs);
-
-        int resultSize = httpInterfacePOMapper.updateByPrimaryKeySelective(httpInterfacePOWithBLOBs);
-        if (resultSize != 1) {
-            throw new IncorrectResultSizeDataAccessException(1, resultSize);
-        }
+    public Long countBySpaceId(Long spaceId) {
+        HttpInterfaceDOExample example = new HttpInterfaceDOExample();
+        example.createCriteria().andSpaceIdEqualTo(spaceId);
+        return httpInterfaceDOMapper.countByExample(example);
     }
 
-    private void fillingSubProperties(HttpInterface httpInterface, Boolean withBranchScript) {
-        Long httpInterfaceId = httpInterface.getId();
-        httpInterface.setResponseHeaderList(
-                responseHeaderDao.selectByHttpInterfaceId(httpInterfaceId));
-        httpInterface.setCallbackRequestHeaderList(
-                callbackRequestHeaderDao.selectByHttpInterfaceId(httpInterfaceId));
-        if (BooleanUtils.isTrue(withBranchScript)) {
-            httpInterface.setBranchScriptList(
-                    branchScriptDao.selectByHttpInterfaceId(httpInterfaceId));
-        }
+    private HttpInterfaceDO convertToDO(HttpInterfaceBO httpInterfaceBO) {
+        HttpInterfaceDO httpInterfaceDO = new HttpInterfaceDO();
+        BeanUtils.copyProperties(httpInterfaceBO, httpInterfaceDO);
+        httpInterfaceDO.setConfigMode(httpInterfaceBO.getConfigMode().name());
+        httpInterfaceDO.setAccessAuthority(httpInterfaceBO.getAccessAuthority().name());
+        return httpInterfaceDO;
     }
 
-    private void fillingLastUpdateInfo(HttpInterfacePOWithBLOBs httpInterfacePOWithBLOBs) {
-        httpInterfacePOWithBLOBs.setLastUpdateUser(GlobalConstant.DEFAULT_USER);
-        httpInterfacePOWithBLOBs.setLastUpdateTime(new Date());
+    private HttpInterfaceBO convertToBO(HttpInterfaceDO httpInterfaceDO) {
+        HttpInterfaceBO httpInterfaceBO = new HttpInterfaceBO();
+        BeanUtils.copyProperties(httpInterfaceDO, httpInterfaceBO);
+        httpInterfaceBO.setConfigMode(EnumUtils.getEnum(ConfigMode.class, httpInterfaceDO.getConfigMode()));
+        httpInterfaceBO.setAccessAuthority(EnumUtils.getEnum(AccessAuthority.class, httpInterfaceDO.getAccessAuthority()));
+
+        Long id = httpInterfaceDO.getId();
+        httpInterfaceBO.setResponseHeaderList(httpInterfaceHeaderDao.batchQuery(id, HttpHeaderType.RESPONSE));
+        httpInterfaceBO.setCallbackRequestHeaderList(httpInterfaceHeaderDao.batchQuery(id, HttpHeaderType.CALLBACK_REQUEST));
+        httpInterfaceBO.setBranchList(httpInterfaceBranchDao.batchQuery(id));
+        return httpInterfaceBO;
+    }
+
+    private List<HttpInterfaceBO> convertToBOList(List<HttpInterfaceDO> httpInterfaceDOList) {
+        List<HttpInterfaceBO> httpInterfaceBOList = new LinkedList<>();
+        httpInterfaceDOList.forEach(httpInterfaceDO -> httpInterfaceBOList.add(convertToBO(httpInterfaceDO)));
+        return httpInterfaceBOList;
     }
 }

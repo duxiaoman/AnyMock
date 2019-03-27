@@ -1,14 +1,14 @@
 package com.dxm.anymock.common.dal.dao;
 
-import com.dxm.anymock.common.base.entity.Space;
+import com.dxm.anymock.common.dal.model.SpaceBO;
 
 import java.util.List;
 
 public interface SpaceDao {
-    Space selectById(Long id);
-    List<Space> selectByParentId(Long parentId);
-    void insert(Space space);
-    void update(Space space);
+    SpaceBO queryById(Long id);
+    List<SpaceBO> queryByParentId(Long parentId);
+    List<SpaceBO> queryByParentIdOrderByClause(Long parentId, String orderByClause);
+    void create(SpaceBO spaceBO);
+    void update(SpaceBO spaceBO);
     void delete(Long id);
-    Integer level(Long id);
 }

@@ -47,13 +47,13 @@
 
             <dependency>
                 <groupId>com.dxm.anymock</groupId>
-                <artifactId>anymock-web-biz</artifactId>
+                <artifactId>anymock-manager-biz</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
 
             <dependency>
                 <groupId>com.dxm.anymock</groupId>
-                <artifactId>anymock-web-service</artifactId>
+                <artifactId>anymock-manager-web</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
 
@@ -139,7 +139,7 @@
 
     <modules>
         <module>common</module>
-        <module>web</module>
+        <module>manager</module>
         <module>core</module>
     </modules>
 </project>

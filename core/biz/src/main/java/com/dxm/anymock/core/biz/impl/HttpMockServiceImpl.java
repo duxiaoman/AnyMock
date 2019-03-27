@@ -1,12 +1,8 @@
 package com.dxm.anymock.core.biz.impl;
 
-import com.dxm.anymock.common.base.GlobalConstant;
-import com.dxm.anymock.common.base.entity.HttpInterface;
 import com.dxm.anymock.common.base.entity.RequestType;
-import com.dxm.anymock.common.base.enums.CodeBasedEnumUtil;
-import com.dxm.anymock.common.base.enums.ConfigMode;
-import com.dxm.anymock.common.base.enums.ErrorCode;
-import com.dxm.anymock.common.base.exception.BaseException;
+import com.dxm.anymock.common.base.enums.ResultCode;
+import com.dxm.anymock.common.base.exception.BizException;
 import com.dxm.anymock.common.dal.dao.HttpInterfaceDao;
 import com.dxm.anymock.common.dal.dao.RedisDao;
 import com.dxm.anymock.core.biz.HttpAsyncMockService;
@@ -100,19 +96,19 @@ public class HttpMockServiceImpl implements HttpMockService {
             logger.info("Loading HTTP interface from DB...");
             httpInterface = httpInterfaceDao.selectByRequestType(requestType);
             if (httpInterface == null) {
-                throw new BaseException(ErrorCode.HTTP_INTERFACE_NOT_FOUND);
+                throw new BizException(ResultCode.HTTP_INTERFACE_NOT_FOUND);
             }
             redisDao.setHttpInterface(requestType, httpInterface);
         }
 
         if (BooleanUtils.isNotTrue(httpInterface.getStart())) {
-            throw new BaseException(ErrorCode.HTTP_INTERFACE_NOT_STARTED);
+            throw new BizException(ResultCode.HTTP_INTERFACE_NOT_STARTED);
         }
 
         // check config mode
         ConfigMode configMode = CodeBasedEnumUtil.convertByCode(ConfigMode.class, httpInterface.getConfigMode());
         if (configMode == null) {
-            throw new BaseException(ErrorCode.UNKNOWN_CONFIG_MODE);
+            throw new BizException(ResultCode.UNKNOWN_CONFIG_MODE);
         }
 
         httpMockContext.setRequestType(requestType);

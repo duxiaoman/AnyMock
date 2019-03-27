@@ -1,6 +1,5 @@
 package com.dxm.anymock.core.biz.impl;
 
-import com.dxm.anymock.common.base.exception.GroovyScriptExecException;
 import com.dxm.anymock.core.biz.GroovyService;
 import com.dxm.anymock.core.biz.entity.HttpMockContext;
 import groovy.lang.Binding;
@@ -22,7 +21,7 @@ public class GroovyServiceImpl implements GroovyService {
     private static final Logger logger = LoggerFactory.getLogger(GroovyServiceImpl.class);
 
     private static final String PRE_IMPORT = ""
-            + "import groovy.util.XmlSlurper\n"
+            + "import groovy.security.XmlSlurper\n"
             + "import groovy.json.JsonSlurper\n";
 
     @Autowired

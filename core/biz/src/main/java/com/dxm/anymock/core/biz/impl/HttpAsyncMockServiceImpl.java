@@ -1,9 +1,7 @@
 package com.dxm.anymock.core.biz.impl;
 
-import com.dxm.anymock.common.base.GlobalConstant;
-import com.dxm.anymock.common.base.entity.HttpInterface;
-import com.dxm.anymock.common.base.enums.ErrorCode;
-import com.dxm.anymock.common.base.exception.BaseException;
+import com.dxm.anymock.common.base.enums.ResultCode;
+import com.dxm.anymock.common.base.exception.BizException;
 import com.dxm.anymock.core.biz.GroovyService;
 import com.dxm.anymock.core.biz.HttpAsyncMockService;
 import com.dxm.anymock.core.biz.entity.HttpMockContext;
@@ -34,7 +32,7 @@ public class HttpAsyncMockServiceImpl implements HttpAsyncMockService {
     private void mockAsyncDelay(HttpMockContext httpMockContext) throws InterruptedException {
         HttpInterface httpInterface = httpMockContext.getHttpInterface();
         if (httpInterface.getAsyncDelay() > GlobalConstant.MAX_ASYNC_DELAY) {
-            throw new BaseException(ErrorCode.ASYNC_DELAY_TOO_LARGE);
+            throw new BizException(ResultCode.ASYNC_DELAY_TOO_LARGE);
         }
         if (httpInterface.getAsyncDelay() > 0) {
             Thread.sleep(httpInterface.getAsyncDelay());
@@ -66,7 +64,7 @@ public class HttpAsyncMockServiceImpl implements HttpAsyncMockService {
                     field.set(httpURLConnection, new URL(String.format("%s?%s",
                             httpMockContext.getHttpInterface().getCallbackRequestUrl(), requestContent)));
                 } catch (NoSuchFieldException | IllegalAccessException e) {
-                    throw new BaseException(ErrorCode.UNEXPECTED_ERROR);
+                    throw new BizException(ResultCode.UNEXPECTED_ERROR);
                 }
             } else {
                 httpURLConnection.setDoOutput(true);
@@ -102,7 +100,7 @@ public class HttpAsyncMockServiceImpl implements HttpAsyncMockService {
                 requestContent = groovyService.exec(httpMockContext, httpMockContext.getBranchScript().getAsyncScript());
                 break;
             default:
-                throw new BaseException(ErrorCode.UNKNOWN_CONFIG_MODE);
+                throw new BizException(ResultCode.UNKNOWN_CONFIG_MODE);
         }
         logger.info("RequestContent = {}", requestContent);
         writeRequestContent(httpMockContext, requestContent);

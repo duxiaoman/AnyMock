@@ -5,7 +5,7 @@
 
 <generatorConfiguration>
     <properties resource="config.properties" />
-    <classPathEntry location="mysql-connector-java-5.1.26.jar" />
+    <classPathEntry location="mysql-connector-java-8.0.12.jar" />
 
     <context id="DB" targetRuntime="MyBatis3">
         <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin>
@@ -40,12 +40,22 @@
         </javaClientGenerator>
 
         <!-- add your table below -->
-        <table tableName="am_space" domainObjectName="SpacePO" />
-        <!--<table tableName="am_sub_space" domainObjectName="SubSpacePO" />-->
-        <table tableName="am_http_interface" domainObjectName="HttpInterfacePO" />
-        <table tableName="am_http_interface_branch_script" domainObjectName="HttpInterfaceBranchScriptPO" />
-        <table tableName="am_http_interface_callback_request_header" domainObjectName="HttpInterfaceCallbackRequestHeaderPO" />
-        <table tableName="am_http_interface_response_header" domainObjectName="HttpInterfaceResponseHeaderPO" />
-        <table tableName="am_http_interface_snapshot" domainObjectName="HttpInterfaceSnapshotPO" />
+        <table tableName="anymock_space" domainObjectName="SpaceDO" />
+        <table tableName="anymock_http_interface" domainObjectName="HttpInterfaceDO">
+            <columnRenamingRule searchString="^is_" replaceString=""/>
+            <columnOverride column="response_body" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="callback_request_body" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="branch_jump_script" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="sync_script" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="async_script" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        </table>
+        <table tableName="anymock_http_interface_branch" domainObjectName="HttpInterfaceBranchDO">
+            <columnOverride column="sync_script" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="async_script" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        </table>
+        <table tableName="anymock_http_interface_header" domainObjectName="HttpInterfaceHeaderDO" />
+        <table tableName="anymock_http_interface_snapshot" domainObjectName="HttpInterfaceSnapshotDO">
+            <columnOverride column="http_interface" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        </table>
     </context>
 </generatorConfiguration>
