@@ -18,10 +18,12 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -138,6 +140,10 @@ public class HttpMockServiceImpl implements HttpMockService {
         httpInterfaceKeyBO.setRequestUri(request.getRequestURI());
         context.setHttpInterfaceBO(loadHttpInterfaceBO(httpInterfaceKeyBO));
 
+        // MockHttpServletRequest mockRequest = new MockHttpServletRequest(request.getServletContext());
+        // mockRequest.setCharacterEncoding();
+        // request.getCharacterEncoding()
+
         // 由于输入流能且仅能读取一次，而后续可能多次调用，因此需要临时存储
         request.setAttribute("body", buildHttpBody(request));
 
@@ -159,6 +165,8 @@ public class HttpMockServiceImpl implements HttpMockService {
         // 异步
         if (BooleanUtils.isTrue(context.getHttpInterfaceBO().getNeedAsyncCallback())) {
             String mdcTraceId = MDC.get(MdcManager.MDC_TRACE_ID_KEY);
+            // request.
+            context.getGroovyBinding().setProperty("request", new HttpServletRequestWrapper(request));
             threadPoolTaskExecutor.execute(() -> {
                 try {
                     MDC.put(MdcManager.MDC_TRACE_ID_KEY, mdcTraceId);

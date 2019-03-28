@@ -9,6 +9,7 @@ import groovy.lang.Binding;
 import groovy.lang.GroovyClassLoader;
 import groovy.lang.GroovyCodeSource;
 import groovy.lang.Script;
+import org.apache.commons.lang3.StringUtils;
 import org.codehaus.groovy.runtime.InvokerHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,17 +39,21 @@ public class GroovyServiceImpl implements GroovyService {
         String name = "script" + System.currentTimeMillis() + Math.abs(text.hashCode()) + ".groovy";
         text = PRE_IMPORT + text;
         GroovyCodeSource groovyCodeSource = new GroovyCodeSource(text, name, "/groovy/script");
-        Class groovyClass = groovyClassLoader.parseClass(groovyCodeSource);
-        Script script = InvokerHelper.createScript(groovyClass, binding);
 
         Object result;
         try {
+            Class groovyClass = groovyClassLoader.parseClass(groovyCodeSource);
+            Script script = InvokerHelper.createScript(groovyClass, binding);
             result = script.run();
         } catch (Throwable e) {
             throw new BizException(ResultCode.GROOVY_SCRIPT_EXEC_EXCEPTION, e);
         }
 
-        logger.info(stringWriter.toString());
+        String stdout = stringWriter.toString();
+        if (StringUtils.isNotBlank(stdout)) {
+            logger.info("stdout = {}", stdout);
+        }
+
         if (result == null) {
             return "";
         }
