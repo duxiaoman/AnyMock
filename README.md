@@ -2,37 +2,7 @@
 简要说明
 
 ## 快速开始
-### 安装依赖（内部服务器）
-```sh
-# 安装Jumbo
-bash -c "$( curl http://jumbo.baidu.com/install_jumbo.sh )"; source ~/.bashrc
 
-# 安装java8
-jumbo install sun-java8
-
-# 安装maven
-jumbo install apache-maven
-
-# 安装redis
-jumbo install redis
-
-# 启用java8环境
-source ${JUMBO_ROOT}/opt/sun-java8/sun-java8.sh
-
-# 启用redis
-nohup redis-server ~/.jumbo/etc/redis.conf --port 8331 > /dev/null 2>/dev/null &
-
-# 安装mysql
-jumbo install mysql
-
-# 启动mysql
-${JUMBO_ROOT}/share/mysql/mysql.server start
-
-# 设置mysql密码
-mysqladmin -u root -p password toor
-
-# 使用anymock_opensource.sql中的语句创建数据库
-```
 
 ### 如何构建
 ```sh
