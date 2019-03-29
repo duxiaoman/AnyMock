@@ -43,11 +43,15 @@ public class HttpSyncMockServiceImpl implements HttpSyncMockService {
         return null;
     }
 
-    @Override
-    public void mock(HttpMockContext context) throws IOException {
-        HttpServletRequest request = context.getHttpServletRequest();
-        HttpServletResponse response = context.getHttpServletResponse();
+    private Binding buildSyncBinding(HttpServletRequest request, HttpServletResponse response) {
+        Binding binding = new Binding();
+        binding.setProperty("request", request);
+        binding.setProperty("response", response);
+        return binding;
+    }
 
+    @Override
+    public void mock(HttpMockContext context, HttpServletRequest request, HttpServletResponse response) throws IOException {
         // 同步延时
         HttpInterfaceBO httpInterfaceBO = context.getHttpInterfaceBO();
         Delayer.delay(httpInterfaceBO.getSyncDelay());
@@ -67,17 +71,16 @@ public class HttpSyncMockServiceImpl implements HttpSyncMockService {
             Binding binding = new Binding();
             binding.setProperty("request", request);
             binding.setProperty("response", response);
-            context.setGroovyBinding(binding);
         }
 
         String responseBody;
         if (configMode == TEXT) {
             responseBody = httpInterfaceBO.getResponseBody();
         } else if (configMode == GROOVY) {
-            Binding binding = context.getGroovyBinding();
+            Binding binding = buildSyncBinding(request, response);
             responseBody = groovyService.exec(binding, httpInterfaceBO.getSyncScript());
         } else if (configMode == GROOVY_TEMPLATE_SWITCH_CASE) {
-            Binding binding = context.getGroovyBinding();
+            Binding binding = buildSyncBinding(request, response);
             String branchName = groovyService.exec(binding, httpInterfaceBO.getBranchJumpScript());
             logger.info("BranchName = {}", branchName);
             HttpInterfaceBranchBO branchBO = findBranch(branchName, httpInterfaceBO.getBranchScriptList());

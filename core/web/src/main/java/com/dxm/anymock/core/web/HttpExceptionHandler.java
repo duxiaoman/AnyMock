@@ -19,35 +19,30 @@ public class HttpExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(HttpExceptionHandler.class);
 
-    private static final String HORIZONTAL_RULE
-            = "\n##############################################################################\n";
-
     @Autowired
     private ResultCodeTranslator translator;
 
     private String buildRespTitle(ResultCode resultCode) {
         Map<String, String> resultMap = translator.translate(resultCode);
-        return String.format("[%s-%s]", resultCode.getCode(), resultMap.get("resultMsg"));
+        String resultMsg = resultMap.get("resultMsg");
+        return String.format("[%s-%s]", resultCode.getCode(), resultMsg);
     }
 
     @ExceptionHandler(BizException.class)
     @ResponseBody
     public ResponseEntity<String> handleBizException(BizException e) {
+        ResultCode resultCode = e.getResultCode();
         logger.warn("", e);
-        return new ResponseEntity<>(buildRespTitle(e.getResultCode()), HttpStatus.BAD_REQUEST);
+        if (e.getResultCode() == ResultCode.GROOVY_COMPILE_EXCEPTION || e.getResultCode() == ResultCode.GROOVY_RUNTIME_EXCEPTION) {
+            String body = buildRespTitle(resultCode) + "\n"
+                       + "###############################################################################\n"
+                       + e.getCause().getMessage() + "\n"
+                       + "##############################################################################\n";
+            return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity<>(buildRespTitle(resultCode), HttpStatus.BAD_REQUEST);
+        }
     }
-/*
-    @ExceptionHandler(GroovyScriptExecException.class)
-    @ResponseBody
-    public ResponseEntity<String> handleGroovyScriptExecException(GroovyScriptExecException e) {
-        logger.warn("", e);
-        String body = buildRespTitle(ResultCode.GROOVY_SCRIPT_EXEC_EXCEPTION)
-                + HORIZONTAL_RULE
-                + e.getMessage()
-                + HORIZONTAL_RULE
-                + e.getRawHttpRequestMsg();
-        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
-    }*/
 
     @ExceptionHandler(Exception.class)
     @ResponseBody

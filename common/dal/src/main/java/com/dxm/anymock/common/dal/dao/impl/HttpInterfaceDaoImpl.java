@@ -86,7 +86,7 @@ public class HttpInterfaceDaoImpl implements HttpInterfaceDao {
     }
 
     @Override
-    public void create(HttpInterfaceBO httpInterfaceBO) {
+    public Long create(HttpInterfaceBO httpInterfaceBO) {
         HttpInterfaceDO httpInterfaceDO = convertToDO(httpInterfaceBO);
         Date now = new Date();
         httpInterfaceDO.setId(null);
@@ -122,6 +122,7 @@ public class HttpInterfaceDaoImpl implements HttpInterfaceDao {
                 httpInterfaceBO.getCallbackRequestHeaderList(), httpInterfaceId, HttpHeaderType.CALLBACK_REQUEST);
         httpInterfaceBranchDao.batchCreate(
                 httpInterfaceBO.getBranchScriptList(), httpInterfaceId);
+        return httpInterfaceId;
     }
 
     @Override

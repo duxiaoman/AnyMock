@@ -70,11 +70,12 @@ public class HttpInterfaceController {
 
     @PostMapping("/interface_http/insert")
     @ResponseBody
-    public BaseResponse create(
+    public DataResponse<HttpInterfaceDTO> create(
             @Validated(value = {HttpInterfaceBO.Insert.class}) @RequestBody HttpInterfaceBO httpInterfaceBO
     ) {
-        httpInterfaceService.create(httpInterfaceBO);
-        return new BaseResponse(translator.translate(ResultCode.SUCCESS_CREATE_HTTP_INTERFACE));
+        return new DataResponse<>(
+                translator.translate(ResultCode.SUCCESS_CREATE_HTTP_INTERFACE),
+                httpInterfaceService.create(httpInterfaceBO));
     }
 
     @PostMapping("/interface_http/update")

@@ -8,17 +8,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class HostInfoServiceImpl implements HostInfoService {
 
-    @Value("${anymock.core.host}")
-    private String host;
-
-    @Value("${anymock.core.http-interface-port}")
-    private Integer httpInterfacePort;
+    @Value("${anymock.core.url-prefix}")
+    private String urlPrefix;
 
     @Override
     public CoreHostInfoDTO queryCoreHostInfo() {
         CoreHostInfoDTO coreHostInfoDTO = new CoreHostInfoDTO();
-        coreHostInfoDTO.setHost(host);
-        coreHostInfoDTO.setHttpInterfacePort(httpInterfacePort);
+        coreHostInfoDTO.setUrlPrefix(urlPrefix);
         return coreHostInfoDTO;
     }
 }

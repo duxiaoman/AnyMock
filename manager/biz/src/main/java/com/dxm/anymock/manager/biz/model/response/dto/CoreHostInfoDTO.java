@@ -1,22 +1,13 @@
 package com.dxm.anymock.manager.biz.model.response.dto;
 
 public class CoreHostInfoDTO {
-    private String host;
-    private Integer httpInterfacePort;
+    private String urlPrefix;
 
-    public String getHost() {
-        return host;
+    public String getUrlPrefix() {
+        return urlPrefix;
     }
 
-    public void setHost(String host) {
-        this.host = host;
-    }
-
-    public Integer getHttpInterfacePort() {
-        return httpInterfacePort;
-    }
-
-    public void setHttpInterfacePort(Integer httpInterfacePort) {
-        this.httpInterfacePort = httpInterfacePort;
+    public void setUrlPrefix(String urlPrefix) {
+        this.urlPrefix = urlPrefix;
     }
 }

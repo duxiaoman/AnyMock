@@ -9,6 +9,7 @@ import com.dxm.anymock.core.biz.Delayer;
 import com.dxm.anymock.core.biz.service.GroovyService;
 import com.dxm.anymock.core.biz.service.HttpAsyncMockService;
 import com.dxm.anymock.core.biz.HttpMockContext;
+import groovy.lang.Binding;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -17,7 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.net.HttpURLConnection;
@@ -37,8 +38,15 @@ public class HttpAsyncMockServiceImpl implements HttpAsyncMockService {
     @Autowired
     private GroovyService groovyService;
 
+    private Binding buildBindig(HttpServletRequest request, HttpURLConnection httpURLConnection) {
+        Binding binding = new Binding();
+        binding.setProperty("request", request);
+        binding.setProperty("httpURLConnection", httpURLConnection);
+        return binding;
+    }
+
     @Override
-    public void mock(HttpMockContext context) throws Exception {
+    public void mock(HttpMockContext context, HttpServletRequest request) throws Exception {
         HttpInterfaceBO httpInterfaceBO = context.getHttpInterfaceBO();
 
         // 异步延迟
@@ -55,20 +63,17 @@ public class HttpAsyncMockServiceImpl implements HttpAsyncMockService {
                 -> httpURLConnection.setRequestProperty(httpHeader.getName(), httpHeader.getValue()));
 
         ConfigMode configMode = httpInterfaceBO.getConfigMode();
-        if (configMode == GROOVY || configMode == GROOVY_TEMPLATE_SWITCH_CASE) {
-             context.getGroovyBinding().setProperty("httpURLConnection", httpURLConnection);
-        }
 
         String requestContent;
         if (configMode == TEXT) {
             requestContent = httpInterfaceBO.getCallbackRequestBody();
         } else if (configMode == GROOVY) {
             requestContent = groovyService.exec(
-                    context.getGroovyBinding(),
+                    buildBindig(request, httpURLConnection),
                     httpInterfaceBO.getAsyncScript());
         } else if (configMode == GROOVY_TEMPLATE_SWITCH_CASE) {
             requestContent = groovyService.exec(
-                    context.getGroovyBinding(),
+                    buildBindig(request, httpURLConnection),
                     context.getHttpInterfaceBranchBO().getAsyncScript());
         } else {
             throw new SysException("Unknown ConfigMode");

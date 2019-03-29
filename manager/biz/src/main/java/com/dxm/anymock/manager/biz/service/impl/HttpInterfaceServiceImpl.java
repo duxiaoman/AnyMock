@@ -50,9 +50,6 @@ public class HttpInterfaceServiceImpl implements HttpInterfaceService {
     @Autowired
     private HttpInterfaceSnapshotDao httpInterfaceSnapshotDao;
 
-    @Autowired
-    private HostInfoService hostInfoService;
-
     @Override
     public HttpInterfaceDTO queryById(Long id) {
         HttpInterfaceBO httpInterfaceBO = httpInterfaceDao.queryById(id);
@@ -63,12 +60,14 @@ public class HttpInterfaceServiceImpl implements HttpInterfaceService {
     }
 
     @Override
-    public void create(HttpInterfaceBO httpInterfaceBO) {
+    public HttpInterfaceDTO create(HttpInterfaceBO httpInterfaceBO) {
         SpaceBO spaceBO = spaceDao.queryById(httpInterfaceBO.getSpaceId());
         checkSpaceVariable(spaceBO);
         httpInterfaceBO.setAccessAuthority(spaceBO.getAccessAuthority());
         httpInterfaceBO.setLastUpdateUser(SecurityContextHolder.getUsername());
-        httpInterfaceDao.create(httpInterfaceBO);
+
+        Long id = httpInterfaceDao.create(httpInterfaceBO);
+        return convertToDTO(httpInterfaceDao.queryById(id));
     }
 
     @Override
@@ -142,16 +141,6 @@ public class HttpInterfaceServiceImpl implements HttpInterfaceService {
     private HttpInterfaceDTO convertToDTO(HttpInterfaceBO httpInterfaceBO) {
         HttpInterfaceDTO httpInterfaceDTO = new HttpInterfaceDTO();
         BeanUtils.copyProperties(httpInterfaceBO, httpInterfaceDTO);
-
-        // url
-        CoreHostInfoDTO coreHostInfoDTO = hostInfoService.queryCoreHostInfo();
-        try {
-            URL url = new URL("http",
-                    coreHostInfoDTO.getHost(), coreHostInfoDTO.getHttpInterfacePort(), httpInterfaceBO.getRequestUri());
-            httpInterfaceDTO.setUrl(url.toString());
-        } catch (MalformedURLException e) {
-            httpInterfaceDTO.setUrl("-");
-        }
 
         // path
         Long spaceId = httpInterfaceBO.getSpaceId();

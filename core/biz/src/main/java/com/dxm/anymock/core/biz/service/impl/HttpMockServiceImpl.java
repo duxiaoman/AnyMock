@@ -7,10 +7,10 @@ import com.dxm.anymock.common.dal.HttpInterfaceCacheManager;
 import com.dxm.anymock.common.dal.dao.HttpInterfaceDao;
 import com.dxm.anymock.common.dal.model.HttpInterfaceBO;
 import com.dxm.anymock.common.dal.model.HttpInterfaceKeyBO;
+import com.dxm.anymock.core.biz.HttpMockContext;
 import com.dxm.anymock.core.biz.service.HttpAsyncMockService;
 import com.dxm.anymock.core.biz.service.HttpMockService;
 import com.dxm.anymock.core.biz.service.HttpSyncMockService;
-import com.dxm.anymock.core.biz.HttpMockContext;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import org.slf4j.Logger;
@@ -21,9 +21,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -35,6 +35,8 @@ public class HttpMockServiceImpl implements HttpMockService {
     private static final String FORM_CONTENT_TYPE = "application/x-www-form-urlencoded";
 
     private static final Logger logger = LoggerFactory.getLogger(HttpMockServiceImpl.class);
+
+    private static final String BODY = "body";
 
     @Autowired
     private HttpInterfaceDao httpInterfaceDao;
@@ -126,8 +128,28 @@ public class HttpMockServiceImpl implements HttpMockService {
             stringBuilder.append("\n");
         }
         stringBuilder.append("\n");
-        stringBuilder.append(request.getAttribute("body"));
+        stringBuilder.append(request.getAttribute(BODY));
         return stringBuilder.toString();
+    }
+
+    private MockHttpServletRequest buildMockRequest(HttpServletRequest request) {
+        MockHttpServletRequest mockRequest = new MockHttpServletRequest();
+        mockRequest.setParameters(request.getParameterMap());
+
+        Enumeration headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String key = (String)headerNames.nextElement();
+            mockRequest.addHeader(key, request.getHeader(key));
+        }
+
+        mockRequest.setMethod(request.getMethod());
+        mockRequest.setRequestURI(request.getRequestURI());
+        mockRequest.setRemoteAddr(request.getRemoteAddr());
+        mockRequest.setRemoteHost(request.getRemoteHost());
+        mockRequest.setRemotePort(request.getRemotePort());
+        mockRequest.setRemoteUser(request.getRemoteUser());
+        mockRequest.setAttribute(BODY, request.getAttribute(BODY));
+        return mockRequest;
     }
 
     @Override
@@ -138,39 +160,28 @@ public class HttpMockServiceImpl implements HttpMockService {
         HttpInterfaceKeyBO httpInterfaceKeyBO = new HttpInterfaceKeyBO();
         httpInterfaceKeyBO.setRequestMethod(request.getMethod());
         httpInterfaceKeyBO.setRequestUri(request.getRequestURI());
-        context.setHttpInterfaceBO(loadHttpInterfaceBO(httpInterfaceKeyBO));
-
-        // MockHttpServletRequest mockRequest = new MockHttpServletRequest(request.getServletContext());
-        // mockRequest.setCharacterEncoding();
-        // request.getCharacterEncoding()
+        context.setHttpInterfaceBO(httpInterfaceDao.queryByKey(httpInterfaceKeyBO));
 
         // 由于输入流能且仅能读取一次，而后续可能多次调用，因此需要临时存储
-        request.setAttribute("body", buildHttpBody(request));
-
-        // 原始报文
-        context.setRawHttpRequestMsg(buildRawHttpMsg(request));
+        request.setAttribute(BODY, buildHttpBody(request));
 
         if (logger.isInfoEnabled()) {
             logger.info("\n################### HTTP REQUEST ###################\n"
-                         + context.getRawHttpRequestMsg()
+                         + buildRawHttpMsg(request)
                       + "\n####################################################");
         }
 
-        context.setHttpServletRequest(request);
-        context.setHttpServletResponse(response);
-
         // 同步
-        httpSyncMockService.mock(context);
+        httpSyncMockService.mock(context, request, response);
 
         // 异步
         if (BooleanUtils.isTrue(context.getHttpInterfaceBO().getNeedAsyncCallback())) {
             String mdcTraceId = MDC.get(MdcManager.MDC_TRACE_ID_KEY);
-            // request.
-            context.getGroovyBinding().setProperty("request", new HttpServletRequestWrapper(request));
+            MockHttpServletRequest mockRequest = buildMockRequest(request);
             threadPoolTaskExecutor.execute(() -> {
                 try {
                     MDC.put(MdcManager.MDC_TRACE_ID_KEY, mdcTraceId);
-                    httpAsyncMockService.mock(context);
+                    httpAsyncMockService.mock(context, mockRequest);
                     MDC.clear();
                 } catch (Exception e) {
                     logger.warn("", e);

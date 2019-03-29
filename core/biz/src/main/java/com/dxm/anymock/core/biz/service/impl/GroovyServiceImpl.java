@@ -2,9 +2,7 @@ package com.dxm.anymock.core.biz.service.impl;
 
 import com.dxm.anymock.common.base.enums.ResultCode;
 import com.dxm.anymock.common.base.exception.BizException;
-import com.dxm.anymock.common.base.exception.SysException;
 import com.dxm.anymock.core.biz.service.GroovyService;
-import com.dxm.anymock.core.biz.HttpMockContext;
 import groovy.lang.Binding;
 import groovy.lang.GroovyClassLoader;
 import groovy.lang.GroovyCodeSource;
@@ -40,13 +38,20 @@ public class GroovyServiceImpl implements GroovyService {
         text = PRE_IMPORT + text;
         GroovyCodeSource groovyCodeSource = new GroovyCodeSource(text, name, "/groovy/script");
 
+        Class groovyClass;
+        try {
+            groovyClass = groovyClassLoader.parseClass(groovyCodeSource);
+        } catch (Throwable e) {
+            throw new BizException(ResultCode.GROOVY_COMPILE_EXCEPTION, e);
+        }
+
+        Script script = InvokerHelper.createScript(groovyClass, binding);
+
         Object result;
         try {
-            Class groovyClass = groovyClassLoader.parseClass(groovyCodeSource);
-            Script script = InvokerHelper.createScript(groovyClass, binding);
             result = script.run();
         } catch (Throwable e) {
-            throw new BizException(ResultCode.GROOVY_SCRIPT_EXEC_EXCEPTION, e);
+            throw new BizException(ResultCode.GROOVY_RUNTIME_EXCEPTION, e);
         }
 
         String stdout = stringWriter.toString();
@@ -60,7 +65,7 @@ public class GroovyServiceImpl implements GroovyService {
 
         try {
             if (result.getClass().getMethod("toString").getDeclaringClass().equals(Object.class)) {
-                throw new BizException(ResultCode.FAILED_TO_CAST_GROOVY_SCRIPT_EXEC_RESULT_TO_STRING);
+                throw new BizException(ResultCode.FAILED_TO_CONVERT_GROOVY_EXEC_RESULT_TO_STRING);
             }
         } catch (NoSuchMethodException e) {
             throw new RuntimeException("Method toString not found");

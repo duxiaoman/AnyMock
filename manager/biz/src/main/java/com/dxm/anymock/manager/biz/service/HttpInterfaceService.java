@@ -13,7 +13,7 @@ public interface HttpInterfaceService {
     HttpInterfaceDTO queryById(Long id);
     PagingDataDTO<HttpInterfaceDTO> queryAll(BasePagingRequest request);
     PagingDataDTO<HttpInterfaceDTO> queryBySpaceId(CriteriaPagingRequest<SpaceIdRequest> request);
-    void create(HttpInterfaceBO httpInterfaceBO);
+    HttpInterfaceDTO create(HttpInterfaceBO httpInterfaceBO);
     void update(HttpInterfaceBO httpInterfaceBO);
     void delete(Long id);
     ConflictJudgementDTO conflictDetection(HttpInterfaceConflictDetectionRequest request);

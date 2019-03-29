@@ -35,8 +35,7 @@ server:
 
 anymock:
   core:
-    host: 127.0.0.1
-    http-interface-port: 8330
+    url-prefix: http://127.0.0.1:8330
   manager:
     admin:
       password: A9E62132FE717B74F504A291F96D3F1B
