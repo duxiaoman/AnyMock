@@ -160,7 +160,7 @@ public class HttpMockServiceImpl implements HttpMockService {
         HttpInterfaceKeyBO httpInterfaceKeyBO = new HttpInterfaceKeyBO();
         httpInterfaceKeyBO.setRequestMethod(request.getMethod());
         httpInterfaceKeyBO.setRequestUri(request.getRequestURI());
-        context.setHttpInterfaceBO(httpInterfaceDao.queryByKey(httpInterfaceKeyBO));
+        context.setHttpInterfaceBO(loadHttpInterfaceBO(httpInterfaceKeyBO));
 
         // 由于输入流能且仅能读取一次，而后续可能多次调用，因此需要临时存储
         request.setAttribute(BODY, buildHttpBody(request));
