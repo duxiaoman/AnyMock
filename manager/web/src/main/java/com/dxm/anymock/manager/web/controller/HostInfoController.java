@@ -6,7 +6,6 @@ import com.dxm.anymock.manager.biz.model.response.DataResponse;
 import com.dxm.anymock.manager.biz.model.response.dto.CoreHostInfoDTO;
 import com.dxm.anymock.manager.biz.service.HostInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,15 +21,6 @@ public class HostInfoController {
 
     @Autowired
     private ResultCodeTranslator translator;
-
-    @Autowired
-    private StringRedisTemplate stringRedisTemplate;
-
-    @PostMapping("/test")
-    @ResponseBody
-    public void test() {
-        stringRedisTemplate.opsForValue().set("abc", "def");
-    }
 
     @PostMapping("/host_info/core")
     @ResponseBody
