@@ -87,17 +87,16 @@ nohup java -jar anymock-web-runner-1.0-SNAPSHOT.jar --spring.profiles.active=${e
 
 ### 6. 接下来就开始使用吧!
 
-**管理后台** ：访问http://${ip}:{web port}/fe/index.html 
+**管理后台** ：访问 http://${ip}:{web port}/fe/index.html 
 
 Mock配置详细介绍和使用文档可参考：[AnyMockWeb管理后台
 ](https://github.com/duxiaoman/AnyMock/wiki/AnymockWeb%E7%AE%A1%E7%90%86%E5%90%8E%E5%8F%B0)
 
 
 
-**核心服务** ：访问http://${ip}:{core port}
+**核心服务** ：访问 http://${ip}:{core port}/${接口url}
 
-从服务调用方发起业务流程，请求到AnyMock核心服务而非真实要调用的服务提供方的系统
-
+从服务调用方发起业务流程，请求到AnyMock核心服务而非真实要调用的服务提供方的系统.
 
 
 
