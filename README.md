@@ -79,13 +79,13 @@ anymock由maven作为项目管理工具，模块如下
          - HttpController handle所有HTTP请求自行分发
          - HttpExceptionHandler HTTP异常处理模块
     - runner 应用运行入口
- - web 提供给前端调用的api接口
+ - manager 提供给前端调用的api接口
     - biz 业务层
        - api 定义部分特定的输入输出结构体
        - SpaceService 空间服务
        - HttpInterfaceService HTTP接口服务
        - HostInfoService 主机信息服务
-    - service 接口层
+    - web 接口层
        - config 配置
        - controller
          - SpaceController 空间项目管理
