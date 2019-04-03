@@ -41,4 +41,68 @@ AnyMock平台主要包含两个部分：
 
 ## 二、快速开始
 
+### 1. 如何初始化数据库
+执行 [anymock_opensource.sql](https://github.com/duxiaoman/AnyMock/blob/master/anymock_opensource.sql)
+
+### 2. 如何构建
+```sh
+# 更新代码库
+git pull
+
+# 编译
+mvn clean package
+```
+
+### 3. 如何安装
+```sh
+mkdir -p output
+mkdir -p output/core
+mkdir -p output/web
+
+# 拷贝编译产出
+cp web/runner/target/anymock-web-runner-1.0-SNAPSHOT.jar output/web/
+cp config/web/* output/web/
+cp core/runner/target/anymock-core-runner-1.0-SNAPSHOT.jar output/core/
+cp config/core/* output/core/
+```
+
+### 4. 运行AnyMockCore
+```sh
+# 切换到编译产出目录
+cd output/core
+
+# 后台运行，其中${env}需替换为配置文件环境名
+nohup java -jar anymock-core-runner-1.0-SNAPSHOT.jar --spring.profiles.active=${env} >/dev/null 2>/dev/null &
+```
+
+### 5. 运行AnyMockWeb
+```sh
+# 切换到编译产出目录
+cd output/web
+
+# 1. 下载前端代码库（anymock-fe）！！！，并将anmock-web-config-${env}.yml中的fe.path修改为anymock-fe的dist目录地址
+# 2. 后台运行，其中${env}需替换为配置文件环境名
+nohup java -jar anymock-web-runner-1.0-SNAPSHOT.jar --spring.profiles.active=${env} >/dev/null 2>/dev/null &
+```
+
+### 6. 接下来就开始使用吧!
+
+**管理后台** ：访问http://${ip}:{web port}/fe/index.html 
+
+Mock配置详细介绍和使用文档可参考：[AnyMockWeb管理后台
+](https://github.com/duxiaoman/AnyMock/wiki/AnymockWeb%E7%AE%A1%E7%90%86%E5%90%8E%E5%8F%B0)
+
+<br>
+**核心服务** ：访问http://${ip}:{core port}
+
+
+
+
+### 三、问题和反馈
+有关错误报告，问题和讨论，请提交[GitHub问题](https://github.com/duxiaoman/AnyMock/issues)
+<br>
+加入用户沟通群：
+<br><img src='' width='200'>
+
+
 
