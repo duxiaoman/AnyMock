@@ -25,7 +25,7 @@ AnyMock平台主要包含两个部分：
 - 服务核心系统AnymockCore，接收上游请求，模拟响应的服务。承担所有核心流程处理、及对应的数据输出。
 
 
-AnyMock的主要特征---系统架构图
+AnyMock的系统架构图
 
 
 <img src="https://github.com/duxiaoman/AnyMock/blob/master/img/image2019-3-20_10-34-0%20(1).png" width="600" hegiht="600" />
