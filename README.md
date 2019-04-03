@@ -73,11 +73,12 @@ anymock由maven作为项目管理工具，模块如下
        - HttpMockService HTTP Mock服务
        - HttpSyncMockService HTTP Mock服务 同步执行逻辑
        - HTTPAsyncMockService HTTP Mock服务 异步执行逻辑
-    - service 接口层
-       - config 配置 
+    - web 接口层
+       - config 配置
        - controller
-          - HttpController handle所有HTTP请求自行分发
-       - HttpExceptionHandler HTTP异常处理模块
+        - SpaceController 空间项目管理
+        - HttpInterfaceController 接口管理
+        - HostInfoController 系统部署主机信息管理
     - runner 应用运行入口
  - web 提供给前端调用的api接口
     - biz 业务层
