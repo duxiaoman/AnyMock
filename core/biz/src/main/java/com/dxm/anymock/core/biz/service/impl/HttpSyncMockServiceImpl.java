@@ -67,11 +67,11 @@ public class HttpSyncMockServiceImpl implements HttpSyncMockService {
         logger.info("ConfigMode = {}", configMode);
 
         // Groovy脚本 绑定变量
-        if (configMode == GROOVY || configMode == GROOVY_TEMPLATE_SWITCH_CASE) {
-            Binding binding = new Binding();
-            binding.setProperty("request", request);
-            binding.setProperty("response", response);
-        }
+//        if (configMode == GROOVY || configMode == GROOVY_TEMPLATE_SWITCH_CASE) {
+//            Binding binding = new Binding();
+//            binding.setProperty("request", request);
+//            binding.setProperty("response", response);
+//        }
 
         String responseBody;
         if (configMode == TEXT) {
