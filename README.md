@@ -26,8 +26,13 @@ AnyMock的主要特征---系统架构图
 
 <img src="https://github.com/duxiaoman/AnyMock/blob/master/img/image2019-3-20_10-34-0%20(1).png" width="600" hegiht="600" />
 
+## 二、文档
 
-AnyMock的开源生态
+有关完整文档，示例，博客文章，操作详细信息和其他信息，请参阅[wiki](https://github.com/duxiaoman/AnyMock/wiki)
+
+
+
+## 三、AnyMock的开源生态
 
 
 
@@ -39,7 +44,7 @@ AnyMock平台主要包含两个部分：
 - 接口管理后台即AnymockWeb系统，主要提供Mock配置和管理。展示已有节点空间、接口的信息，并对这些接口的详细内容进行查看、修改或者新增接口。
 - 服务核心系统AnymockCore，接收上游请求，模拟响应的服务。承担所有核心流程处理、及对应的数据输出。。
 
-## 二、快速开始
+## 四、快速开始
 
 ### 1. 如何初始化数据库
 执行 [anymock_opensource.sql](https://github.com/duxiaoman/AnyMock/blob/master/anymock_opensource.sql)
@@ -100,7 +105,7 @@ Mock配置详细介绍和使用文档可参考：[AnyMockWeb管理后台
 
 
 
-### 三、问题和反馈
+### 五、问题和反馈
 有关错误报告，问题和讨论，请提交[GitHub问题](https://github.com/duxiaoman/AnyMock/issues)
 <br>
 联系我们：
