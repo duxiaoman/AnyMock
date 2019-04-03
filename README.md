@@ -24,14 +24,14 @@ AnyMock是一个通用接口Mock平台，提供Mock配置和模拟响应的服�
 AnyMock的主要特征---系统架构图
 
 
-<img src="" width="600" hegiht="600" />
+<img src="https://github.com/duxiaoman/AnyMock/blob/master/img/image2019-3-20_10-34-0%20(1).png" width="600" hegiht="600" />
 
 
 AnyMock的开源生态
 
 
 
-<img src="" width="600" hegiht="600"/>
+<img src="https://github.com/duxiaoman/AnyMock/blob/master/img/image2019-3-12_10-25-49.png" width="600" hegiht="600"/>
 
 
 
