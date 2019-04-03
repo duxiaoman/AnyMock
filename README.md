@@ -108,6 +108,7 @@ Mock配置详细介绍和使用文档可参考：[AnyMockWeb管理后台
 ### 五、问题和反馈
 有关错误报告，问题和讨论，请提交[GitHub问题](https://github.com/duxiaoman/AnyMock/issues)
 <br>
+<br>
 联系我们：
 <br><img src='https://github.com/duxiaoman/AnyMock/blob/master/img/qq.png' width='200'>
 
