@@ -1,99 +1,42 @@
-# 项目名称
-简要说明
+# AnyMock
 
-## 快速开始
+## 一、产品介绍
+
+AnyMock是一个通用接口Mock平台，提供Mock配置和模拟响应的服务。
+
+起源于银行通道接入在所依赖服务不稳定或不可用时模拟系统返回交互报文，保障项目稳定开展和线下环境的稳定业务回路。开源v1.0覆盖了http协议、xml/k-v/json报文格式、同/异步等不同类型的通讯方式，具有可扩展性，可通过脚本语言动态组装响应报文。
 
 
-### 如何构建
-```sh
-# 更新代码库
-git pull
+使用AnyMock后，服务调用变成了如下的交互方式：
 
-# 编译
-mvn clean package
-```
+<img src="https://anymockweb.duxiaoman.com/fe/static/img/image2018-10-29_11-11-16.da9a483.png" width="400" hegiht="400"/>
 
-### 如何安装
-```sh
-mkdir -p output
-mkdir -p output/core
-mkdir -p output/web
 
-# 拷贝编译产出
-cp web/runner/target/anymock-web-runner-1.0-SNAPSHOT.jar output/web/
-cp config/web/* output/web/
-cp core/runner/target/anymock-core-runner-1.0-SNAPSHOT.jar output/core/
-cp config/core/* output/core/
-```
+**AnyMock具有以下特征**
+- **解决外部依赖:** 在外部系统不稳定或者不可用的情况下，使用AnyMock来替代，可以保证项目如期推进。
+- **构造异常测试:** 在交互复杂的线下测试环境，使用AnyMock替代真实数据，可以以较小的代码构造异常的数据、覆盖更多的业务分支和异常场景。
+- **支持性能测试:** 在线上环境进行压测，使用AnyMock替代依赖下游服务，可以屏蔽对下游服务的影响，压出被压服务自己的性能数据。
+- **稳定自动化测试:** 在依赖较多的线下自动化测试环境，使用AnyMock替代下游测试服务，可以最大保障自动化case运行的环境稳定性。
+- **降低测试成本:** 在外部系统调用代价较高时，使用AnyMock解耦与外部系统的依赖，降低真实调用的测试成本。
 
-### 运行AnyMockCore
-```sh
-# 切换到编译产出目录
-cd output/core
 
-# 后台运行，其中${env}需替换为配置文件环境名
-nohup java -jar anymock-core-runner-1.0-SNAPSHOT.jar --spring.profiles.active=${env} >/dev/null 2>/dev/null &
-```
 
-### 运行AnyMockWeb
-```sh
-# 切换到编译产出目录
-cd output/web
+AnyMock的主要特征---系统架构图
 
-# 1. 下载前端代码库（anymock-fe）！！！，并将anmock-web-config-${env}.yml中的fe.path修改为anymock-fe的dist目录地址
-# 2. 后台运行，其中${env}需替换为配置文件环境名
-nohup java -jar anymock-web-runner-1.0-SNAPSHOT.jar --spring.profiles.active=${env} >/dev/null 2>/dev/null &
-```
 
-接下来访问http://${ip}:8329/fe/index.html开始使用吧。
+<img src="" width="600" hegiht="600" />
 
-## 测试
-如何执行自动化测试
 
-## 如何贡献
-### 代码结构
-anymock由maven作为项目管理工具，模块如下
- - common 通用组件
-    - base 基础组件
-       - check http接口入参检查
-       - entity 业务模型实体
-       - enums 枚举类型
-       - exception 异常
-       - logger 日志
-       - util 工具类
-    - dal 数据访问层
-       - config 数据源配置（数据库与redis）
-       - dao 数据访问对象
-       - entity 由mybatis-generator生成的数据库记录实体
-       - mapper
-         - auto 由mybatis-generator自动生成
- - core mock核心服务
-    - biz 业务层
-       - GrovyService groovy脚本执行服务
-       - HttpMockService HTTP Mock服务
-       - HttpSyncMockService HTTP Mock服务 同步执行逻辑
-       - HTTPAsyncMockService HTTP Mock服务 异步执行逻辑
-    - web 接口层
-       - config 配置
-       - controller
-         - HttpController handle所有HTTP请求自行分发
-         - HttpExceptionHandler HTTP异常处理模块
-    - runner 应用运行入口
- - manager 提供给前端调用的api接口
-    - biz 业务层
-       - api 定义部分特定的输入输出结构体
-       - SpaceService 空间服务
-       - HttpInterfaceService HTTP接口服务
-       - HostInfoService 主机信息服务
-    - web 接口层
-       - config 配置
-       - controller
-         - SpaceController 空间项目管理
-         - HttpInterfaceController 接口管理
-         - HostInfoController 系统部署主机信息管理
-    - runner 应用运行入口
+AnyMock的开源生态
 
-贡献patch流程、质量要求
 
-## 讨论
-百度Hi讨论群：XXXX
+
+<img src="" width="600" hegiht="600"/>
+
+
+
+AnyMock平台主要包含两个部分：
+- 接口管理后台即AnymockWeb系统，主要提供Mock配置和管理。展示已有节点空间、接口的信息，并对这些接口的详细内容进行查看、修改或者新增接口。
+- 服务核心系统AnymockCore，接收上游请求，模拟响应的服务。承担所有核心流程处理、及对应的数据输出。。
+
+## 二、快速开始
