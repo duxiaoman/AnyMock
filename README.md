@@ -92,7 +92,8 @@ nohup java -jar anymock-web-runner-1.0-SNAPSHOT.jar --spring.profiles.active=${e
 Mock配置详细介绍和使用文档可参考：[AnyMockWeb管理后台
 ](https://github.com/duxiaoman/AnyMock/wiki/AnymockWeb%E7%AE%A1%E7%90%86%E5%90%8E%E5%8F%B0)
 
-<br>
+
+
 **核心服务** ：访问http://${ip}:{core port}
 
 
@@ -101,7 +102,7 @@ Mock配置详细介绍和使用文档可参考：[AnyMockWeb管理后台
 ### 三、问题和反馈
 有关错误报告，问题和讨论，请提交[GitHub问题](https://github.com/duxiaoman/AnyMock/issues)
 <br>
-加入用户沟通群：
+联系我们：
 <br><img src='' width='200'>
 
 
