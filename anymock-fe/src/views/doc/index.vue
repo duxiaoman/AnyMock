@@ -1,0 +1,121 @@
+<template>
+  <div class="doc">
+    <h1>AnyMock</h1>
+    <h2>一、产品介绍</h2>
+    <p>AnyMock是一个通用接口Mock平台，提供Mock配置和模拟响应的服务。</p>
+    <p>起源于银行通道接入在所依赖服务不稳定或不可用时模拟系统返回交互报文，保障项目稳定开展和线下环境的稳定业务回路。开源v1.0覆盖了http协议、xml/k-v/json报文格式、同/异步等不同类型的通讯方式，具有可扩展性，可通过脚本语言动态组装响应报文。</p>
+    <p>使用AnyMock后，服务调用变成了如下的交互方式：</p>
+    <img src="./../../assets/doc_img/image2018-10-29_11-11-16.png" width="400" hegiht="400">
+
+    <p><strong>AnyMock具有以下特征</strong>
+      - <strong>解决外部依赖:</strong> 在外部系统不稳定或者不可用的情况下，使用AnyMock来替代，可以保证项目如期推进。
+      - <strong>构造异常测试:</strong> 在交互复杂的线下测试环境，使用AnyMock替代真实数据，可以以较小的代码构造异常的数据、覆盖更多的业务分支和异常场景。
+      - <strong>支持性能测试:</strong> 在线上环境进行压测，使用AnyMock替代依赖下游服务，可以屏蔽对下游服务的影响，压出被压服务自己的性能数据。
+      - <strong>稳定自动化测试:</strong> 在依赖较多的线下自动化测试环境，使用AnyMock替代下游测试服务，可以最大保障自动化case运行的环境稳定性。
+      - <strong>降低测试成本:</strong> 在外部系统调用代价较高时，使用AnyMock解耦与外部系统的依赖，降低真实调用的测试成本。</p>
+    <p>AnyMock平台主要包含两个部分：
+    - 接口管理后台即AnymockWeb系统，主要提供Mock配置和管理。展示已有节点空间、接口的信息，并对这些接口的详细内容进行查看、修改或者新增接口。
+    - 服务核心系统AnymockCore，接收上游请求，模拟响应的服务。承担所有核心流程处理、及对应的数据输出。。</p>
+    <h2>二、快速开始</h2>
+    <p>我们提供公网版本来帮助新手快速入门。访问地址是：<a href="https://anymockweb.duxiaoman.com/fe/index.html#/home">https://anymockweb.duxiaoman.com/fe/index.html#/home</a></p>
+    <p>这个公网服务提供开源版本所有功能，使用者能够最快体验到：
+    1. 管理个人节点空间
+    2. 创建新的mock接口及响应
+    3. 管理和查看配置的mock接口
+    4. 请求mock接口，获得配置的响应内容</p>
+    <h3>AnymockWeb管理后台文档</h3>
+    <h4>1.概述</h4>
+    <p>AnyMock提供一个开源的接口管理后台，它提供节点空间的管理、Mock接口查看、修改和创建。这里，我们将会详细讲述如何通过简单的步骤就可以使用这些功能。</p>
+    <h4>2.空间和项目管理</h4>
+    <p>AnyMock平台有空间和项目的概念，接口在创建时要设置所属项目，项目在空间管理中新建。可以创建多个空间，一个空间下可以创建多个项目，项目中不可再创建项目。</p>
+    <p><strong>注</strong>  AnyMock保留空间下的项目和接口不可修改。</p>
+    <h4>3.接口配置使用说明</h4>
+    <h5>3.1模型设计及名词解释</h5>
+    <img src="./../../assets/doc_img/image2019-3-11_0-3-21.png" width="300" hegiht="300" align="center/">
+
+    <p><strong>接口</strong>：在AnyMock平台，接口是Mock的具体实现，包含Mock的各个属性的定义</p>
+    <p><strong>配置模式</strong>：AnyMock支持3种响应配置模式：static静态文本、groovy自定义脚本、groovy多路由码预设。用户可以根据需要灵活选择。</p>
+    <p><strong>响应</strong>：AnyMock平台最终返回的mock内容。选择不同的配置模式，响应设置也会随之不同。</p>
+    <h5>3.2Mock处理流程</h5>
+    <img src="./../../assets/doc_img/image2019-4-3_14-12-24.png" width="600" hegiht="600" align="center/">
+
+    <h5>3.3接口配置说明</h5>
+    <p>接口配置页面有3部分，第一部分是基础设置，是接口相关属性的设置。第二部分是同步响应设置，是接口同步响应内容的设置。第三部分是异步请求设置，默认不显示，只有“异步请求”开关开启才会显示。
+    <img src="./../../assets/doc_img/image2019-3-29_12-8-56.png" width="800"></p>
+    <p><strong>基础设置</strong>：</p>
+    <ol>
+      <li>接口名称 ：起一个符合接口内容的名字，便于大家维护和使用。没有限制，自己了解即可。</li>
+      <li>请求类型：分为POST和GET两种请求类型。</li>
+      <li>项目：一条项目包含0个或多个接口，用于对接口进行分类管理。单击选择下拉列表的空间项目树，填充该“项目”的字段值。</li>
+      <li>接口URL：指Mock接口接受请求的地址，其格式为不包含IP的URL，在AnyMock平台全局唯一。
+      形如：/mymock/test，要确保这个URL在平台上没有被其他接口所使用，否则接口无法保存成功。</li>
+      <li>配置模式：默认选择静态文本，指AnyMock平台通过何种脚本语言来解析请求参数。选择groovy指的是响应内容由groovy脚本编写，把groovy脚本执行的结果作为输出。这种基本能支持所有的mock配置需求。</li>
+      <li>异步请求：默认开关是关闭状态，指该接口是同步请求类型，Mock同步返回响应内容。开关设置为开启，指接口是异步请求类型，Mock同步返回一个响应报文后，会再发起一个异步的通知到回调地址上。若配置成异步回执的方式，页面会扩展出“异步请求”设置tab。</li>
+      <li>是否启用：默认开关是开启状态，指该接口可访问。开关关闭，指该接口不可访问。</li>
+    </ol>
+    <p><strong>同步响应</strong>：</p>
+    <ol>
+      <li>延迟：接口延迟响应时间，比如希望在Mock在收到请求3秒钟之后再响应，就可以配置为3000。以毫秒为单位。</li>
+      <li>响应头：设置同步返回的http响应头，比如content-type。</li>
+      <li>响应内容：使用配置模式中设置的类型，返回报文内容的模板，用请求数据填充该模板计算出来的内容作为最后返回内容。<ul>
+        <li>static静态文本：选择这种配置模式，平台会将配置的响应内容作为静态文本直接返回。</li>
+        <li>groovy自定义脚本：选择这种配置模式，要求响应中的脚本使用groovy语法编写，核心服务core系统使用groovy脚本引擎解析配置的响应内容。</li>
+        <li>groovy多路由码预设：选择这种配置模式，要求基础设置里使用groovy语法编写路由规则，在响应中配置多个响应模板。</li>
+      </ul>
+      </li>
+      <li>路由解析规则（Switch）&amp; 响应路由码：配置模式选groovy多路由码预设时出现，输出值用于匹配响应模板的路由码。这2个字段比较重要，也相对有一些费解。
+      通过一个例子来说明，比如银行支付接口，响应的内容区分支付成功和支付失败的两种接口，两种响应报文也有差异。对于测试，当然需要覆盖两种情况，所以需要在平台两种报文都需要配置，平台是通过模板来支持的。支付成功的响应报文由支付成功的模板来生成，支付失败的响应报文有支付失败的模板来生成。对于一次请求，平台怎么判断要用支付成功的模板还是支付失败的模板呢？就需要先设置一些规则，比如支付接口请求里会传递卡号（cardno）字段，可以设置cardno==A时返回成功，cardno== B 时返回失败。那就把A设置为支付成功的响应协议码，把B作为支付失败的响应协议码，协议码解析规则则是从请求里获取cardno的值得过程。如此，当一次银行支付请求到平台后，先根据协议码解析规则计算出模板的协议码，再根据协议码来选择模板。</li>
+    </ol>
+    <p><strong>异步响应</strong>：</p>
+    <ol>
+      <li>请求类型：分为POST和GET两种请求类型。</li>
+      <li>延迟：接口异步请求的延迟响应时间，比如希望在Mock在同步响应3秒钟之后再响应，就可以配置为3000。以毫秒为单位。</li>
+      <li>响应头：设置异步请求的http响应头，比如content-type。</li>
+      <li>异步URL:是接收异步回执请求的地址。此处应该是HTTP请求的完整URL，包括协议、IP、Port、PATH及querystring.</li>
+    </ol>
+    <h4>4.演示项目</h4>
+    <p>AnyMock平台提供了演示项目，如下图所示。这个项目中已经创建了大部分场景下的演示接口。点击接口旁的查看示例按钮，即可查看配置。
+      <br>
+      在编辑页面复制接口url，在浏览器中访问，可以快速查看响应内容。
+      <br>
+    <img src="./../../assets/doc_img/image2019-3-29_11-59-21.png" width="900"></p>
+    <h4>5. 常用工具类介绍: <a href="https://github.com/duxiaoman/AnyMock/wiki/%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E7%B1%BB">https://github.com/duxiaoman/AnyMock/wiki/常用工具类</a></h4>
+    <h4>6.使用案例: <a href="https://anymockweb.duxiaoman.com/fe/index.html">https://anymockweb.duxiaoman.com/fe/index.html 首页-案例中心</a></h4>
+    <h3>Anymock MOCK服务响应</h3>
+    <p>服务核心系统AnymockCore，接收上游请求，模拟响应的服务。承担所有核心流程处理、及对应的数据输出。AnymockCore的访问地址是<a href="https://anymock.duxiaoman.com">https://anymock.duxiaoman.com</a>
+      <br>
+      想要访问web管理后台配置的mock接口，可通过域名+接口URL进行访问
+      <br>举例：<a href="https://anymock.duxiaoman.com/anymock/example/01">https://anymock.duxiaoman.com/anymock/example/01</a>
+    <br>其中：<a href="https://anymock.duxiaoman.com">https://anymock.duxiaoman.com</a> 是域名， /anymock/example/01是在管理后台配置的接口URL。</p>
+    <h2>三、测试</h2>
+    <h3>How to Test</h3>
+    <p><strong>新增或更新接口验证</strong></p>
+    <p>接口配置保存成功后，可以借助postman访问接口，验证接口是否可用，以及返回是否符合预期。</p>
+    <h2>五、反馈</h2>
+    <h3>issue空间：https://github.com/duxiaoman/AnyMock/issues</h3>
+    <h3>QQ沟通群：</h3>
+    <p><br><img src="./../../assets/doc_img/image2019-4-3_13-40-25.png" width="200"></p>
+  </div>
+</template>
+<script>
+export default {
+  data() {
+    return {
+    }
+  }
+}
+</script>
+
+<style rel="stylesheet/scss" lang="scss" scoped>
+  .doc{
+    border:1px solid #e6e6e6;
+    margin-left: 15%;
+    padding:10px;
+    width:1000px;
+    overflow-y:scroll;
+    height:calc(100vh - 74px)
+  }
+  img{
+    padding: 10px 0;
+  }
+</style>

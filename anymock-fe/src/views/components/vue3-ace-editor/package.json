@@ -1,0 +1,11 @@
+{
+  "name": "vue3-ace-editor",
+  "version": "1.0.0",
+  "description": "基于vue2-ace-editor做部分需求扩充",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
