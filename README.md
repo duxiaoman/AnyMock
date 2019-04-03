@@ -9,7 +9,7 @@ AnyMock是一个通用接口Mock平台，提供Mock配置和模拟响应的服�
 
 使用AnyMock后，服务调用变成了如下的交互方式：
 
-<img src="https://anymockweb.duxiaoman.com/fe/static/img/image2018-10-29_11-11-16.da9a483.png" width="400" hegiht="400"/>
+<img src="https://github.com/duxiaoman/AnyMock/blob/master/img/mock.png" width="400" hegiht="400"/>
 
 
 **AnyMock具有以下特征**
