@@ -44,7 +44,7 @@ npm run build:prod
 克隆到本地开发:
 
 ```bash
-$ git clone ssh://git@gitlab.duxiaoman-int.com:8022/open-source/anymock-fe.git
+$ git clone 
 $ cd anymock_fe
 $ yarn install
 $ npm run dev
