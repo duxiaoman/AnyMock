@@ -110,7 +110,7 @@ Mock配置详细介绍和使用文档可参考：[AnyMockWeb管理后台
 <br>
 <br>
 联系我们：
-<br><img src='https://github.com/duxiaoman/AnyMock/blob/master/img/qq.png' width='200'>
+<br><img src='https://github.com/duxiaoman/AnyMock/blob/master/img/wechat.jpeg' width='200'>
 
 
 
