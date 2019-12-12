@@ -98,6 +98,9 @@ public class HttpAsyncMockServiceImpl implements HttpAsyncMockService {
                 outputStream.flush();
                 outputStream.close();
             }
+        } else {
+            logger.info("Async RequestContent 为空");
+            return;
         }
 
         int responseCode = httpURLConnection.getResponseCode();
