@@ -1,0 +1,36 @@
+package com.dxm.anymock.common.dal.config;
+
+import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
+import com.dxm.anymock.common.dal.model.HttpInterfaceBO;
+import com.dxm.anymock.common.dal.model.TcpInterfaceBO;
+import io.lettuce.core.RedisURI;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+
+@Configuration
+public class RedisConfig {
+
+    @Autowired
+    private LettuceConnectionFactory redisConnectionFactory;
+
+    @Bean
+    public RedisTemplate<String, HttpInterfaceBO> httpInterfaceRedisTemplate() {
+        RedisTemplate<String, HttpInterfaceBO> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setConnectionFactory(redisConnectionFactory);
+        redisTemplate.setDefaultSerializer(new FastJsonRedisSerializer<>(String.class));
+        redisTemplate.setValueSerializer(new FastJsonRedisSerializer<>(HttpInterfaceBO.class));
+        return redisTemplate;
+    }
+
+    @Bean
+    public RedisTemplate<String, TcpInterfaceBO> tcpInterfaceRedisTemplate() {
+        RedisTemplate<String, TcpInterfaceBO> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setConnectionFactory(redisConnectionFactory);
+        redisTemplate.setDefaultSerializer(new FastJsonRedisSerializer<>(String.class));
+        redisTemplate.setValueSerializer(new FastJsonRedisSerializer<>(TcpInterfaceBO.class));
+        return redisTemplate;
+    }
+}

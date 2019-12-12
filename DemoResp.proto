@@ -1,0 +1,9 @@
+syntax = "proto2";
+option java_package = "com.dxm.anymock.core.biz.codec.protobuf";
+option java_outer_classname = "DemoRespProto";
+
+message DemoResp{
+    required int32 subReqID = 1;
+    required int32 respCode = 2;
+    required string desc = 3;
+}

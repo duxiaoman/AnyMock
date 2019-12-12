@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <properties resource="config.properties" />
+    <classPathEntry location="mysql-connector-java-8.0.12.jar" />
+
+    <context id="DB" targetRuntime="MyBatis3">
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin>
+        
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        <jdbcConnection driverClass="${jdbc.driver}"
+            connectionURL="${jdbc.url}" userId="${jdbc.user}" password="${jdbc.password}">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="${target.model.package}"
+          targetProject="../common/dal/src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="${target.model.package}"
+          targetProject="../common/dal/src/main/resources/META-INF/mappers/auto">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER"
+          targetPackage="${target.client.package}" 
+          targetProject="../common/dal/src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!-- add your table below -->
+        <table tableName="anymock_space" domainObjectName="SpaceDO" />
+        <table tableName="anymock_http_interface" domainObjectName="HttpInterfaceDO">
+            <columnRenamingRule searchString="^is_" replaceString=""/>
+            <columnOverride column="response_body" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="callback_request_body" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="branch_jump_script" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="sync_script" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="async_script" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        </table>
+        <table tableName="anymock_tcp_interface" domainObjectName="TcpInterfaceDO">
+            <columnRenamingRule searchString="^is_" replaceString=""/>
+            <columnOverride column="response_body" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="callback_request_body" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="branch_jump_script" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="sync_script" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="async_script" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        </table>
+        <table tableName="anymock_interface_branch" domainObjectName="InterfaceBranchDO">
+            <columnOverride column="sync_script" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="async_script" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        </table>
+        <table tableName="anymock_http_interface_header" domainObjectName="HttpInterfaceHeaderDO" />
+        <table tableName="anymock_http_interface_snapshot" domainObjectName="HttpInterfaceSnapshotDO">
+            <columnOverride column="http_interface" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        </table>
+        <table tableName="anymock_tcp_interface_snapshot" domainObjectName="TcpInterfaceSnapshotDO">
+            <columnOverride column="tcp_interface" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        </table>
+    </context>
+</generatorConfiguration>

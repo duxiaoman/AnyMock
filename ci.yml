@@ -1,0 +1,16 @@
+#源码语言
+Language: java
+#默认的构建场景
+Build:
+  profile: dev
+#定义了所有的构建场景
+Profiles:
+- profile:
+  name: dev
+  command: sh build.sh
+  env:
+  version:
+  upload_to_irep: true
+#构建结果输出目录
+Output: output/*
+
